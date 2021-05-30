@@ -1,5 +1,7 @@
 package database.daos;
 
+import database.supports.HibernateUtil;
+import database.tables.Person;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

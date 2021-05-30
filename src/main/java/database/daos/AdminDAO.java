@@ -1,5 +1,9 @@
 package database.daos;
 
+import database.exceptions.PersonNotExistsException;
+import database.supports.JDBCTool;
+import database.tables.Admin;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
