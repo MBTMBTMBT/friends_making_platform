@@ -25,7 +25,6 @@ public class EmployeeDAO {
         } catch (Exception e) {
            e.printStackTrace();
         }
-		
 		return employee;
 	}
 	
@@ -88,5 +87,15 @@ public class EmployeeDAO {
 		
 	}
 
+	public static Employee getEmployeeBySystemID(int id) {
+		Employee employee = null;
 
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			employee = (Employee)session.createQuery("from employee where SystemID = "+id).uniqueResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employee;
+
+	}
 }

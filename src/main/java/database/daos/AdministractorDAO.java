@@ -87,5 +87,15 @@ public class AdministractorDAO {
 		
 	}
 
+	public static Administractor getAdministractorBySystemID(int id) {
+		Administractor administractor = null;
 
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			administractor = (Administractor)session.createQuery("from administractor where SystemID = "+id).uniqueResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return administractor;
+
+	}
 }

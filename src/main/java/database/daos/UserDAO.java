@@ -87,7 +87,15 @@ public class UserDAO {
 		
 	}
 
+	public static User getUserBySystemID(int id) {
+		User user = null;
 
-	
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			user = (User)session.createQuery("from user where SystemID = "+id).uniqueResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
 
+	}
 }

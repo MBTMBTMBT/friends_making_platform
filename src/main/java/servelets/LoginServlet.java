@@ -1,6 +1,7 @@
 package servelets;
 
 import database.daos.AdministractorDAO;
+import database.daos.PersonDAO;
 import database.daos.UserDAO;
 
 import javax.servlet.ServletException;
@@ -51,6 +52,6 @@ public class LoginServlet extends HttpServlet {
     }
 
     private static boolean isAdmin(String screenName) {
-
+        PersonDAO.getPersonByID()
     }
 }

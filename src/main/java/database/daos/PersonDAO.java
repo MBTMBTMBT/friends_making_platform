@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.supports.HibernateUtil;
+import database.tables.Person;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -86,7 +88,15 @@ public class PersonDAO {
 		
 	}
 
+	public static Person getPersonByScreenName(String name) {
+		Person person = null;
 
-	
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			person = (Person)session.createQuery("from person where ScreenName = "+name).uniqueResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return person;
 
+	}
 }
