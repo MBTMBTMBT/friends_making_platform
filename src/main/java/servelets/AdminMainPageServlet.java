@@ -1,6 +1,6 @@
 package servelets;
 
-import database.daos.AdminDAO;
+import database.daos.AdministractorDAO;
 import database.tables.Admin;
 
 import javax.servlet.ServletException;
@@ -16,14 +16,14 @@ import java.util.List;
 public class AdminMainPageServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Admin admin = AdminDAO.getAdminByID((Integer) request.getAttribute("admin_id"));
+        Admin admin = AdministractorDAO.getAdminByID((Integer) request.getAttribute("admin_id"));
         String surname = admin.getFamilyname();
         String forename = admin.getFirstname();
         int id = admin.getId();
         request.setAttribute("id", id);
         request.setAttribute("admin_surname", surname);
         request.setAttribute("admin_forename", forename);
-        List<Admin> adminList = AdminDAO.getAllAdmins();
+        List<Admin> adminList = AdministractorDAO.getAllAdmins();
         List<Integer> adminIDList = new LinkedList<>();
         List<String> adminSurnamesList = new LinkedList<>();
         List<String> adminForenamesList = new LinkedList<>();

@@ -7,27 +7,29 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.supports.HibernateUtil;
+import database.tables.Administractor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.mysql.cj.Query;
 
-public class PersonDAO {
+public class AdministractorDAO {
 	
-	public static List<Person> getAllPerson() {
-		List<Person> person = null;
+	public static List<Administractor> getAllAdministractor() {
+		List<Administractor> administractor  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			person = session.createQuery("from person").list();
+			administractor = session.createQuery("from administractor").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		
-		return person;
+		return administractor;
 	}
 	
 	
-	public static void savePerson(Person e) {
+	public static void saveAdministractor(Administractor e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -42,26 +44,25 @@ public class PersonDAO {
 	}
 
 	
-	public static Person getPersonByID(int id) {
-		Person person = null;
+	public static Administractor getAdministractorByID(int id) {
+		Administractor administractor = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			person = (Person)session.createQuery("from person where SystemID = "+id).uniqueResult();
+			administractor = (Administractor)session.createQuery("from administractor where AdminNumber = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		return person;
+		return administractor;
 
 	}
 	
 	
-	public static void deletePersonByID(int id) {
-		Person person = new Person();
+	public static void deleteAdministractorByID(int id) {
+		Administractor administractor = new Administractor();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-		    //int b = session.createQuery("delete from person where SystemID = "+id).executeUpdate();
 			Transaction transaction=session.beginTransaction();
-			person.setSystemID(id);
-			session.delete(person);
+			administractor.setAdminNumber(id);
+			session.delete(administractor);
 			transaction.commit();
 	    	session.close();
 			
@@ -72,7 +73,7 @@ public class PersonDAO {
 	
 	
 	
-	public static void updatePerson(Person e) {
+	public static void updateAdministractor(Administractor e) {
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
@@ -86,7 +87,5 @@ public class PersonDAO {
 		
 	}
 
-
-	
 
 }

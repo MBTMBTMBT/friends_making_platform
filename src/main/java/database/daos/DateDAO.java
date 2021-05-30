@@ -1,4 +1,5 @@
 package database.daos;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,27 +8,29 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.supports.HibernateUtil;
+import database.tables.Date;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.mysql.cj.Query;
 
-public class PersonDAO {
+public class DateDAO {
 	
-	public static List<Person> getAllPerson() {
-		List<Person> person = null;
+	public static List<Date> getAllDate() {
+		List<Date> date  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			person = session.createQuery("from person").list();
+			date = session.createQuery("from date").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		
-		return person;
+		return date;
 	}
 	
 	
-	public static void savePerson(Person e) {
+	public static void saveDate(Date e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -42,26 +45,27 @@ public class PersonDAO {
 	}
 
 	
-	public static Person getPersonByID(int id) {
-		Person person = null;
+	public static Date getDateByKey(int uid1,int uid2,String hdmy) {
+		Date date = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			person = (Person)session.createQuery("from person where SystemID = "+id).uniqueResult();
+			date = (Date)session.createQuery("from date where Uid1 = "+ uid1 + "and Uid2 = "+uid2+"and HHDDMMYY = "+ hdmy).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		return person;
+		return date;
 
 	}
 	
 	
-	public static void deletePersonByID(int id) {
-		Person person = new Person();
+	public static void deleteDateByKey(int uid1,int uid2,String hdmy) {
+		Date date = new Date();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-		    //int b = session.createQuery("delete from person where SystemID = "+id).executeUpdate();
 			Transaction transaction=session.beginTransaction();
-			person.setSystemID(id);
-			session.delete(person);
+			date.setUid1(uid1);
+			date.setUid2(uid2);
+			date.setHHDDMMYY(hdmy);
+			session.delete(date);
 			transaction.commit();
 	    	session.close();
 			
@@ -72,7 +76,7 @@ public class PersonDAO {
 	
 	
 	
-	public static void updatePerson(Person e) {
+	public static void updateDate(Date e) {
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
@@ -86,7 +90,5 @@ public class PersonDAO {
 		
 	}
 
-
-	
 
 }

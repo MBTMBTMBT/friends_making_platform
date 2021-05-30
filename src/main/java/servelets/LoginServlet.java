@@ -1,5 +1,8 @@
 package servelets;
 
+import database.daos.AdministractorDAO;
+import database.daos.UserDAO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +19,8 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         try {
             int id_int = Integer.parseInt(id);
-            if (AdminDAO.isAdmin(id_int)) {
-                if (AdminDAO.adminLogin(id_int, password)) {
+            if (isAdmin(id_int)) {
+                if (AdministractorDAO.adminLogin(id_int, password)) {
                     // login successful for admin
                     request.setAttribute("admin_id", id_int);
                     request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
@@ -45,5 +48,9 @@ public class LoginServlet extends HttpServlet {
             System.out.println("ID value should be in full numbers");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
+    }
+
+    private static boolean isAdmin(String screenName) {
+
     }
 }

@@ -2,6 +2,8 @@ package database.tables;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -158,20 +160,20 @@ public class Person {
 		
 		output +="\t"+this.Gender;
 		
-		if(this.Gender.length()<8) {
+		if(this.Gender == null || this.Gender.length()<8) {
 			output = output + "\t";
 		}
 		
 		output +="\t"+this.ScreenName;
 		
-		if(this.ScreenName.length()<8) {
+		if(this.ScreenName == null || this.ScreenName.length()<8) {
 			output = output + "\t";
 		}
 
 
 		output +="\t"+this.HeadIcon;
 		
-		if(this.HeadIcon.length()<8) {
+		if(this.HeadIcon == null || this.HeadIcon.length()<8) {
 			output = output + "\t";
 		}
 		
