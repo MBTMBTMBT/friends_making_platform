@@ -8,15 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.supports.HibernateUtil;
+import database.tables.PsychologicalMentor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.mysql.cj.Query;
 
-public class Phsycological_MentorDAO {
+public class PsychologicalMentorDAO {
 	
-	public static List<Phsycological_Mentor> getAllPhsycological_Mentor() {
-		List<Phsycological_Mentor> p  = null;
+	public static List<PsychologicalMentor> getAllPhsycological_Mentor() {
+		List<PsychologicalMentor> p  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			p = session.createQuery("from phsycological_mentor").list();
@@ -28,7 +30,7 @@ public class Phsycological_MentorDAO {
 	}
 	
 	
-	public static void savePhsycological_Mentor(Phsycological_Mentor e) {
+	public static void savePhsycological_Mentor(PsychologicalMentor e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -43,11 +45,11 @@ public class Phsycological_MentorDAO {
 	}
 
 	
-	public static Phsycological_Mentor getPhsycological_MentorByID(int id) {
-		Phsycological_Mentor p = null;
+	public static PsychologicalMentor getPhsycological_MentorByID(int id) {
+		PsychologicalMentor p = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			p = (Phsycological_Mentor)session.createQuery("from phsycological_mentor where MentorNumber = "+id).uniqueResult();
+			p = (PsychologicalMentor)session.createQuery("from phsycological_mentor where MentorNumber = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -55,11 +57,11 @@ public class Phsycological_MentorDAO {
 
 	}
 	
-	public static Phsycological_Mentor getPhsycological_MentorBySystemID(int id) {
-		Phsycological_Mentor p = null;
+	public static PsychologicalMentor getPhsycological_MentorBySystemID(int id) {
+		PsychologicalMentor p = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			p = (Phsycological_Mentor)session.createQuery("from phsycological_mentor where SystemID = "+id).uniqueResult();
+			p = (PsychologicalMentor)session.createQuery("from phsycological_mentor where SystemID = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -69,7 +71,7 @@ public class Phsycological_MentorDAO {
 	
 	
 	public static void deletePhsycological_MentorByID(int id) {
-		Phsycological_Mentor p = new Phsycological_Mentor();
+		PsychologicalMentor p = new PsychologicalMentor();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
 			p.setMentorNumber(id);
@@ -84,7 +86,7 @@ public class Phsycological_MentorDAO {
 	
 	
 	
-	public static void updatePhsycological_Mentore(Phsycological_Mentor e) {
+	public static void updatePhsycological_Mentore(PsychologicalMentor e) {
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();

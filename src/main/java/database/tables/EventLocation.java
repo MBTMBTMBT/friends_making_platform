@@ -13,7 +13,7 @@ import javax.print.attribute.standard.DateTimeAtCompleted;
 @Entity
 @Table(name="event_location")
 
-public class Event_Location {
+public class EventLocation {
 
 	
 	@Id
@@ -32,11 +32,11 @@ public class Event_Location {
 	@Column(name="StartTime")
 	private Date StartTime;
 	
-	public Event_Location() {
+	public EventLocation() {
 	}
 	
 	
-	public Event_Location(int LocationID, String LocationType, String GeographicalLocation, int ManagerID, Date StartTime) {
+	public EventLocation(int LocationID, String LocationType, String GeographicalLocation, int ManagerID, Date StartTime) {
 		super();
 
 		this.LocationID = LocationID;

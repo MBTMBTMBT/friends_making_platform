@@ -1,0 +1,117 @@
+body{
+    margin:0;
+}
+h1{
+    font-family: 'Lato','sana-serif';
+    font-weight: 320;
+    font-size:68px;
+
+}
+.header{
+    position: relative;
+    text-align: center;
+    background: linear-gradient(60deg,rgb(84,58,183,1)0%,rgb(0,172,193,1)100%);
+    color:white;
+}
+.lnner-header{
+    height:65vh;
+    width:100%;
+    margin-top:80px;
+    padding:0;
+    /*flex*/
+    /*垂直居中*/
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    position: relative;
+    background-color:whitesmoke;
+    border: none;
+    font-size: 18px;
+    color: #464242;
+    padding: 8px;
+    width: 80px;
+    border-radius: 6px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+button:after {
+    content: "";
+    background: #90a6ee;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}
+
+
+.waves{
+    position:relative;
+    width:100%;
+    height:15vh;
+    margin-bottom: -7px;
+    /*最小值*/
+    min-height:130px;
+    /*最大值*/
+    max-height:180px;
+}
+.parallax>use{
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)infinite;
+}
+/*选择一个use*/
+.parallax>use:nth-child(1){
+    /*延迟2s执行*/
+    animation-delay: -2s;
+    /*7s内执行完毕*/
+    animation-duration: 7s;
+}
+.parallax>use:nth-child(2){
+     animation-delay: -3s;
+     animation-duration: 10s;
+}
+.parallax>use:nth-child(3){
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+.parallax>use:nth-child(4){
+    animation-delay: -5s;
+    animation-duration:20s;
+}
+/*动画*/
+@keyframes move-forever{
+    0%{
+        transform: translate3d(-90px,0,0);
+    }
+    100%{
+        transform: translate3d(85px,0,0);
+    }
+}
+/*当屏幕小于768px执行*/
+@media(max-width:768px){
+    .waves{
+        height:40px;
+        min-height: 40px;
+    }
+    h1{
+        font-size:24px;
+    }
+}

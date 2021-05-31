@@ -13,7 +13,7 @@ import org.hibernate.Transaction;
 
 import com.mysql.cj.Query;
 
-public class Event_LocationDAO {
+public class EventLocationDAO {
 	
 	public static List<Event_Location> getAllEvent_Location() {
 		List<Event_Location> event_location  = null;

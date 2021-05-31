@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="phsycological_mentor ")
 
-public class Phsycological_Mentor {
+public class PsychologicalMentor {
 	@Id
 	@Column(name="SystemID")
 	private int SystemID;
@@ -29,11 +29,11 @@ public class Phsycological_Mentor {
 	
 	
 	
-	public Phsycological_Mentor () {
+	public PsychologicalMentor() {
 	}
 	
 	
-	public Phsycological_Mentor (int SystemID, int EmployeeID , int MentorNumber, String GenderOrientationInCharge, int AgeRangeInRange) {
+	public PsychologicalMentor(int SystemID, int EmployeeID , int MentorNumber, String GenderOrientationInCharge, int AgeRangeInRange) {
 		super();
 
 		this.SystemID = SystemID;

@@ -34,6 +34,9 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Employee.class);
                 configuration.addAnnotatedClass(Administractor.class);
                 configuration.addAnnotatedClass(Date.class);
+                configuration.addAnnotatedClass(Event.class);
+                configuration.addAnnotatedClass(EventLocation.class);
+                configuration.addAnnotatedClass(PsychologicalMentor.class);
                 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

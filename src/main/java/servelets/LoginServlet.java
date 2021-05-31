@@ -2,10 +2,13 @@ package servelets;
 
 import database.daos.AdministractorDAO;
 import database.daos.PersonDAO;
+import database.daos.PsychologicalMentorDAO;
 import database.daos.UserDAO;
 import database.exceptions.PersonNotExistsException;
 import database.tables.Administractor;
 import database.tables.Person;
+import database.tables.PsychologicalMentor;
+import database.tables.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,6 +63,22 @@ public class LoginServlet extends HttpServlet {
         int systemID = person.getSystemID();
         Administractor admin = AdministractorDAO.getAdministractorBySystemID(systemID);
         return admin != null;
+    }
+
+    private static boolean isMentor(String screenName) {
+        Person person = PersonDAO.getPersonByScreenName(screenName);
+        if (person == null) return false;
+        int systemID = person.getSystemID();
+        PsychologicalMentor mentor = PsychologicalMentorDAO.getPhsycological_MentorBySystemID(systemID);
+        return mentor != null;
+    }
+
+    private static boolean isUser(String screenName) {
+        Person person = PersonDAO.getPersonByScreenName(screenName);
+        if (person == null) return false;
+        int systemID = person.getSystemID();
+        User user = UserDAO.getUserBySystemID(systemID);
+        return user != null;
     }
 
     private static int personLogin(String screenName, String password) {
