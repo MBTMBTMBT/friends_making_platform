@@ -3,6 +3,9 @@ package servelets;
 import database.daos.AdministractorDAO;
 import database.daos.PersonDAO;
 import database.daos.UserDAO;
+import database.exceptions.PersonNotExistsException;
+import database.tables.Administractor;
+import database.tables.Person;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,6 +55,16 @@ public class LoginServlet extends HttpServlet {
     }
 
     private static boolean isAdmin(String screenName) {
-        PersonDAO.getPersonByID()
+        Person person = PersonDAO.getPersonByScreenName(screenName);
+        if (person == null) return false;
+        int systemID = person.getSystemID();
+        Administractor admin = AdministractorDAO.getAdministractorBySystemID(systemID);
+        return admin != null;
+    }
+
+    private static int personLogin(String screenName, String password) {
+        Person person = PersonDAO.getPersonByScreenName(screenName);
+        if (person == null) throw new PersonNotExistsException("Person with screen name " + screenName + " does not exist.");
+        return person.getSystemID();
     }
 }

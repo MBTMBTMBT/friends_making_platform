@@ -1,4 +1,5 @@
 package database.daos;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,29 +8,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.supports.HibernateUtil;
-import database.tables.Administractor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.mysql.cj.Query;
 
-public class AdministractorDAO {
+public class Phsycological_MentorDAO {
 	
-	public static List<Administractor> getAllAdministractor() {
-		List<Administractor> administractor  = null;
+	public static List<Phsycological_Mentor> getAllPhsycological_Mentor() {
+		List<Phsycological_Mentor> p  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administractor = session.createQuery("from administractor").list();
+			p = session.createQuery("from phsycological_mentor").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		
-		return administractor;
+		return p;
 	}
 	
 	
-	public static void saveAdministractor(Administractor e) {
+	public static void savePhsycological_Mentor(Phsycological_Mentor e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -44,25 +43,37 @@ public class AdministractorDAO {
 	}
 
 	
-	public static Administractor getAdministractorByID(int id) {
-		Administractor administractor = null;
+	public static Phsycological_Mentor getPhsycological_MentorByID(int id) {
+		Phsycological_Mentor p = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administractor = (Administractor)session.createQuery("from administractor where AdminNumber = "+id).uniqueResult();
+			p = (Phsycological_Mentor)session.createQuery("from phsycological_mentor where MentorNumber = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		return administractor;
+		return p;
+
+	}
+	
+	public static Phsycological_Mentor getPhsycological_MentorBySystemID(int id) {
+		Phsycological_Mentor p = null;
+		
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			p = (Phsycological_Mentor)session.createQuery("from phsycological_mentor where SystemID = "+id).uniqueResult();
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+		return p;
 
 	}
 	
 	
-	public static void deleteAdministractorByID(int id) {
-		Administractor administractor = new Administractor();
+	public static void deletePhsycological_MentorByID(int id) {
+		Phsycological_Mentor p = new Phsycological_Mentor();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
-			administractor.setAdminNumber(id);
-			session.delete(administractor);
+			p.setMentorNumber(id);
+			session.delete(p);
 			transaction.commit();
 	    	session.close();
 			
@@ -73,7 +84,7 @@ public class AdministractorDAO {
 	
 	
 	
-	public static void updateAdministractor(Administractor e) {
+	public static void updatePhsycological_Mentore(Phsycological_Mentor e) {
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
@@ -87,14 +98,5 @@ public class AdministractorDAO {
 		
 	}
 
-	public static Administractor getAdministractorBySystemID(int id) {
-		Administractor administractor = null;
 
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administractor = (Administractor)session.createQuery("from administractor where SystemID = "+id).uniqueResult();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return administractor;
-	}
 }

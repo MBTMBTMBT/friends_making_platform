@@ -1,4 +1,5 @@
 package database.daos;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,29 +8,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.supports.HibernateUtil;
-import database.tables.Administractor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.mysql.cj.Query;
 
-public class AdministractorDAO {
+public class Event_LocationDAO {
 	
-	public static List<Administractor> getAllAdministractor() {
-		List<Administractor> administractor  = null;
+	public static List<Event_Location> getAllEvent_Location() {
+		List<Event_Location> event_location  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administractor = session.createQuery("from administractor").list();
+			event_location = session.createQuery("from event_location").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		
-		return administractor;
+		return event_location;
 	}
 	
 	
-	public static void saveAdministractor(Administractor e) {
+	public static void saveEvent_Location(Event_Location e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -44,25 +43,25 @@ public class AdministractorDAO {
 	}
 
 	
-	public static Administractor getAdministractorByID(int id) {
-		Administractor administractor = null;
+	public static Event_Location getEvent_LocationByKey(int id) {
+		Event_Location event_location = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administractor = (Administractor)session.createQuery("from administractor where AdminNumber = "+id).uniqueResult();
+			event_location = (Event_Location)session.createQuery("from event_location where LocationID = " + id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		return administractor;
+		return event_location;
 
 	}
 	
 	
-	public static void deleteAdministractorByID(int id) {
-		Administractor administractor = new Administractor();
+	public static void deleteEvent_LocationByKey(int id) {
+		Event_Location event_location = new Event_Location();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
-			administractor.setAdminNumber(id);
-			session.delete(administractor);
+			event_location.setLocationID(id);
+			session.delete(event_location);
 			transaction.commit();
 	    	session.close();
 			
@@ -73,7 +72,7 @@ public class AdministractorDAO {
 	
 	
 	
-	public static void updateAdministractor(Administractor e) {
+	public static void updateEvent_Location(Event_Location e) {
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
@@ -87,14 +86,6 @@ public class AdministractorDAO {
 		
 	}
 
-	public static Administractor getAdministractorBySystemID(int id) {
-		Administractor administractor = null;
 
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administractor = (Administractor)session.createQuery("from administractor where SystemID = "+id).uniqueResult();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return administractor;
-	}
 }
+
