@@ -4,7 +4,6 @@ import database.daos.AdministractorDAO;
 import database.daos.PersonDAO;
 import database.daos.PsychologicalMentorDAO;
 import database.daos.UserDAO;
-import database.exceptions.PersonNotExistsException;
 import database.tables.Administractor;
 import database.tables.Person;
 import database.tables.PsychologicalMentor;
@@ -22,68 +21,61 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("id");
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
-        try {
-            int id_int = Integer.parseInt(id);
-            if (isAdmin(id_int)) {
-                if (AdministractorDAO.adminLogin(id_int, password)) {
-                    // login successful for admin
-                    request.setAttribute("admin_id", id_int);
-                    request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
-                } else {
-                    request.setAttribute("msg", "Wrong Pass Word");
-                    System.out.println("Wrong Pass Word");
-                    request.getRequestDispatcher("/login.jsp").forward(request, response);
-                }
-            } else if (UserDAO.isUser(id_int)) {
-                if (UserDAO.userLogin(id_int, password)) {
-                    // login successful for user
-                    request.getRequestDispatcher("/user_interface.jsp").forward(request, response);
-                } else {
-                    request.setAttribute("msg", "Wrong Pass Word");
-                    System.out.println("Wrong Pass Word");
-                    request.getRequestDispatcher("/login.jsp").forward(request, response);
-                }
+        Person person = PersonDAO.getPersonByScreenName(username);  // first get this person if possible
+        if (person == null) loginFail(request, response);  // if I get null, the username (screen name) doesn't exist.
+        assert person != null;  // assert it is not null
+        if(personLogin(person, password)) {  // now try to login with the password
+            if (isAdmin(person)) {
+                // login successfully for admin
+                request.setAttribute("admin_username", username);
+                request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
+            } else if (isMentor(person)) {
+                // login successfully for mentor
+                request.setAttribute("mentor_username", username);
+                request.getRequestDispatcher("/mentorMainPageServlet").forward(request, response);
+            } else if (isUser(person)) {
+                // login successfully for user
+                request.setAttribute("user_username", username);
+                request.getRequestDispatcher("/userMainPageServlet").forward(request, response);
             } else {
-                request.setAttribute("msg", "User or Admin Does Not Exist");
-                System.out.println("User or Admin Does Not Exist");
-                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                loginFail(request, response);  // this should never happen
             }
-        } catch (NumberFormatException exception) {
-            request.setAttribute("msg", "ID value should be in full numbers");
-            System.out.println("ID value should be in full numbers");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        }
+        } else loginFail(request, response);  // if password is not correct, return with message
     }
 
-    private static boolean isAdmin(String screenName) {
-        Person person = PersonDAO.getPersonByScreenName(screenName);
+    //  three methods to see what type is this person
+    private static boolean isAdmin(Person person) {
         if (person == null) return false;
         int systemID = person.getSystemID();
         Administractor admin = AdministractorDAO.getAdministractorBySystemID(systemID);
         return admin != null;
     }
 
-    private static boolean isMentor(String screenName) {
-        Person person = PersonDAO.getPersonByScreenName(screenName);
+    private static boolean isMentor(Person person) {
         if (person == null) return false;
         int systemID = person.getSystemID();
         PsychologicalMentor mentor = PsychologicalMentorDAO.getPhsycological_MentorBySystemID(systemID);
         return mentor != null;
     }
 
-    private static boolean isUser(String screenName) {
-        Person person = PersonDAO.getPersonByScreenName(screenName);
+    private static boolean isUser(Person person) {
         if (person == null) return false;
         int systemID = person.getSystemID();
         User user = UserDAO.getUserBySystemID(systemID);
         return user != null;
     }
 
-    private static int personLogin(String screenName, String password) {
-        Person person = PersonDAO.getPersonByScreenName(screenName);
-        if (person == null) throw new PersonNotExistsException("Person with screen name " + screenName + " does not exist.");
-        return person.getSystemID();
+    // check the user's password
+    private static boolean personLogin(Person person, String password) {
+        return person.getpassword().equals(password);
+    }
+
+    // wrong password or invalid username - return and give message
+    private static void loginFail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("msg", "Wrong Pass Word, Or invalid username.");
+        System.out.println("Login failed!");
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 }

@@ -16,6 +16,7 @@ import java.util.List;
 public class AdminMainPageServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*
         Admin admin = AdministractorDAO.getAdminByID((Integer) request.getAttribute("admin_id"));
         String surname = admin.getFamilyname();
         String forename = admin.getFirstname();
@@ -39,5 +40,7 @@ public class AdminMainPageServlet extends HttpServlet {
         request.setAttribute("admin_forenames_list", adminForenamesList);
         request.setAttribute("admin_gender_list", adminGenderList);
         request.getRequestDispatcher("/admin_interface.jsp").forward(request, response);
+
+         */
     }
 }
