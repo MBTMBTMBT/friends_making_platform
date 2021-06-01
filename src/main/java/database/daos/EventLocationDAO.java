@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.supports.HibernateUtil;
+import database.tables.EventLocation;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -15,24 +17,24 @@ import com.mysql.cj.Query;
 
 public class EventLocationDAO {
 	
-	public static List<Event_Location> getAllEvent_Location() {
-		List<Event_Location> event_location  = null;
+	public static List<EventLocation> getAllEvent_Location() {
+		List<EventLocation> eventLocation  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			event_location = session.createQuery("from event_location").list();
+			eventLocation = session.createQuery("from event_location").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		
-		return event_location;
+		return eventLocation;
 	}
 	
 	
-	public static void saveEvent_Location(Event_Location e) {
+	public static void saveEvent_Location(EventLocation eventLocation) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(e);
+            session.save(eventLocation);
             transaction.commit();
         } catch (Exception exp) {
             if (transaction != null) {
@@ -43,25 +45,25 @@ public class EventLocationDAO {
 	}
 
 	
-	public static Event_Location getEvent_LocationByKey(int id) {
-		Event_Location event_location = null;
+	public static EventLocation getEvent_LocationByKey(int id) {
+		EventLocation eventLocation = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			event_location = (Event_Location)session.createQuery("from event_location where LocationID = " + id).uniqueResult();
+			eventLocation = (EventLocation)session.createQuery("from event_location where LocationID = " + id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		return event_location;
+		return eventLocation;
 
 	}
 	
 	
-	public static void deleteEvent_LocationByKey(int id) {
-		Event_Location event_location = new Event_Location();
+	public static void deleteEventLocationByKey(int id) {
+		EventLocation eventLocation = new EventLocation();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
-			event_location.setLocationID(id);
-			session.delete(event_location);
+			eventLocation.setLocationID(id);
+			session.delete(eventLocation);
 			transaction.commit();
 	    	session.close();
 			
@@ -72,11 +74,11 @@ public class EventLocationDAO {
 	
 	
 	
-	public static void updateEvent_Location(Event_Location e) {
+	public static void updateEventLocation(EventLocation eventLocation) {
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
-			session.update(e);
+			session.update(eventLocation);
 			transaction.commit();
 	    	session.close();
 			
