@@ -27,8 +27,8 @@ request.setAttribute("msg", "Please entre your user/admin ID");
 
       <span id="msg" style="font-size: 12px;color:red"></span> <br> 
 
-        <button type="button">login</button>   
-        <button type="button">register</button>
+        <button type=submit>login</button>
+        <button type="button" onclick="window.location.href='register.jsp';">register</button>
   
     </form>
   </div>

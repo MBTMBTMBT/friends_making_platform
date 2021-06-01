@@ -1,7 +1,7 @@
 package servelets;
 
 import database.daos.AdministractorDAO;
-import database.tables.Admin;
+import database.tables.Administractor;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
