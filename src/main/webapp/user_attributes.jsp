@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%if (request.getAttribute("msg") == null) {
+  request.setAttribute("msg", "abaaba");
+}%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +16,10 @@
 <form action="#" method="post"><br>
   <table align="center" >
     <tr>
-      <td><label for="screenname"  style="color: white;font-size: larger;font-weight:bolder">screenname</label></td>
+      <td>
+        <label for="screenname"  style="color: white;font-size: larger;font-weight:bolder">screenname</label>
+        <br> <span style="font-size: 16px;color:red" align="center"><%=request.getAttribute("msg")%></span><br>
+      </td>
       <td><input type="text" name="screenname" id="screenname" style="font-size:smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your screenname"></td>
     </tr>
     <tr>
