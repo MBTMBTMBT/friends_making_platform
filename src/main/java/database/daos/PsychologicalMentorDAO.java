@@ -30,7 +30,7 @@ public class PsychologicalMentorDAO {
 	}
 	
 	
-	public static void savePhsycological_Mentor(PsychologicalMentor e) {
+	public static void savePhsycologicalMentor(PsychologicalMentor e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -45,7 +45,7 @@ public class PsychologicalMentorDAO {
 	}
 
 	
-	public static PsychologicalMentor getPhsycological_MentorByID(int id) {
+	public static PsychologicalMentor getPhsycologicalMentorByID(int id) {
 		PsychologicalMentor p = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {

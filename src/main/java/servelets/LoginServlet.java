@@ -25,13 +25,16 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            if (username.equals("")) loginFail(request, response, "Cannot login with empty username");
+            if (username.equals("")) {
+                loginFail(request, response, "Cannot login with empty username");
+                return;
+            }
             Person person = PersonDAO.getPersonByScreenName(username);  // first get this person if possible
 
-            if (person == null)
+            if (person == null) {
                 loginFail(request, response);  // if I get null, the username (screen name) doesn't exist.
-
-            assert person != null;  // assert it is not null
+                return;
+            }
 
             if (personLogin(person, password)) {  // now try to login with the password
                 if (isAdmin(person)) {
@@ -61,6 +64,7 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     loginFail(request, response);  // this should never happen
                 }
+
             } else loginFail(request, response);  // if password is not correct, return with message
 
         } catch (Exception ignore) {

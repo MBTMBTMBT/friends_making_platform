@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>attributes</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/user_attributes.css">
   <style>
     table{border-spacing: 30px}
   </style>

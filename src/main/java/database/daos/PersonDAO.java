@@ -92,9 +92,9 @@ public class PersonDAO {
 		Person person = null;
 		try {
 			Session session = HibernateUtil.getSessionFactory().openSession();
-			person = (Person)session.createQuery("from Person where ScreenName = "+name).uniqueResult();
+			person = (Person)session.createQuery("from Person where ScreenName = '"+name + "'").uniqueResult();
 		} catch (Exception ignore) {
-			// e.printStackTrace();
+			ignore.printStackTrace();
 			return null;
 		}
 		return person;
@@ -102,7 +102,7 @@ public class PersonDAO {
 
 	public static void main(String[] args) {
 		try {
-			System.out.println(getPersonByScreenName("mbt"));
+			System.out.println(getPersonByScreenName("MBT"));
 		} catch (Exception ignore) {
 			System.out.println("cao");
 		}

@@ -85,8 +85,8 @@ REFERENCES groupwork.employee (EmployeeID) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE TABLE groupwork.user (
   SystemID int NOT NULL,
   UserID int NOT NULL AUTO_INCREMENT,
-  Emailaddress varchar(20) NOT NULL,
-  Wechat varchar(20) NOT NULL,
+  Emailaddress varchar(20) DEFAULT NULL,
+  Wechat varchar(20) DEFAULT NULL,
   GenderOrientation enum ('homosexual', 'hetero') DEFAULT NULL,
   DataOfBirth date DEFAULT NULL,
   Slogan varchar(20) DEFAULT NULL,
