@@ -49,15 +49,14 @@ public class DateDAO {
 		Date date = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			date = (Date)session.createQuery("from Date where Uid1 = "+ uid1 + "and Uid2 = "+uid2+"and HHDDMMYY = "+ hdmy).uniqueResult();
+			date = (Date)session.createQuery("from Date where Uid1 = "+ uid1 + "and Uid2 = "+uid2+"and HHDDMMYY = '"+ hdmy + "'").uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		return date;
 
 	}
-	
-	
+
 	public static void deleteDateByKey(int uid1,int uid2,String hdmy) {
 		Date date = new Date();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {

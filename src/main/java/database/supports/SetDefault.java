@@ -16,13 +16,13 @@ public class SetDefault {
             // check if this default mentor exists
             PsychologicalMentor defaultMentor = PsychologicalMentorDAO.getPhsycologicalMentorByID(0);
             if (defaultMentor == null) {
-                String defaultMentorName = "mentordefault";
+                String defaultMentorName = "No mentor";
                 Person person = new Person();
-                person.setpassword(defaultMentorName);
+                person.setpassword("mentordefault");
                 person.setGender("female");
                 person.setForename("default");
                 person.setSurname("mentor");
-                person.setScreenName("No mentor");
+                person.setScreenName(defaultMentorName);
                 PersonDAO.savePerson(person);
                 person = PersonDAO.getPersonByScreenName(defaultMentorName);
                 assert person != null;
@@ -34,13 +34,14 @@ public class SetDefault {
                 int employeeNum = EmployeeDAO.getEmployeeBySystemID(systemID).getEmployeeID();
 
                 PsychologicalMentor mentor = new PsychologicalMentor();
-                mentor.setMentorNumber(0);
+                mentor.setMentorNumber(1);
                 mentor.setSystemID(systemID);
                 mentor.setEmployeeID(employeeNum);
                 PsychologicalMentorDAO.savePhsycologicalMentor(mentor);
             }
-        } catch (Exception ignore) {
+        } catch (Exception exception) {
             System.out.println("meet an error when setting default mentor");
+            exception.printStackTrace();
         }
     }
 
@@ -48,10 +49,10 @@ public class SetDefault {
         try {
             // we hope there's one line default values for all the labels
             // check if it exists
-            Labels labels = LabelsDAO.getLabelsByKey(0);
+            Labels labels = LabelsDAO.getLabelsByKey(1);
             if (labels == null) {
                 labels = new Labels();
-                labels.setSerial(0);
+                labels.setSerial(1);
                 labels.setActivity("not selected");
                 labels.setBook("not selected");
                 labels.setFilm("not selected");
@@ -61,8 +62,9 @@ public class SetDefault {
                 labels.setWork("not selected");
                 LabelsDAO.saveLabels(labels);
             }
-        } catch (Exception ignore) {
+        } catch (Exception exception) {
             System.out.println("meet an error when setting default labels");
+            exception.printStackTrace();
         }
     }
 }

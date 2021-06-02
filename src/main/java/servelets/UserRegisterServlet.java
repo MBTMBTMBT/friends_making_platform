@@ -73,6 +73,8 @@ public class UserRegisterServlet extends HttpServlet {
             // then create the user
             User user = new User();
             user.setSystemID(systemID);
+            user.setMentorID(1);
+            user.setWork(1);
             UserDAO.saveUser(user);
             user = UserDAO.getUserBySystemID(systemID);
             int userID = user.getUserID();

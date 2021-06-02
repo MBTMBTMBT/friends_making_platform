@@ -37,6 +37,16 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Event.class);
                 configuration.addAnnotatedClass(EventLocation.class);
                 configuration.addAnnotatedClass(PsychologicalMentor.class);
+                configuration.addAnnotatedClass(Books.class);
+                configuration.addAnnotatedClass(Films.class);
+                configuration.addAnnotatedClass(Food.class);
+                configuration.addAnnotatedClass(JoinEvent.class);
+                configuration.addAnnotatedClass(Labels.class);
+                configuration.addAnnotatedClass(Likes.class);
+                configuration.addAnnotatedClass(Location.class);
+                configuration.addAnnotatedClass(Relationship.class);
+                configuration.addAnnotatedClass(Sports.class);
+                configuration.addAnnotatedClass(UserPhoto.class);
                 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

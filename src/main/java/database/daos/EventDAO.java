@@ -49,7 +49,7 @@ public class EventDAO {
 		Event event = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			event = (Event)session.createQuery("from Event where LocationID = "+ LocationID + "and Time = "+ time).uniqueResult();
+			event = (Event)session.createQuery("from Event where LocationID = "+ LocationID + "and Time = '"+ time + "'").uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }

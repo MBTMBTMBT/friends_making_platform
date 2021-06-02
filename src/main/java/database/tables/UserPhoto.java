@@ -17,19 +17,19 @@ public class UserPhoto {
 	@Column(name="Uid")
 	private int Uid;
 	
-	@Column(name="PootoPath(in the system)")
-	private String PootoPath;
+	@Column(name="PhotoPath(in the system)")
+	private String PhotoPath;
 	
 	
 	public UserPhoto() {
 	}
 	
 	
-	public UserPhoto(int Uid, String PootoPath) {
+	public UserPhoto(int Uid, String PhotoPath) {
 		super();
 
 		this.Uid = Uid;
-		this.PootoPath = PootoPath;
+		this.PhotoPath = PhotoPath;
 	}
 
 
@@ -45,11 +45,11 @@ public class UserPhoto {
 	
 	
 	public String getPootoPath() {
-		return PootoPath;
+		return PhotoPath;
 	}
 
 	public void setPootoPath(String PootoPath) {
-		this.PootoPath = PootoPath;
+		this.PhotoPath = PootoPath;
 	}
 
 

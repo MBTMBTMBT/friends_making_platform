@@ -1,11 +1,11 @@
 CREATE TABLE groupwork.person (
   SystemID int NOT NULL AUTO_INCREMENT,
-  Surname varchar(10) DEFAULT NULL,
-  Forename varchar(10) DEFAULT NULL,
+  Surname varchar(64) DEFAULT NULL,
+  Forename varchar(64) DEFAULT NULL,
   Gender enum ('male', 'female', 'secret') DEFAULT NULL,
-  ScreenName varchar(20) DEFAULT NULL,
-  HeadIcon varchar(30) DEFAULT NULL,
-  password char(30) NOT NULL,
+  ScreenName char(64) DEFAULT NULL,
+  HeadIcon varchar(128) DEFAULT NULL,
+  password char(64) NOT NULL,
   PRIMARY KEY (SystemID)
 )
 ENGINE = INNODB,
@@ -17,13 +17,13 @@ ADD UNIQUE INDEX ScreenName (ScreenName);
 
 CREATE TABLE groupwork.labels (
   Serial int NOT NULL AUTO_INCREMENT,
-  Locations varchar(10) DEFAULT NULL,
-  Work varchar(10) DEFAULT NULL,
-  Food varchar(10) DEFAULT NULL,
-  Film varchar(10) DEFAULT NULL,
-  Book varchar(10) DEFAULT NULL,
-  Sport varchar(10) DEFAULT NULL,
-  Activity varchar(10) DEFAULT NULL,
+  Locations varchar(64) DEFAULT NULL,
+  Work varchar(64) DEFAULT NULL,
+  Food varchar(64) DEFAULT NULL,
+  Film varchar(64) DEFAULT NULL,
+  Book varchar(64) DEFAULT NULL,
+  Sport varchar(64) DEFAULT NULL,
+  Activity varchar(64) DEFAULT NULL,
   PRIMARY KEY (Serial)
 )
 ENGINE = INNODB,
@@ -85,11 +85,11 @@ REFERENCES groupwork.employee (EmployeeID) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE TABLE groupwork.user (
   SystemID int NOT NULL,
   UserID int NOT NULL AUTO_INCREMENT,
-  Emailaddress varchar(20) DEFAULT NULL,
-  Wechat varchar(20) DEFAULT NULL,
+  Emailaddress varchar(128) DEFAULT NULL,
+  Wechat varchar(64) DEFAULT NULL,
   GenderOrientation enum ('homosexual', 'hetero') DEFAULT NULL,
   DataOfBirth date DEFAULT NULL,
-  Slogan varchar(20) DEFAULT NULL,
+  Slogan varchar(512) DEFAULT NULL,
   Work int DEFAULT NULL,
   MentorID int DEFAULT NULL,
   PRIMARY KEY (UserID)
@@ -120,7 +120,7 @@ CREATE TABLE groupwork.date (
   Uid1 int NOT NULL,
   Uid2 int NOT NULL,
   HHDDMMYY datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  GeographicalLocation varchar(30) DEFAULT NULL,
+  GeographicalLocation varchar(256) DEFAULT NULL,
   PRIMARY KEY (Uid1, Uid2, HHDDMMYY)
 )
 ENGINE = INNODB,
@@ -138,7 +138,7 @@ REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
 CREATE TABLE groupwork.event_location (
   LocationID int NOT NULL AUTO_INCREMENT,
   LocationType enum ('coffee/tea house', 'bar', 'restaurant', 'shopping centre', 'park', 'cinema', 'theatre') DEFAULT NULL,
-  GeographicalLocation varchar(30) DEFAULT NULL,
+  GeographicalLocation varchar(256) DEFAULT NULL,
   ManagerID int DEFAULT NULL,
   StartTime date DEFAULT NULL,
   PRIMARY KEY (LocationID)
@@ -186,7 +186,7 @@ REFERENCES groupwork.event_location (LocationID) ON DELETE CASCADE ON UPDATE CAS
 CREATE TABLE groupwork.likes (
   Uid1 int NOT NULL,
   Uid2 int NOT NULL,
-  Confession varchar(40) DEFAULT NULL,
+  Confession varchar(512) DEFAULT NULL,
   PRIMARY KEY (Uid1, Uid2)
 )
 ENGINE = INNODB,
@@ -221,7 +221,7 @@ REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
 
 CREATE TABLE groupwork.user_photos (
   Uid int NOT NULL AUTO_INCREMENT,
-  `PootoPath(in the system)` varchar(30) DEFAULT NULL,
+  `PhotoPath(in the system)` varchar(128) DEFAULT NULL,
   PRIMARY KEY (Uid)
 )
 ENGINE = INNODB,
