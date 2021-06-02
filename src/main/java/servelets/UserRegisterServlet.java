@@ -26,6 +26,7 @@ public class UserRegisterServlet extends HttpServlet {
         String surname = request.getParameter("surname");
         String forename = request.getParameter("forename");
         String sex = request.getParameter("sex");
+        // System.out.println(sex);
 
         // none of these should be empty
         if (username.equals("")) {
@@ -40,7 +41,7 @@ public class UserRegisterServlet extends HttpServlet {
         if (forename.equals("")) {
             registerFail(request, response, "Please don't entre empty forename");
         }
-        if (sex.equals("")) {
+        if (sex == null) {
             registerFail(request, response, "Please choose your gender");
         }
 
