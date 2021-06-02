@@ -41,6 +41,7 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("admin_number", adminNumber);
                     request.setAttribute("admin_username", username);
                     request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
+
                 } else if (isMentor(person)) {
                     // login successfully for mentor
                     PsychologicalMentor mentor = PsychologicalMentorDAO.getPsychologicalMentorBySystemID(person.getSystemID());
@@ -48,6 +49,7 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("mentor_number", mentorNumber);
                     request.setAttribute("mentor_username", username);
                     request.getRequestDispatcher("/mentorMainPageServlet").forward(request, response);
+
                 } else if (isUser(person)) {
                     // login successfully for user
                     User user = UserDAO.getUserBySystemID(person.getSystemID());
@@ -55,6 +57,7 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("user_id", userID);
                     request.setAttribute("user_username", username);
                     request.getRequestDispatcher("/userMainPageServlet").forward(request, response);
+
                 } else {
                     loginFail(request, response);  // this should never happen
                 }

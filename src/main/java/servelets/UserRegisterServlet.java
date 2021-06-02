@@ -68,8 +68,9 @@ public class UserRegisterServlet extends HttpServlet {
         UserDAO.saveUser(user);
         user = UserDAO.getUserBySystemID(systemID);
         int userID = user.getUserID();
-        request.setAttribute("admin_username", username);
-        request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
+        request.setAttribute("user_id", userID);
+        request.setAttribute("user_username", username);
+        request.getRequestDispatcher("/user_attributes.jsp").forward(request, response);
     }
 
     private static void registerFail(HttpServletRequest request, HttpServletResponse response, String msg) throws ServletException, IOException {
