@@ -82,6 +82,8 @@ public class UserRegisterServlet extends HttpServlet {
             // return the message
             request.setAttribute("user_id", userID);
             request.setAttribute("user_username", username);
+            System.out.println(username);
+            System.out.println(userID);
             request.getRequestDispatcher("/pushUserAttributesServlet").forward(request, response);
         } catch (Exception ignore) {
             registerFail(request, response, "sorry, an error occurs, please try again");

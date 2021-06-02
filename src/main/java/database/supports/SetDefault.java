@@ -14,7 +14,7 @@ public class SetDefault {
         try {
             // we will need a default mentor for users
             // check if this default mentor exists
-            PsychologicalMentor defaultMentor = PsychologicalMentorDAO.getPhsycologicalMentorByID(0);
+            PsychologicalMentor defaultMentor = PsychologicalMentorDAO.getPhsycologicalMentorByID(1);
             if (defaultMentor == null) {
                 String defaultMentorName = "No mentor";
                 Person person = new Person();

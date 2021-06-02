@@ -176,7 +176,7 @@
         <input type="checkbox" name="Travel Footprint" value="Canada">Canada
         <input type="checkbox" name="Travel Footprint" value="Australia">Australia
         <input type="checkbox" name="Travel Footprint" value="Britain">Britain
-        <input type="checkbox" name="Travel Footprint" value="French">French<br>
+        <input type="checkbox" name="Travel Footprint" value="France">France<br>
         <input type="checkbox" name="Travel Footprint" value="Italy">Italy
         <input type="checkbox" name="Travel Footprint" value="Spain">Spain
         <input type="checkbox" name="Travel Footprint" value="Portugal">Portugal
@@ -185,9 +185,7 @@
         <input type="checkbox" name="Travel Footprint" value="Swiss">Swiss
         <input type="checkbox" name="Travel Footprint" value="Swedish">Swedish
         <input type="checkbox" name="Travel Footprint" value="Danish">Danish
-        <input type="checkbox" name="Travel Footprint" value="Finland">Finland
-        <input type="checkbox" name="Travel Footprint" value="Danish">Danish<br>
-        <input type="checkbox" name="Travel Footprint" value="Finland">Finland
+        <input type="checkbox" name="Travel Footprint" value="Finland">Finland<br>
         <input type="checkbox" name="Travel Footprint" value="Czech">Czech
         <input type="checkbox" name="Travel Footprint" value="Cuba">Cuba
         <input type="checkbox" name="Travel Footprint" value="Argentina">Argentina
@@ -212,7 +210,7 @@
         <input type="checkbox" name="film" value="The Matrix">The Matrix<br>
         <input type="checkbox" name="film" value="The Legend Of 1900">The Legend Of 1900
         <input type="checkbox" name="film" value="Spirited Away">Spirited Away
-        <input type="checkbox" name="film" value="Roman Holiday">Roman Holiday
+        <input type="checkbox" name="film" value="Roman Holiday">Roman Holiday<br>
         <input type="checkbox" name="film" value="Schindler's List">Schindler's List
         <input type="checkbox" name="film" value="Amelie from Montmartre">Amelie from Montmartre
         <input type="checkbox" name="film" value="A Beautiful Mind">A Beautiful Mind<br>
@@ -225,15 +223,15 @@
         <input type="checkbox" name="film" value="Fight Club">Fight Club
         <input type="checkbox" name="film" value="The Upside">The Upside<br>
         <input type="checkbox" name="film" value="Hachiko: A Dog's Story">Hachiko: A Dog's Story
-        <input type="checkbox" name="film" value="Gone with the Wind">Gone with the Wind
+        <input type="checkbox" name="film" value="Gone with the Wind">Gone with the Wind<br>
         <input type="checkbox" name="film" value="The Pursuit of Happyness">The Pursuit of Happyness
         <input type="checkbox" name="film" value="One Flew Over the Cuckoo's Nest">One Flew Over the Cuckoo's Nest<br>
         <input type="checkbox" name="film" value="Scent Of A Woman">Scent Of A Woman
-        <input type="checkbox" name="film" value="Dead Poets Society">Dead Poets Society
+        <input type="checkbox" name="film" value="Dead Poets Society">Dead Poets Society<br>
         <input type="checkbox" name="film" value="The Lord of the Rings">The Lord of the Rings
         <input type="checkbox" name="film" value="Harry Potter">Harry Potter<br>
         <input type="checkbox" name="film" value="Infernal Affairs">Infernal Affairs
-        <input type="checkbox" name="film" value="American Dreams in China">American Dreams in China
+        <input type="checkbox" name="film" value="American Dreams in China">American Dreams in China<br>
         <input type="checkbox" name="film" value="Chungking express">Chungking express
         <input type="checkbox" name="film" value="the silence of the lambs">the silence of the lambs
 
@@ -247,23 +245,23 @@
 
       <td>
         <input type="checkbox" name="Books" value="A Tale of Two Cities">A Tale of Two Cities
-        <input type="checkbox" name="Books" value="Anna Karenina">Anna Karenina
+        <input type="checkbox" name="Books" value="Anna Karenina">Anna Karenina<br>
         <input type="checkbox" name="Books" value="Crime and Punishment">Crime and Punishment
         <input type="checkbox" name="Books" value="David Copperfield">David Copperfield<br>
         <input type="checkbox" name="Books" value="Emma">Emma
-        <input type="checkbox" name="Books" value="For Whom the Bell Tolls">For Whom the Bell Tolls
+        <input type="checkbox" name="Books" value="For Whom the Bell Tolls">For Whom the Bell Tolls<br>
         <input type="checkbox" name="Books" value="Gone with the Wind">Gone with the Wind
         <input type="checkbox" name="Books" value="Great Expectations">Great Expectations<br>
         <input type="checkbox" name="Books" value="Hamlet">Hamlet
         <input type="checkbox" name="Books" value="Jane Eyre">Jane Eyre
         <input type="checkbox" name="Books" value="Jean Christophe">Jean Christophe<br>
         <input type="checkbox" name="Books" value="King Lear">King Lear
-        <input type="checkbox" name="Books" value="Les Miserables">Les Miserables
+        <input type="checkbox" name="Books" value="Les Miserables">Les Miserables<br>
         <input type="checkbox" name="Books" value="Little Women">Little Women
         <input type="checkbox" name="Books" value="Oliver Twist">Oliver Twist
         <input type="checkbox" name="Books" value="Pride and Prejudice">Pride and Prejudice<br>
         <input type="checkbox" name="Books" value="Resurrection">Resurrection
-        <input type="checkbox" name="Books" value="Robinson Crusoe">Robinson Crusoe
+        <input type="checkbox" name="Books" value="Robinson Crusoe">Robinson Crusoe<br>
         <input type="checkbox" name="Books" value="Sense and Sensibility">Sense and Sensibility
         <input type="checkbox" name="Books" value="The Great Gatsby">The Great Gatsby<br>
         <input type="checkbox" name="Books" value="The Old Man and the Sea">The Old Man and the Sea

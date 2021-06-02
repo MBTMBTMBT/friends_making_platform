@@ -20,10 +20,10 @@ public class PushUserAttributesServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        request.getRequestDispatcher("/user_attributes.jsp").forward(request, response);
+        // request.getRequestDispatcher("/user_attributes.jsp").forward(request, response);
+        String username = (String) request.getAttribute("user_username");
+        int userID = (int) request.getAttribute("user_id");
 
-        String username = request.getParameter("user_username");
-        int userID = Integer.getInteger(request.getParameter("user_id"));
         User user = UserDAO.getUserByID(userID);
         Person person = PersonDAO.getPersonByScreenName(username);
 
@@ -46,6 +46,7 @@ public class PushUserAttributesServlet extends HttpServlet {
         msgLst.add(birthStr);
 
         String genderExpectation;
+        assert person != null;
         String gender = person.getGender();
         String genderOrientation = user.getGenderOrientation();
         if (gender.equals("male")) {
@@ -66,5 +67,7 @@ public class PushUserAttributesServlet extends HttpServlet {
         String slogan = user.getSlogan();
         if (slogan == null || slogan.equals("")) slogan = "entre your slogan";
         msgLst.add(slogan);
+
+
     }
 }
