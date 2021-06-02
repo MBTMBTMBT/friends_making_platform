@@ -8,29 +8,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.supports.HibernateUtil;
-import database.tables.Event;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.mysql.cj.Query;
 
-public class EventDAO {
+public class LikesDAO {
+
 	
-	public static List<Event> getAllEvent() {
-		List<Event> event  = null;
+	public static List<Likes> getAllLikes() {
+		List<Likes> l  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			event = session.createQuery("from Event").list();
+			l = session.createQuery("from Likes").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		
-		return event;
+		return l;
 	}
 	
 	
-	public static void saveEvent(Event e) {
+	public static void saveLikes(Likes e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -45,26 +44,26 @@ public class EventDAO {
 	}
 
 	
-	public static Event getEventByKey(int LocationID,String time) {
-		Event event = null;
+	public static Likes getLikesByKey(int uid1,int uid2) {
+		Likes l = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			event = (Event)session.createQuery("from Event where LocationID = "+ LocationID + "and Time = "+ time).uniqueResult();
+			l = (Likes)session.createQuery("from Likes where Uid1 = "+ uid1 + "and Uid2 = "+uid2).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		return event;
+		return l;
 
 	}
 	
 	
-	public static void deleteEventByKey(int LocationID,String time) {
-		Event event = new Event();
+	public static void deleteLikesByKey(int uid1,int uid2) {
+		Likes l = new Likes();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
-			event.setLocationID(LocationID);
-			event.setTime(time);
-			session.delete(event);
+			l.setUid1(uid1);
+			l.setUid2(uid2);
+			session.delete(l);
 			transaction.commit();
 	    	session.close();
 			
@@ -75,7 +74,7 @@ public class EventDAO {
 	
 	
 	
-	public static void updateEvent(Event e) {
+	public static void updateLikes(Likes e) {
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();

@@ -21,7 +21,7 @@ public class EmployeeDAO {
 		List<Employee> employee  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			employee = session.createQuery("from employee").list();
+			employee = session.createQuery("from Employee").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class EmployeeDAO {
 		Employee employee = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			employee = (Employee)session.createQuery("from employee where EmployeeID = "+id).uniqueResult();
+			employee = (Employee)session.createQuery("from Employee where EmployeeID = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class EmployeeDAO {
 		Employee employee = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			employee = (Employee)session.createQuery("from employee where SystemID = "+id).uniqueResult();
+			employee = (Employee)session.createQuery("from Employee where SystemID = "+id).uniqueResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

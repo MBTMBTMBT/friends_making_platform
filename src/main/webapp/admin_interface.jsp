@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="database.tables.Admin" %>
-<%@ page import="database.daos.AdminDAO" %>
+<%@ page import="database.tables.Administractor" %>
+<%@ page import="database.daos.AdministractorDAO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.LinkedList" %>
 <%

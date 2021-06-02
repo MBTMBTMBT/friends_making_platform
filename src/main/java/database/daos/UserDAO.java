@@ -20,7 +20,7 @@ public class UserDAO {
 		List<User> user  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			user = session.createQuery("from user").list();
+			user = session.createQuery("from User").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class UserDAO {
 		User user = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			user = (User)session.createQuery("from user where UserID = "+id).uniqueResult();
+			user = (User)session.createQuery("from User where UserID = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class UserDAO {
 		User user = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			user = (User)session.createQuery("from user where SystemID = "+id).uniqueResult();
+			user = (User)session.createQuery("from User where SystemID = "+id).uniqueResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

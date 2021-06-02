@@ -4,7 +4,7 @@ request.setAttribute("msg", "Please entre your user/admin ID");
 }%>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="../csss/login_css.css">
+  <link rel="stylesheet" href="css/login_css.css">
   <title>user login</title>
 </head>
 
@@ -25,7 +25,7 @@ request.setAttribute("msg", "Please entre your user/admin ID");
          style="background-color:rgba(0,0,1,0.5)"> <br><br><br>
          <input type = "password" placeholder="PASSWORD" name = "password" style="font-size: large"> <br>
 
-      <span id="msg" style="font-size: 12px;color:red"></span> <br> 
+        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br> <br>
 
         <button type=submit>login</button>
         <button type="button" onclick="window.location.href='register.jsp';">register</button>

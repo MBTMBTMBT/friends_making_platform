@@ -21,7 +21,7 @@ public class PsychologicalMentorDAO {
 		List<PsychologicalMentor> p  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			p = session.createQuery("from phsycological_mentor").list();
+			p = session.createQuery("from PsychologicalMentor").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class PsychologicalMentorDAO {
 		PsychologicalMentor p = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			p = (PsychologicalMentor)session.createQuery("from phsycological_mentor where MentorNumber = "+id).uniqueResult();
+			p = (PsychologicalMentor)session.createQuery("from PsychologicalMentor where MentorNumber = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -61,7 +61,7 @@ public class PsychologicalMentorDAO {
 		PsychologicalMentor p = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			p = (PsychologicalMentor)session.createQuery("from phsycological_mentor where SystemID = "+id).uniqueResult();
+			p = (PsychologicalMentor)session.createQuery("from PsychologicalMentor where SystemID = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }

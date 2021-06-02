@@ -23,26 +23,37 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Person person = PersonDAO.getPersonByScreenName(username);  // first get this person if possible
-        if (person == null) loginFail(request, response);  // if I get null, the username (screen name) doesn't exist.
-        assert person != null;  // assert it is not null
-        if(personLogin(person, password)) {  // now try to login with the password
-            if (isAdmin(person)) {
-                // login successfully for admin
-                request.setAttribute("admin_username", username);
-                request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
-            } else if (isMentor(person)) {
-                // login successfully for mentor
-                request.setAttribute("mentor_username", username);
-                request.getRequestDispatcher("/mentorMainPageServlet").forward(request, response);
-            } else if (isUser(person)) {
-                // login successfully for user
-                request.setAttribute("user_username", username);
-                request.getRequestDispatcher("/userMainPageServlet").forward(request, response);
-            } else {
-                loginFail(request, response);  // this should never happen
-            }
-        } else loginFail(request, response);  // if password is not correct, return with message
+
+        try {
+            if (username.equals("")) loginFail(request, response, "Cannot login with empty username");
+            Person person = PersonDAO.getPersonByScreenName(username);  // first get this person if possible
+
+            if (person == null)
+                loginFail(request, response);  // if I get null, the username (screen name) doesn't exist.
+
+            assert person != null;  // assert it is not null
+
+            if (personLogin(person, password)) {  // now try to login with the password
+                if (isAdmin(person)) {
+                    // login successfully for admin
+                    request.setAttribute("admin_username", username);
+                    request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
+                } else if (isMentor(person)) {
+                    // login successfully for mentor
+                    request.setAttribute("mentor_username", username);
+                    request.getRequestDispatcher("/mentorMainPageServlet").forward(request, response);
+                } else if (isUser(person)) {
+                    // login successfully for user
+                    request.setAttribute("user_username", username);
+                    request.getRequestDispatcher("/userMainPageServlet").forward(request, response);
+                } else {
+                    loginFail(request, response);  // this should never happen
+                }
+            } else loginFail(request, response);  // if password is not correct, return with message
+
+        } catch (Exception ignore) {
+            loginFail(request, response, "System Exception");
+        }
     }
 
     //  three methods to see what type is this person
@@ -76,6 +87,12 @@ public class LoginServlet extends HttpServlet {
     private static void loginFail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("msg", "Wrong Pass Word, Or invalid username.");
         System.out.println("Login failed!");
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
+    }
+
+    private static void loginFail(HttpServletRequest request, HttpServletResponse response, String msg) throws ServletException, IOException {
+        request.setAttribute("msg", msg);
+        System.out.println(msg);
         request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 }

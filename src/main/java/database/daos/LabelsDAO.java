@@ -8,29 +8,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import database.supports.HibernateUtil;
-import database.tables.Event;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.mysql.cj.Query;
 
-public class EventDAO {
+public class LabelsDAO {
 	
-	public static List<Event> getAllEvent() {
-		List<Event> event  = null;
+	public static List<Labels> getAllLabels() {
+		List<Labels> l  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			event = session.createQuery("from Event").list();
+			l = session.createQuery("from Labels").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		
-		return event;
+		return l;
 	}
 	
 	
-	public static void saveEvent(Event e) {
+	public static void saveLabels(Labels e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -45,26 +43,25 @@ public class EventDAO {
 	}
 
 	
-	public static Event getEventByKey(int LocationID,String time) {
-		Event event = null;
+	public static Labels getLabelsByKey(int id) {
+		Labels l = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			event = (Event)session.createQuery("from Event where LocationID = "+ LocationID + "and Time = "+ time).uniqueResult();
+			l = (Labels)session.createQuery("from Labels where Serial = " + id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		return event;
+		return l;
 
 	}
 	
 	
-	public static void deleteEventByKey(int LocationID,String time) {
-		Event event = new Event();
+	public static void deleteLabelsByKey(int id) {
+		Labels l = new Labels();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
-			event.setLocationID(LocationID);
-			event.setTime(time);
-			session.delete(event);
+			l.setSerial(id);
+			session.delete(l);
 			transaction.commit();
 	    	session.close();
 			
@@ -75,7 +72,7 @@ public class EventDAO {
 	
 	
 	
-	public static void updateEvent(Event e) {
+	public static void updateLabels(Labels e) {
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
@@ -91,3 +88,4 @@ public class EventDAO {
 
 
 }
+

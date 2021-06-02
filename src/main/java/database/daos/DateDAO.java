@@ -21,7 +21,7 @@ public class DateDAO {
 		List<Date> date  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			date = session.createQuery("from date").list();
+			date = session.createQuery("from Date").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class DateDAO {
 		Date date = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			date = (Date)session.createQuery("from date where Uid1 = "+ uid1 + "and Uid2 = "+uid2+"and HHDDMMYY = "+ hdmy).uniqueResult();
+			date = (Date)session.createQuery("from Date where Uid1 = "+ uid1 + "and Uid2 = "+uid2+"and HHDDMMYY = "+ hdmy).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }

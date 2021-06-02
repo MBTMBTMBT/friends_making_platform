@@ -21,7 +21,7 @@ public class EventLocationDAO {
 		List<EventLocation> eventLocation  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			eventLocation = session.createQuery("from event_location").list();
+			eventLocation = session.createQuery("from EventLocation").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -49,7 +49,7 @@ public class EventLocationDAO {
 		EventLocation eventLocation = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			eventLocation = (EventLocation)session.createQuery("from event_location where LocationID = " + id).uniqueResult();
+			eventLocation = (EventLocation)session.createQuery("from EventLocation where LocationID = " + id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }

@@ -20,7 +20,7 @@ public class PersonDAO {
 		List<Person> person = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			person = session.createQuery("from person").list();
+			person = session.createQuery("from Person").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class PersonDAO {
 		Person person = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			person = (Person)session.createQuery("from person where SystemID = "+id).uniqueResult();
+			person = (Person)session.createQuery("from Person where SystemID = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -90,13 +90,21 @@ public class PersonDAO {
 
 	public static Person getPersonByScreenName(String name) {
 		Person person = null;
-
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			person = (Person)session.createQuery("from person where ScreenName = "+name).uniqueResult();
-		} catch (Exception e) {
-			e.printStackTrace();
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			person = (Person)session.createQuery("from Person where ScreenName = "+name).uniqueResult();
+		} catch (Exception ignore) {
+			// e.printStackTrace();
+			return null;
 		}
 		return person;
+	}
 
+	public static void main(String[] args) {
+		try {
+			System.out.println(getPersonByScreenName("mbt"));
+		} catch (Exception ignore) {
+			System.out.println("cao");
+		}
 	}
 }
