@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%if (request.getAttribute("msg") == null) {
+  request.setAttribute("msg", "abaaba");
+}%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +64,7 @@
 </head>
 
 <body>
-<form action="#" method="post"><br><br><br>
+<form action="userRegisterServlet" method="post" id="registerForm"><br><br><br>
     <div class="a">
       <div class="b">
         <div class="c">
@@ -86,7 +90,7 @@
                 <input type="radio" name="sex" class="f" value="female">Female<br>
               </td>
             </tr>
-            <br>
+            <br> <span style="font-size: 16px;color:red" align="center"><%=request.getAttribute("msg")%></span><br><br>
             <tr>
               <td colspan="2" align="center"><input type="submit"  id= "register" value="register" style="font-size: 25px;"></td>
             </tr>

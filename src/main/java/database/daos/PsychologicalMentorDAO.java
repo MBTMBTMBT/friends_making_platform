@@ -57,7 +57,7 @@ public class PsychologicalMentorDAO {
 
 	}
 	
-	public static PsychologicalMentor getPhsycological_MentorBySystemID(int id) {
+	public static PsychologicalMentor getPsychologicalMentorBySystemID(int id) {
 		PsychologicalMentor p = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {

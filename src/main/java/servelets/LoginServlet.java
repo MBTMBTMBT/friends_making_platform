@@ -36,14 +36,23 @@ public class LoginServlet extends HttpServlet {
             if (personLogin(person, password)) {  // now try to login with the password
                 if (isAdmin(person)) {
                     // login successfully for admin
+                    Administractor administractor = AdministractorDAO.getAdministractorBySystemID(person.getSystemID());
+                    int adminNumber = administractor.getAdminNumber();
+                    request.setAttribute("admin_number", adminNumber);
                     request.setAttribute("admin_username", username);
                     request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
                 } else if (isMentor(person)) {
                     // login successfully for mentor
+                    PsychologicalMentor mentor = PsychologicalMentorDAO.getPsychologicalMentorBySystemID(person.getSystemID());
+                    int mentorNumber = mentor.getMentorNumber();
+                    request.setAttribute("mentor_number", mentorNumber);
                     request.setAttribute("mentor_username", username);
                     request.getRequestDispatcher("/mentorMainPageServlet").forward(request, response);
                 } else if (isUser(person)) {
                     // login successfully for user
+                    User user = UserDAO.getUserBySystemID(person.getSystemID());
+                    int userID = user.getUserID();
+                    request.setAttribute("user_id", userID);
                     request.setAttribute("user_username", username);
                     request.getRequestDispatcher("/userMainPageServlet").forward(request, response);
                 } else {
@@ -67,7 +76,7 @@ public class LoginServlet extends HttpServlet {
     private static boolean isMentor(Person person) {
         if (person == null) return false;
         int systemID = person.getSystemID();
-        PsychologicalMentor mentor = PsychologicalMentorDAO.getPhsycological_MentorBySystemID(systemID);
+        PsychologicalMentor mentor = PsychologicalMentorDAO.getPsychologicalMentorBySystemID(systemID);
         return mentor != null;
     }
 

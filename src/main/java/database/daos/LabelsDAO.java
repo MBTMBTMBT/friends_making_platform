@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.supports.HibernateUtil;
+import database.tables.Labels;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
