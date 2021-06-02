@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%if (request.getAttribute("msg") == null) {
-  request.setAttribute("msg", "abaaba");
+  request.setAttribute("msg", "");
 }%>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,40 +13,65 @@
   </style>
 </head>
 <body>
-<form action="#" method="post"><br>
+<form action="setUserAttributesServlet" method="post"><br>
   <table align="center" >
     <tr>
       <td>
         <label for="screenname"  style="color: white;font-size: larger;font-weight:bolder">screenname</label>
-        <br> <span style="font-size: 16px;color:red" align="center"><%=request.getAttribute("msg")%></span><br>
+        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
       </td>
       <td><input type="text" name="screenname" id="screenname" style="font-size:smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your screenname"></td>
     </tr>
     <tr>
-      <td><label for="email" style="color: white;font-size: larger;font-weight:bolder">E-mail</label></td>
+      <td>
+        <label for="email" style="color: white;font-size: larger;font-weight:bolder">E-mail</label>
+        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
+
       <td><input type="email" name="email" id="email" style="font-size: smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your E-mail"></td>
     </tr>
     <tr>
-      <td><label for="Wechat" style="color: white;font-size: larger;font-weight:bolder">Wechat</label></td>
+      <td>
+        <label for="Wechat" style="color: white;font-size: larger;font-weight:bolder">Wechat</label>
+        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
+
       <td><input type="text" name="Wechat" id="Wechat" style="font-size: smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your Wechat"></td>
     </tr>
     <tr>
-      <td><label for="birthday" style="color: white;font-size: larger;font-weight:bolder">birthday</label></td>
+      <td>
+        <label for="birthday" style="color: white;font-size: larger;font-weight:bolder">birthday</label>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span>
+      </td>
+
+      <br>
       <td><input type="date" name="birthday" id="birthday" ></td>
     </tr>
     <tr>
-      <td><label style="color: white;font-size: larger;font-weight:bolder"> gender orientation</label></td>
+      <td>
+        <label style="color: white;font-size: larger;font-weight:bolder"> gender orientation</label>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
+
       <td>
         <input type="radio" name="orientation" value="hetero">hetero
         <input type="radio" name="orientation" value="homosexual">homosexual
       </td>
     </tr>
     <tr>
-      <td><label for="slogan" style="color: white;font-size: larger;font-weight:bolder">slogan</label></td>
+      <td>
+        <label for="slogan" style="color: white;font-size: larger;font-weight:bolder">slogan</label>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
+
       <td><textarea type="text" rows="10" cols="40" name="slogan" id="slogan" style="font-size: smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your slogan"></textarea></td>
     </tr>
     <tr>
-      <td><label style="color: white;font-size: larger;font-weight:bolder"> Sports</label></td>
+      <td>
+        <label style="color: white;font-size: larger;font-weight:bolder"> Sports</label>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
+
       <td>
         <input type="checkbox" name="sports" value="gym">gym
         <input type="checkbox" name="sports" value="ski">ski
@@ -76,7 +101,11 @@
       </td>
     </tr>
     <tr>
-      <td><label style="color: white;font-size: larger;font-weight:bolder">Foods</label></td>
+      <td>
+        <label style="color: white;font-size: larger;font-weight:bolder">Food</label>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
+
       <td>
         <input type="checkbox" name="foods" value="Beijing Roast Duck">Beijing Roast Duck
         <input type="checkbox" name="foods" value="Hong Kong morning tea">Hong Kong morning tea<br>
@@ -110,7 +139,11 @@
       </td>
     </tr>
     <tr>
-      <td><label style="color: white;font-size: larger;font-weight:bolder">Travel Footprint</label></td>
+      <td>
+        <label style="color: white;font-size: larger;font-weight:bolder">Travel Footprint</label>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
+
       <td>
         <input type="checkbox" name="Travel Footprint" value="Chengdu">Chengdu
         <input type="checkbox" name="Travel Footprint" value="Guilin">Guilin
@@ -121,8 +154,7 @@
         <input type="checkbox" name="Travel Footprint" value="Xizang">Xizang
         <input type="checkbox" name="Travel Footprint" value="Gulangyu">Gulangyu<br>
         <input type="checkbox" name="Travel Footprint" value="Zhangjiajie">Zhangjiajie
-        <input type="checkbox" name="Travel Footprint" value="Jiuzhaigou">Jiuzhaigou
-        <input type="checkbox" name="Travel Footprint" value="Taiwan">Taiwan<br>
+        <input type="checkbox" name="Travel Footprint" value="Jiuzhaigou">Jiuzhaigou<br>
         <input type="checkbox" name="Travel Footprint" value="Japan">Japan
         <input type="checkbox" name="Travel Footprint" value="Korean">Korean
         <input type="checkbox" name="Travel Footprint" value="Jeju">Jeju
@@ -168,39 +200,74 @@
       </td>
     </tr>
     <tr>
-      <td><label style="color: white;font-size: larger;font-weight:bolder">Music</label></td>
       <td>
-        <input type="checkbox" name="music" value="Europe and US">Europe and US
-        <input type="checkbox" name="music" value="Janpan and Korea">Janpan and Korea
-        <input type="checkbox" name="music" value="popular">popular
-        <input type="checkbox" name="music" value="rock">rock<br>
-        <input type="checkbox" name="music" value="electronic">electronic
-        <input type="checkbox" name="music" value="R&B">R&B
-        <input type="checkbox" name="music" value="hip hop">hip hop
-        <input type="checkbox" name="music" value="bruce">bruce
-        <input type="checkbox" name="music" value="metal">metal
-        <input type="checkbox" name="music" value="light">light<br>
-        <input type="checkbox" name="music" value="classical">classical
-        <input type="checkbox" name="music" value="Jay Chou">Jay Chou
-        <input type="checkbox" name="music" value="Eason Chen">Eason Chen
-        <input type="checkbox" name="music" value="Lihong Wang">Lihong Wang<br>
-        <input type="checkbox" name="music" value="Jingteng Xiao">Jingteng Xiao
-        <input type="checkbox" name="music" value="Ziqi Deng">Ziqi Deng
-        <input type="checkbox" name="music" value="Ruoying Liu">Ruoying Liu
-        <input type="checkbox" name="music" value="Yanzi Sun">Yanzi Sun<br>
-        <input type="checkbox" name="music" value="Huimei Zhang">Huimei Zhang
-        <input type="checkbox" name="music" value="Wenwei Mo">Wenwei Mo
-        <input type="checkbox" name="music" value="Wanting Qu">Wanting Qu
-        <input type="checkbox" name="music" value="Dongye Song">Dongye Song<br>
-        <input type="checkbox" name="music" value="Xueyou Zhang">Xueyou Zhang
-        <input type="checkbox" name="music" value="Guorong Zhang">Guorong Zhang
-        <input type="checkbox" name="music" value="Dehua Liu">Dehua Liu
-        <input type="checkbox" name="music" value="Zongsheng Li">Zongsheng Li<br>
-        <input type="checkbox" name="music" value="Dayou Luo">Dayou Luo
-        <input type="checkbox" name="music" value="Bai Wu">Bai Wu
-        <input type="checkbox" name="music" value="Feng Wang">Feng Wang
-        <input type="checkbox" name="music" value="Beyond">Beyond
+        <label style="color: white;font-size: larger;font-weight:bolder">Films</label>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
 
+      <td>
+        <input type="checkbox" name="film" value="The Shawshank Redemption">The Shawshank Redemption
+        <input type="checkbox" name="film" value="Forrest Gump">Forrest Gump
+        <input type="checkbox" name="film" value="Inception">Inception
+        <input type="checkbox" name="film" value="The Matrix">The Matrix<br>
+        <input type="checkbox" name="film" value="The Legend Of 1900">The Legend Of 1900
+        <input type="checkbox" name="film" value="Spirited Away">Spirited Away
+        <input type="checkbox" name="film" value="Roman Holiday">Roman Holiday
+        <input type="checkbox" name="film" value="Schindler's List">Schindler's List
+        <input type="checkbox" name="film" value="Amelie from Montmartre">Amelie from Montmartre
+        <input type="checkbox" name="film" value="A Beautiful Mind">A Beautiful Mind<br>
+        <input type="checkbox" name="film" value="Farewell My concubine">Farewell My concubine
+        <input type="checkbox" name="film" value="Leon">Leon
+        <input type="checkbox" name="film" value="The Godfather">The Godfather
+        <input type="checkbox" name="film" value="Titanic">Titanic<br>
+        <input type="checkbox" name="film" value="Batman">Batman
+        <input type="checkbox" name="film" value="Pulp Fiction">Pulp Fiction
+        <input type="checkbox" name="film" value="Fight Club">Fight Club
+        <input type="checkbox" name="film" value="The Upside">The Upside<br>
+        <input type="checkbox" name="film" value="Hachiko: A Dog's Story">Hachiko: A Dog's Story
+        <input type="checkbox" name="film" value="Gone with the Wind">Gone with the Wind
+        <input type="checkbox" name="film" value="The Pursuit of Happyness">The Pursuit of Happyness
+        <input type="checkbox" name="film" value="One Flew Over the Cuckoo's Nest">One Flew Over the Cuckoo's Nest<br>
+        <input type="checkbox" name="film" value="Scent Of A Woman">Scent Of A Woman
+        <input type="checkbox" name="film" value="Dead Poets Society">Dead Poets Society
+        <input type="checkbox" name="film" value="The Lord of the Rings">The Lord of the Rings
+        <input type="checkbox" name="film" value="Harry Potter">Harry Potter<br>
+        <input type="checkbox" name="film" value="Infernal Affairs">Infernal Affairs
+        <input type="checkbox" name="film" value="American Dreams in China">American Dreams in China
+        <input type="checkbox" name="film" value="Chungking express">Chungking express
+        <input type="checkbox" name="film" value="the silence of the lambs">the silence of the lambs
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label style="color: white;font-size: larger;font-weight:bolder">Books</label>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
+
+      <td>
+        <input type="checkbox" name="Books" value="A Tale of Two Cities">A Tale of Two Cities
+        <input type="checkbox" name="Books" value="Anna Karenina">Anna Karenina
+        <input type="checkbox" name="Books" value="Crime and Punishment">Crime and Punishment
+        <input type="checkbox" name="Books" value="David Copperfield">David Copperfield<br>
+        <input type="checkbox" name="Books" value="Emma">Emma
+        <input type="checkbox" name="Books" value="For Whom the Bell Tolls">For Whom the Bell Tolls
+        <input type="checkbox" name="Books" value="Gone with the Wind">Gone with the Wind
+        <input type="checkbox" name="Books" value="Great Expectations">Great Expectations<br>
+        <input type="checkbox" name="Books" value="Hamlet">Hamlet
+        <input type="checkbox" name="Books" value="Jane Eyre">Jane Eyre
+        <input type="checkbox" name="Books" value="Jean Christophe">Jean Christophe<br>
+        <input type="checkbox" name="Books" value="King Lear">King Lear
+        <input type="checkbox" name="Books" value="Les Miserables">Les Miserables
+        <input type="checkbox" name="Books" value="Little Women">Little Women
+        <input type="checkbox" name="Books" value="Oliver Twist">Oliver Twist
+        <input type="checkbox" name="Books" value="Pride and Prejudice">Pride and Prejudice<br>
+        <input type="checkbox" name="Books" value="Resurrection">Resurrection
+        <input type="checkbox" name="Books" value="Robinson Crusoe">Robinson Crusoe
+        <input type="checkbox" name="Books" value="Sense and Sensibility">Sense and Sensibility
+        <input type="checkbox" name="Books" value="The Great Gatsby">The Great Gatsby<br>
+        <input type="checkbox" name="Books" value="The Old Man and the Sea">The Old Man and the Sea
+        <input type="checkbox" name="Books" value="Walden">Walden<br>
 
       </td>
     </tr>
