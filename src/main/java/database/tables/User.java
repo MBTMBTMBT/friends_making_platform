@@ -36,23 +36,8 @@ public class User {
 	@Column(name="Slogan")
 	private String Slogan;
 	
-	@Column(name="Locations")
-	private String Locations;
-	
 	@Column(name="Work")
-	private String Work;
-	
-	@Column(name="Food")
-	private String Food;
-	
-	@Column(name="Film")
-	private String Film;
-	
-	@Column(name="Book")
-	private String Book;
-	
-	@Column(name="Sport")
-	private String Sport;
+	private int Work;
 	
 	@Column(name="MentorID")
 	private int MentorID;
@@ -61,8 +46,7 @@ public class User {
 	}
 	
 	
-	public User(int SystemID, int UserID, String Emailaddress, String Wechat, String GenderOrientation, Date DataOfBirth, String Slogan,String Locations,String Work,
-			String Food,String Film,String Book,String Sport,int MentorID ) {
+	public User(int SystemID, int UserID, String Emailaddress, String Wechat, String GenderOrientation, Date DataOfBirth, String Slogan,int Work,int MentorID ) {
 		super();
 
 		this.SystemID = SystemID;
@@ -72,12 +56,7 @@ public class User {
 		this.GenderOrientation = GenderOrientation;
 		this.DataOfBirth = DataOfBirth;
 		this.Slogan = Slogan;
-		this.Locations = Locations;
 		this.Work = Work;
-		this.Food = Food;
-		this.Film = Film;
-		this.Book = Book;
-		this.Sport = Sport;
 		this.MentorID = MentorID;
 	}
 
@@ -156,62 +135,14 @@ public class User {
 	}
 	
 	
-	public String getLocations() {
-		return Locations;
-	}
-
-	public void setLocations(String Locations) {
-		this.Locations = Locations;
-	}
 	
-	
-	
-	public String getWork() {
+	public int getWork() {
 		return Work;
 	}
 
-	public void setWork(String Work) {
+	public void setWork(int Work) {
 		this.Work = Work;
 	}
-
-	
-	public String getFood() {
-		return Food;
-	}
-
-	public void setFood(String Food) {
-		this.Food = Food;
-	}
-	
-	
-	public String getFilm() {
-		return Film;
-	}
-
-	public void setFilm(String Film) {
-		this.Film = Film;
-	}
-	
-	
-	
-	public String getBook() {
-		return Book;
-	}
-
-	public void setBook(String Book) {
-		this.Book = Book;
-	}
-	
-	
-	
-	public String getSport() {
-		return Sport;
-	}
-
-	public void setSport(String Sport) {
-		this.Sport = Sport;
-	}
-	
 	
 	
 	public int getMentorID() {
@@ -250,46 +181,8 @@ public class User {
 		if(this.Slogan == null || this.Slogan.length()<8) {
 			output = output + "\t";
 		}
-
-		output +="\t"+this.Locations;
 		
-		if(this.Locations == null || this.Locations.length()<8) {
-			output = output + "\t";
-		}
-		
-		output +="\t"+this.Work;
-		
-		if(this.Work == null || this.Work.length()<8) {
-			output = output + "\t";
-		}
-		
-		
-		output +="\t"+this.Food;
-		
-		if(this.Food == null || this.Food.length()<8) {
-			output = output + "\t";
-		}
-		
-		output +="\t"+this.Film;
-		
-		if(this.Film == null || this.Film.length()<8) {
-			output = output + "\t";
-		}
-		
-		output +="\t"+this.Book;
-		
-		if(this.Book == null || this.Book.length()<8) {
-			output = output + "\t";
-		}
-		
-		
-		output +="\t"+this.Sport;
-		
-		if(this.Sport == null || this.Sport.length()<8) {
-			output = output + "\t";
-		}
-		
-		output +="\t"+this.MentorID;
+		output +="\t"+this.Work+"\t\t"+this.MentorID;
 		
 		return output;
 	}
