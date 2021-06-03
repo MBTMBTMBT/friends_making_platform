@@ -18,7 +18,6 @@ public class PushUserAttributesServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        // request.getRequestDispatcher("/user_attributes.jsp").forward(request, response);
         String username = (String) request.getAttribute("user_username");
         int userID = (int) request.getAttribute("user_id");
 
@@ -81,6 +80,7 @@ public class PushUserAttributesServlet extends HttpServlet {
             sports += " ";
             if (count % 3 == 0) sports += "\n";
         }
+        msgLst.add(sports);
 
         String food = "";
         List<Object> foodList = FoodDAO.getAllValuesWithUID(userID);
@@ -92,6 +92,7 @@ public class PushUserAttributesServlet extends HttpServlet {
             food += " ";
             if (count % 3 == 0) food += "\n";
         }
+        msgLst.add(food);
 
         String location = "";
         List<Object> locationList = LocationDAO.getAllValuesWithUID(userID);
@@ -103,6 +104,7 @@ public class PushUserAttributesServlet extends HttpServlet {
             location += " ";
             if (count % 3 == 0) location += "\n";
         }
+        msgLst.add(location);
 
         String films = "";
         List<Object> filmsList = SportsDAO.getAllValuesWithUID(userID);
@@ -114,6 +116,7 @@ public class PushUserAttributesServlet extends HttpServlet {
             films += " ";
             if (count % 3 == 0) films += "\n";
         }
+        msgLst.add(films);
 
         String books = "";
         List<Object> booksList = BooksDAO.getAllValuesWithUID(userID);
@@ -125,5 +128,12 @@ public class PushUserAttributesServlet extends HttpServlet {
             books += " ";
             if (count % 3 == 0) books += "\n";
         }
+        msgLst.add(books);
+
+        count = 0;
+        for (String eachMsg: msgLst) {
+            request.setAttribute("msg" + count, eachMsg);
+        }
+        request.getRequestDispatcher("/user_attributes.jsp").forward(request, response);
     }
 }
