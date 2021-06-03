@@ -1,9 +1,7 @@
 package servelets;
 
-import database.daos.PersonDAO;
-import database.daos.UserDAO;
-import database.tables.Person;
-import database.tables.User;
+import database.daos.*;
+import database.tables.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -68,6 +66,64 @@ public class PushUserAttributesServlet extends HttpServlet {
         if (slogan == null || slogan.equals("")) slogan = "entre your slogan";
         msgLst.add(slogan);
 
-        String industry
+        int workID = user.getWork();
+        Labels labels = LabelsDAO.getLabelsByKey(workID);
+        String work = labels.getWork();
+        msgLst.add(work);
+
+        String sports = "";
+        List<Object> sportsList = SportsDAO.getAllValuesWithUID(userID);
+        int count = 0;
+        for (Object eachObject: sportsList) {
+            count += 1;
+            Sports eachSport = (Sports) eachObject;
+            sports += LabelsDAO.getLabelsByKey(eachSport.getSid()).getSport();
+            sports += " ";
+            if (count % 3 == 0) sports += "\n";
+        }
+
+        String food = "";
+        List<Object> foodList = FoodDAO.getAllValuesWithUID(userID);
+        count = 0;
+        for (Object eachObject: foodList) {
+            count += 1;
+            Food eachFood = (Food) eachObject;
+            food += LabelsDAO.getLabelsByKey(eachFood.getFid()).getFood();
+            food += " ";
+            if (count % 3 == 0) food += "\n";
+        }
+
+        String location = "";
+        List<Object> locationList = LocationDAO.getAllValuesWithUID(userID);
+        count = 0;
+        for (Object eachObject: locationList) {
+            count += 1;
+            Location eachLocation = (Location) eachObject;
+            location += LabelsDAO.getLabelsByKey(eachLocation.getLid()).getLocations();
+            location += " ";
+            if (count % 3 == 0) location += "\n";
+        }
+
+        String films = "";
+        List<Object> filmsList = SportsDAO.getAllValuesWithUID(userID);
+        count = 0;
+        for (Object eachObject: filmsList) {
+            count += 1;
+            Films eachFilm = (Films) eachObject;
+            films += LabelsDAO.getLabelsByKey(eachFilm.getFid()).getFilm();
+            films += " ";
+            if (count % 3 == 0) films += "\n";
+        }
+
+        String books = "";
+        List<Object> booksList = BooksDAO.getAllValuesWithUID(userID);
+        count = 0;
+        for (Object eachObject: booksList) {
+            count += 1;
+            Books eachBook = (Books) eachObject;
+            books += LabelsDAO.getLabelsByKey(eachBook.getBid()).getBook();
+            books += " ";
+            if (count % 3 == 0) books += "\n";
+        }
     }
 }

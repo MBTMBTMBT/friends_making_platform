@@ -22,10 +22,10 @@ public class FilmsDAO {
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = session.createQuery("from Films").list();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		
 		return l;
 	}
 	
@@ -36,6 +36,7 @@ public class FilmsDAO {
             transaction = session.beginTransaction();
             session.save(e);
             transaction.commit();
+            session.close();
         } catch (Exception exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -47,9 +48,9 @@ public class FilmsDAO {
 	
 	public static Films getFilmsByKey(int fid,int uid) {
 		Films l = null;
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = (Films)session.createQuery("from Films where Fid = "+ fid + " and Uid = "+uid).uniqueResult();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -67,7 +68,6 @@ public class FilmsDAO {
 			session.delete(l);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -76,20 +76,27 @@ public class FilmsDAO {
 	
 	
 	public static void updateFilms(Films e) {
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
 			session.update(e);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception m) {
            m.printStackTrace();
         }
 		
 	}
 
-
+	public static List<Object> getAllValuesWithUID(int userID) {
+		List<Object> list = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = (List<Object>) session.createQuery("from Films where Uid = "+ userID).list();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
 
 

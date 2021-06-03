@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%if (request.getAttribute("msg") == null) {
-  request.setAttribute("msg", "");
+  request.setAttribute("msg", "no info");
 }%>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,18 +14,18 @@
 </head>
 <body>
 <form action="setUserAttributesServlet" method="post"><br>
-  <table align="center" >
+  <table align="center">
     <tr>
       <td>
         <label for="screenname"  style="color: white;font-size: larger;font-weight:bolder">screenname</label>
-        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg0")%></span><br>
       </td>
       <td><input type="text" name="screenname" id="screenname" style="font-size:smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your screenname"></td>
     </tr>
     <tr>
       <td>
         <label for="email" style="color: white;font-size: larger;font-weight:bolder">E-mail</label>
-        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg1")%></span><br>
       </td>
 
       <td><input type="email" name="email" id="email" style="font-size: smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your E-mail"></td>
@@ -33,7 +33,7 @@
     <tr>
       <td>
         <label for="Wechat" style="color: white;font-size: larger;font-weight:bolder">Wechat</label>
-        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg2")%></span><br>
       </td>
 
       <td><input type="text" name="Wechat" id="Wechat" style="font-size: smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your Wechat"></td>
@@ -41,7 +41,7 @@
     <tr>
       <td>
         <label for="birthday" style="color: white;font-size: larger;font-weight:bolder">birthday</label>
-        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg3")%></span>
       </td>
 
       <br>
@@ -51,7 +51,7 @@
     <tr>
       <td>
         <label style="color: white;font-size: larger;font-weight:bolder">gender preference</label>
-        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg4")%></span><br>
       </td>
       <td>
         <input type="radio" name="orientation" value="male">male
@@ -62,7 +62,7 @@
     <tr>
       <td>
         <label for="slogan" style="color: white;font-size: larger;font-weight:bolder">slogan</label>
-        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg5")%></span><br>
       </td>
 
       <td><textarea type="text" rows="10" cols="40" name="slogan" id="slogan" style="font-size: smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your slogan"></textarea></td>
@@ -71,7 +71,7 @@
     <tr>
       <td>
         <label style="color: white;font-size: larger;font-weight:bolder">industry</label>
-        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg6")%></span><br>
       </td>
       <td>
         <input type="radio" name="work" value="not selected">not selected<br>
@@ -92,7 +92,7 @@
     <tr>
       <td>
         <label style="color: white;font-size: larger;font-weight:bolder"> Sports</label>
-        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg7")%></span><br>
       </td>
 
       <td>
@@ -126,7 +126,7 @@
     <tr>
       <td>
         <label style="color: white;font-size: larger;font-weight:bolder">Food</label>
-        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg8")%></span><br>
       </td>
 
       <td>
@@ -164,7 +164,7 @@
     <tr>
       <td>
         <label style="color: white;font-size: larger;font-weight:bolder">Travel Footprint</label>
-        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg9")%></span><br>
       </td>
 
       <td>
@@ -223,7 +223,7 @@
     <tr>
       <td>
         <label style="color: white;font-size: larger;font-weight:bolder">Films</label>
-        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg10")%></span><br>
       </td>
 
       <td>
@@ -263,7 +263,7 @@
     <tr>
       <td>
         <label style="color: white;font-size: larger;font-weight:bolder">Books</label>
-        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg11")%></span><br>
       </td>
 
       <td>

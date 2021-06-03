@@ -19,23 +19,22 @@ public class BooksDAO {
 	
 	public static List<Books> getAllBooks() {
 		List<Books> l  = null;
-			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = session.createQuery("from Books").list();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		
 		return l;
 	}
-	
-	
+
 	public static void saveBooks(Books e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.save(e);
             transaction.commit();
+            session.close();
         } catch (Exception exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -44,19 +43,16 @@ public class BooksDAO {
         }
 	}
 
-	
 	public static Books getBooksByKey(int bid,int uid) {
 		Books l = null;
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = (Books)session.createQuery("from Books where Bid = "+ bid + " and Uid = "+uid).uniqueResult();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		return l;
-
 	}
-	
 	
 	public static void deleteBooksByKey(int bid,int uid) {
 		Books l = new Books();
@@ -67,29 +63,32 @@ public class BooksDAO {
 			session.delete(l);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
         }
 	}
 	
-	
-	
 	public static void updateBooks(Books e) {
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
 			session.update(e);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception m) {
            m.printStackTrace();
         }
-		
 	}
 
-
+	public static List<Object> getAllValuesWithUID(int userID) {
+		List<Object> list = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = (List<Object>) session.createQuery("from Books where Uid = "+ userID).list();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
 
 

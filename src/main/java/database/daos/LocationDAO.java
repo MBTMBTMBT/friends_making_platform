@@ -22,10 +22,10 @@ public class LocationDAO {
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = session.createQuery("from Location").list();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		
 		return l;
 	}
 	
@@ -36,6 +36,7 @@ public class LocationDAO {
             transaction = session.beginTransaction();
             session.save(e);
             transaction.commit();
+            session.close();
         } catch (Exception exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -47,9 +48,9 @@ public class LocationDAO {
 	
 	public static Location getLocationByKey(int lid,int uid) {
 		Location l = null;
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = (Location)session.createQuery("from Location where Lid = "+ lid + " and Uid = "+uid).uniqueResult();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -67,7 +68,6 @@ public class LocationDAO {
 			session.delete(l);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -82,14 +82,22 @@ public class LocationDAO {
 			session.update(e);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception m) {
            m.printStackTrace();
         }
 		
 	}
 
-
+	public static List<Object> getAllValuesWithUID(int userID) {
+		List<Object> list = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = (List<Object>) session.createQuery("from Location where Uid = "+ userID).list();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
 
 

@@ -19,17 +19,15 @@ public class SportsDAO {
 	
 	public static List<Sports> getAllSports() {
 		List<Sports> l  = null;
-			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = session.createQuery("from Sports").list();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		
 		return l;
 	}
-	
-	
+
 	public static void saveSports(Sports e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -44,17 +42,15 @@ public class SportsDAO {
         }
 	}
 
-	
 	public static Sports getSportsByKey(int sid,int uid) {
 		Sports l = null;
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = (Sports)session.createQuery("from Sports where Sid = "+ sid + " and Uid = "+uid).uniqueResult();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		return l;
-
 	}
 	
 	
@@ -67,28 +63,31 @@ public class SportsDAO {
 			session.delete(l);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
         }
 	}
-	
-	
-	
+
 	public static void updateSports(Sports e) {
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
 			session.update(e);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception m) {
            m.printStackTrace();
         }
-		
 	}
 
-
+	public static List<Object> getAllValuesWithUID(int userID) {
+		List<Object> list = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = (List<Object>) session.createQuery("from Sports where Uid = "+ userID).list();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
 

@@ -22,10 +22,10 @@ public class FoodDAO {
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = session.createQuery("from Food").list();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		
 		return l;
 	}
 	
@@ -36,6 +36,7 @@ public class FoodDAO {
             transaction = session.beginTransaction();
             session.save(e);
             transaction.commit();
+            session.close();
         } catch (Exception exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -47,9 +48,9 @@ public class FoodDAO {
 	
 	public static Food getFoodByKey(int fid,int uid) {
 		Food l = null;
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = (Food)session.createQuery("from Food where Fid = "+ fid + " and Uid = "+uid).uniqueResult();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -67,7 +68,6 @@ public class FoodDAO {
 			session.delete(l);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -76,18 +76,25 @@ public class FoodDAO {
 	
 	
 	public static void updateFood(Food e) {
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
 			session.update(e);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception m) {
            m.printStackTrace();
         }
 		
 	}
 
-
+	public static List<Object> getAllValuesWithUID(int userID) {
+		List<Object> list = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			list = (List<Object>) session.createQuery("from Food where Uid = "+ userID).list();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
