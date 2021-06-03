@@ -143,6 +143,8 @@ public class PushUserAttributesServlet extends HttpServlet {
             request.setAttribute("msg" + count, eachMsg);
             count += 1;
         }
+        request.setAttribute("user_username", username);
+        request.setAttribute("user_id", userID);
         request.getRequestDispatcher("/user_attributes.jsp").forward(request, response);
     }
 }

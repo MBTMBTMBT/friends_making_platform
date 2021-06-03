@@ -19,16 +19,14 @@ public class LabelsDAO {
 	
 	public static List<Labels> getAllLabels() {
 		List<Labels> l  = null;
-			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = session.createQuery("from Labels").list();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		
 		return l;
 	}
-	
 	
 	public static void saveLabels(Labels e) {
 		Transaction transaction = null;
@@ -36,6 +34,7 @@ public class LabelsDAO {
             transaction = session.beginTransaction();
             session.save(e);
             transaction.commit();
+            session.close();
         } catch (Exception exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -43,21 +42,18 @@ public class LabelsDAO {
             exp.printStackTrace();
         }
 	}
-
 	
 	public static Labels getLabelsByKey(int id) {
 		Labels l = null;
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			l = (Labels)session.createQuery("from Labels where Serial = " + id).uniqueResult();
+			session.close();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		return l;
-
 	}
-	
-	
+
 	public static void deleteLabelsByKey(int id) {
 		Labels l = new Labels();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -66,28 +62,31 @@ public class LabelsDAO {
 			session.delete(l);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
         }
 	}
-	
-	
-	
+
 	public static void updateLabels(Labels e) {
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
 			session.update(e);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception m) {
            m.printStackTrace();
         }
-		
 	}
 
-
+	public static int getKeyByAttribute(String attributeName, String attributeValue) {
+		int key = 1;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			Labels l = (Labels)session.createQuery("from Labels where " + attributeName + " = " + attributeValue).uniqueResult();
+			key = l.getSerial();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return key;
+	}
 }
-
