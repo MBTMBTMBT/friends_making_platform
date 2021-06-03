@@ -32,7 +32,7 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Person.class);
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Employee.class);
-                configuration.addAnnotatedClass(Administractor.class);
+                configuration.addAnnotatedClass(Administrator.class);
                 configuration.addAnnotatedClass(Date.class);
                 configuration.addAnnotatedClass(Event.class);
                 configuration.addAnnotatedClass(EventLocation.class);

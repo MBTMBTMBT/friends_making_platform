@@ -1,13 +1,7 @@
 package database.supports;
 
-import database.daos.EmployeeDAO;
-import database.daos.LabelsDAO;
-import database.daos.PersonDAO;
-import database.daos.PsychologicalMentorDAO;
-import database.tables.Employee;
-import database.tables.Labels;
-import database.tables.Person;
-import database.tables.PsychologicalMentor;
+import database.daos.*;
+import database.tables.*;
 
 public class SetDefault {
     public static void setDefaultMentor() {
@@ -38,6 +32,41 @@ public class SetDefault {
                 mentor.setSystemID(systemID);
                 mentor.setEmployeeID(employeeNum);
                 PsychologicalMentorDAO.savePhsycologicalMentor(mentor);
+            }
+        } catch (Exception exception) {
+            System.out.println("meet an error when setting default mentor");
+            exception.printStackTrace();
+        }
+    }
+
+    public static void setDefaultAdmin() {
+        try {
+            // we also need a default admin
+            // check if this default mentor exists
+            Administrator administrator = AdministractorDAO.getAdministractorByID(1);
+            if (administrator == null) {
+                String defaultAdminName = "Admin 1";
+                Person person = new Person();
+                person.setpassword("administrator");
+                person.setGender("female");
+                person.setForename("Benteng");
+                person.setSurname("Ma");
+                person.setScreenName(defaultAdminName);
+                PersonDAO.savePerson(person);
+                person = PersonDAO.getPersonByScreenName(defaultAdminName);
+                assert person != null;
+                int systemID = person.getSystemID();
+
+                Employee employee = new Employee();
+                employee.setSystemID(systemID);
+                EmployeeDAO.saveEmployee(employee);
+                int employeeNum = EmployeeDAO.getEmployeeBySystemID(systemID).getEmployeeID();
+
+                Administrator admin = new Administrator();
+                admin.setAdminNumber(1);
+                admin.setSystemID(systemID);
+                admin.setEmployeeID(employeeNum);
+                AdministractorDAO.saveAdministrator(admin);
             }
         } catch (Exception exception) {
             System.out.println("meet an error when setting default mentor");

@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="administractor")
-public class Administractor {
+@Table(name="administrator")
+public class Administrator {
 	
 	@Id
 	@Column(name="SystemID")
@@ -21,11 +21,11 @@ public class Administractor {
 	@Column(name="AdminNumber")
 	private int AdminNumber;
 	
-	public Administractor() {
+	public Administrator() {
 	}
 	
 	
-	public Administractor(int SystemID, int EmployeeID, int AdminNumber) {
+	public Administrator(int SystemID, int EmployeeID, int AdminNumber) {
 		super();
 
 		this.SystemID = SystemID;

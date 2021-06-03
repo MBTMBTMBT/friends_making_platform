@@ -68,6 +68,6 @@ public class PushUserAttributesServlet extends HttpServlet {
         if (slogan == null || slogan.equals("")) slogan = "entre your slogan";
         msgLst.add(slogan);
 
-
+        String industry
     }
 }

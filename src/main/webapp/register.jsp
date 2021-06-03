@@ -1,8 +1,8 @@
 <%@ page import="database.supports.SetDefault" %>
+<%@ page import="database.supports.DataBaseInitialize" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  SetDefault.setDefaultMentor();
-  SetDefault.setDefaultLabels();
+  DataBaseInitialize.setDefaultValues();
 %>
 <%if (request.getAttribute("msg") == null) {
   request.setAttribute("msg", "");

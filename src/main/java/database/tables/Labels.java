@@ -42,8 +42,7 @@ public class Labels {
 	
 	public Labels() {
 	}
-	
-	
+
 	public Labels(int Serial,String Locations,String Work,String Food,String Film,String Book,String Sport,String Activity) {
 		super();
 		this.Serial = Serial;
@@ -56,9 +55,6 @@ public class Labels {
 		this.Activity = Activity;
 	}
 
-
-	
-	
 	public int getSerial() {
 		return Serial;
 	}

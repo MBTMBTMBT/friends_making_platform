@@ -1,35 +1,27 @@
 package database.daos;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import database.supports.HibernateUtil;
-import database.tables.Administractor;
+import database.tables.Administrator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.mysql.cj.Query;
-
 public class AdministractorDAO {
 	
-	public static List<Administractor> getAllAdministractor() {
-		List<Administractor> administractor  = null;
+	public static List<Administrator> getAllAdministractor() {
+		List<Administrator> administrator = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administractor = session.createQuery("from Administractor").list();
+			administrator = session.createQuery("from Administractor").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		
-		return administractor;
+		return administrator;
 	}
 	
 	
-	public static void saveAdministractor(Administractor e) {
+	public static void saveAdministrator(Administrator e) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -44,25 +36,25 @@ public class AdministractorDAO {
 	}
 
 	
-	public static Administractor getAdministractorByID(int id) {
-		Administractor administractor = null;
+	public static Administrator getAdministractorByID(int id) {
+		Administrator administrator = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administractor = (Administractor)session.createQuery("from Administractor where AdminNumber = "+id).uniqueResult();
+			administrator = (Administrator)session.createQuery("from Administractor where AdminNumber = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		return administractor;
+		return administrator;
 
 	}
 	
 	
 	public static void deleteAdministractorByID(int id) {
-		Administractor administractor = new Administractor();
+		Administrator administrator = new Administrator();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
-			administractor.setAdminNumber(id);
-			session.delete(administractor);
+			administrator.setAdminNumber(id);
+			session.delete(administrator);
 			transaction.commit();
 	    	session.close();
 			
@@ -73,7 +65,7 @@ public class AdministractorDAO {
 	
 	
 	
-	public static void updateAdministractor(Administractor e) {
+	public static void updateAdministractor(Administrator e) {
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
@@ -87,14 +79,14 @@ public class AdministractorDAO {
 		
 	}
 
-	public static Administractor getAdministractorBySystemID(int id) {
-		Administractor administractor = null;
+	public static Administrator getAdministractorBySystemID(int id) {
+		Administrator administrator = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administractor = (Administractor)session.createQuery("from Administractor where SystemID = "+id).uniqueResult();
+			administrator = (Administrator)session.createQuery("from Administractor where SystemID = "+id).uniqueResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return administractor;
+		return administrator;
 	}
 }

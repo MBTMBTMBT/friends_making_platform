@@ -4,7 +4,7 @@ import database.daos.AdministractorDAO;
 import database.daos.PersonDAO;
 import database.daos.PsychologicalMentorDAO;
 import database.daos.UserDAO;
-import database.tables.Administractor;
+import database.tables.Administrator;
 import database.tables.Person;
 import database.tables.PsychologicalMentor;
 import database.tables.User;
@@ -39,8 +39,8 @@ public class LoginServlet extends HttpServlet {
             if (personLogin(person, password)) {  // now try to login with the password
                 if (isAdmin(person)) {
                     // login successfully for admin
-                    Administractor administractor = AdministractorDAO.getAdministractorBySystemID(person.getSystemID());
-                    int adminNumber = administractor.getAdminNumber();
+                    Administrator administrator = AdministractorDAO.getAdministractorBySystemID(person.getSystemID());
+                    int adminNumber = administrator.getAdminNumber();
                     request.setAttribute("admin_number", adminNumber);
                     request.setAttribute("admin_username", username);
                     request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
@@ -76,7 +76,7 @@ public class LoginServlet extends HttpServlet {
     private static boolean isAdmin(Person person) {
         if (person == null) return false;
         int systemID = person.getSystemID();
-        Administractor admin = AdministractorDAO.getAdministractorBySystemID(systemID);
+        Administrator admin = AdministractorDAO.getAdministractorBySystemID(systemID);
         return admin != null;
     }
 

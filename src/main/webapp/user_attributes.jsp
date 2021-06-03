@@ -47,17 +47,18 @@
       <br>
       <td><input type="date" name="birthday" id="birthday" ></td>
     </tr>
+
     <tr>
       <td>
-        <label style="color: white;font-size: larger;font-weight:bolder"> gender orientation</label>
+        <label style="color: white;font-size: larger;font-weight:bolder">gender preference</label>
         <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
       </td>
-
       <td>
-        <input type="radio" name="orientation" value="hetero">hetero
-        <input type="radio" name="orientation" value="homosexual">homosexual
+        <input type="radio" name="orientation" value="male">male
+        <input type="radio" name="orientation" value="female">female
       </td>
     </tr>
+
     <tr>
       <td>
         <label for="slogan" style="color: white;font-size: larger;font-weight:bolder">slogan</label>
@@ -66,6 +67,28 @@
 
       <td><textarea type="text" rows="10" cols="40" name="slogan" id="slogan" style="font-size: smaller;font-family: Arial, Helvetica, sans-serif;" placeholder=" input your slogan"></textarea></td>
     </tr>
+
+    <tr>
+      <td>
+        <label style="color: white;font-size: larger;font-weight:bolder">industry</label>
+        <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg")%></span><br>
+      </td>
+      <td>
+        <input type="radio" name="work" value="not selected">not selected<br>
+        <input type="radio" name="work" value="student">student<br>
+        <input type="radio" name="work" value="culture/art">culture/art<br>
+        <input type="radio" name="work" value="entertainment business">entertainment business<br>
+        <input type="radio" name="work" value="finance">finance<br>
+        <input type="radio" name="work" value="medicine">medicine<br>
+        <input type="radio" name="work" value="manufacture">manufacture<br>
+        <input type="radio" name="work" value="IT">IT<br>
+        <input type="radio" name="work" value="media">media<br>
+        <input type="radio" name="work" value="education/research">education/research<br>
+        <input type="radio" name="work" value="sales">sales<br>
+        <input type="radio" name="work" value="others">others<br>
+      </td>
+    </tr>
+
     <tr>
       <td>
         <label style="color: white;font-size: larger;font-weight:bolder"> Sports</label>
@@ -224,7 +247,7 @@
         <input type="checkbox" name="film" value="The Upside">The Upside<br>
         <input type="checkbox" name="film" value="Hachiko: A Dog's Story">Hachiko: A Dog's Story
         <input type="checkbox" name="film" value="Gone with the Wind">Gone with the Wind<br>
-        <input type="checkbox" name="film" value="The Pursuit of Happyness">The Pursuit of Happyness
+        <input type="checkbox" name="film" value="The Pursuit of Happiness">The Pursuit of Happiness
         <input type="checkbox" name="film" value="One Flew Over the Cuckoo's Nest">One Flew Over the Cuckoo's Nest<br>
         <input type="checkbox" name="film" value="Scent Of A Woman">Scent Of A Woman
         <input type="checkbox" name="film" value="Dead Poets Society">Dead Poets Society<br>
@@ -274,5 +297,5 @@
     </tr>
   </table>
 </form>
-</body
+</body>
 </html>
