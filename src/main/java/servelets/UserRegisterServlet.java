@@ -64,6 +64,7 @@ public class UserRegisterServlet extends HttpServlet {
             person.setForename(forename);
             person.setSurname(surname);
             person.setGender(sex);
+            System.out.println(sex);
             person.setpassword(password);
             PersonDAO.savePerson(person);
             person = PersonDAO.getPersonByScreenName(username);

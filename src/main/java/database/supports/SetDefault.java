@@ -48,7 +48,7 @@ public class SetDefault {
                 String defaultAdminName = "Admin 1";
                 Person person = new Person();
                 person.setpassword("administrator");
-                person.setGender("female");
+                person.setGender("male");
                 person.setForename("Benteng");
                 person.setSurname("Ma");
                 person.setScreenName(defaultAdminName);

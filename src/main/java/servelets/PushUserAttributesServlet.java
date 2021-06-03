@@ -46,17 +46,20 @@ public class PushUserAttributesServlet extends HttpServlet {
         assert person != null;
         String gender = person.getGender();
         String genderOrientation = user.getGenderOrientation();
-        if (gender.equals("male")) {
-            if (genderOrientation.equals("hetero")) {
-                genderExpectation = "female";
+        if (genderOrientation == null) genderExpectation = "select the gender you wish to view";
+        else {
+            if (gender.equals("male")) {
+                if (genderOrientation.equals("hetero")) {
+                    genderExpectation = "female";
+                } else {
+                    genderExpectation = "male";
+                }
             } else {
-                genderExpectation = "male";
-            }
-        } else {
-            if (genderOrientation.equals("hetero")) {
-                genderExpectation = "male";
-            } else {
-                genderExpectation = "female";
+                if (genderOrientation.equals("hetero")) {
+                    genderExpectation = "male";
+                } else {
+                    genderExpectation = "female";
+                }
             }
         }
         msgLst.add(genderExpectation);
@@ -80,6 +83,7 @@ public class PushUserAttributesServlet extends HttpServlet {
             sports += " ";
             if (count % 3 == 0) sports += "\n";
         }
+        if (sports.equals("")) sports = "select the sports you do";
         msgLst.add(sports);
 
         String food = "";
@@ -92,6 +96,7 @@ public class PushUserAttributesServlet extends HttpServlet {
             food += " ";
             if (count % 3 == 0) food += "\n";
         }
+        if (food.equals("")) food = "select the food you like";
         msgLst.add(food);
 
         String location = "";
@@ -104,6 +109,7 @@ public class PushUserAttributesServlet extends HttpServlet {
             location += " ";
             if (count % 3 == 0) location += "\n";
         }
+        if (location.equals("")) location = "select the locations you've been to";
         msgLst.add(location);
 
         String films = "";
@@ -116,6 +122,7 @@ public class PushUserAttributesServlet extends HttpServlet {
             films += " ";
             if (count % 3 == 0) films += "\n";
         }
+        if (films.equals("")) films = "select the films you like";
         msgLst.add(films);
 
         String books = "";
@@ -128,11 +135,13 @@ public class PushUserAttributesServlet extends HttpServlet {
             books += " ";
             if (count % 3 == 0) books += "\n";
         }
+        if (books.equals("")) books = "select the books you've read";
         msgLst.add(books);
 
         count = 0;
         for (String eachMsg: msgLst) {
             request.setAttribute("msg" + count, eachMsg);
+            count += 1;
         }
         request.getRequestDispatcher("/user_attributes.jsp").forward(request, response);
     }
