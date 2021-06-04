@@ -21,7 +21,7 @@ public class FoodDAO {
 		List<Food> l  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = session.createQuery("from StdFood").list();
+			l = session.createQuery("from Food").list();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -49,7 +49,7 @@ public class FoodDAO {
 	public static Food getFoodByKey(int fid,int uid) {
 		Food l = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = (Food)session.createQuery("from StdFood where Fid = "+ fid + " and Uid = "+uid).uniqueResult();
+			l = (Food)session.createQuery("from Food where Fid = "+ fid + " and Uid = "+uid).uniqueResult();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -90,7 +90,7 @@ public class FoodDAO {
 	public static List<Object> getAllValuesWithUID(int userID) {
 		List<Object> list = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			list = (List<Object>) session.createQuery("from StdFood where Uid = "+ userID).list();
+			list = (List<Object>) session.createQuery("from Food where Uid = "+ userID).list();
 			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();

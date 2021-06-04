@@ -21,7 +21,7 @@ public class FilmsDAO {
 		List<Films> l  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = session.createQuery("from StdFilms").list();
+			l = session.createQuery("from Films").list();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -49,7 +49,7 @@ public class FilmsDAO {
 	public static Films getFilmsByKey(int fid,int uid) {
 		Films l = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = (Films)session.createQuery("from StdFilms where Fid = "+ fid + " and Uid = "+uid).uniqueResult();
+			l = (Films)session.createQuery("from Films where Fid = "+ fid + " and Uid = "+uid).uniqueResult();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -90,7 +90,7 @@ public class FilmsDAO {
 	public static List<Object> getAllValuesWithUID(int userID) {
 		List<Object> list = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			list = (List<Object>) session.createQuery("from StdFilms where Uid = "+ userID).list();
+			list = (List<Object>) session.createQuery("from Films where Uid = "+ userID).list();
 			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();

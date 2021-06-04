@@ -123,87 +123,98 @@ public class SetUserAttributesServlet extends HttpServlet {
             System.out.println(Arrays.toString(books));
 
             // sports
-            for (String eachSport : sports) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("Sport", eachSport);
-                Sports sportsObj = new Sports(labelSerial, userID);
-                SportsDAO.saveSports(sportsObj);
-            }
-            // it is important to remove those originally be in the table but should not be anymore
-            Collection<String> collection = Arrays.asList(sports);
-            List<Object> sportsList = SportsDAO.getAllValuesWithUID(userID);
-            for (Object eachSportObj : sportsList) {
-                Sports eachSport = (Sports) eachSportObj;
-                int sid = eachSport.getSid();
-                String sportName = LabelsDAO.getLabelsByKey(sid).getSport();
-                if (!collection.contains(sportName)) {
-                    SportsDAO.deleteSportsByKey(sid, userID);
+            if (sports != null) {
+                for (String eachSport : sports) {
+                    int labelSerial = LabelsDAO.getKeyByAttribute("Sport", eachSport);
+                    Sports sportsObj = new Sports(labelSerial, userID);
+                    SportsDAO.saveSports(sportsObj);
+                }
+                // it is important to remove those originally be in the table but should not be anymore
+                Collection<String> collection = Arrays.asList(sports);
+                List<Object> sportsList = SportsDAO.getAllValuesWithUID(userID);
+                for (Object eachSportObj : sportsList) {
+                    Sports eachSport = (Sports) eachSportObj;
+                    int sid = eachSport.getSid();
+                    String sportName = LabelsDAO.getLabelsByKey(sid).getSport();
+                    if (!collection.contains(sportName)) {
+                        SportsDAO.deleteSportsByKey(sid, userID);
+                    }
                 }
             }
 
             // food
-            for (String eachFood : food) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("Food", eachFood);
-                Food foodObj = new Food(labelSerial, userID);
-                FoodDAO.saveFood(foodObj);
-            }
-            collection = Arrays.asList(food);
-            List<Object> foodList = FoodDAO.getAllValuesWithUID(userID);
-            for (Object eachFoodObj : foodList) {
-                Food eachFood = (Food) eachFoodObj;
-                int fid = eachFood.getFid();
-                String foodName = LabelsDAO.getLabelsByKey(fid).getFood();
-                if (!collection.contains(foodName)) {
-                    FoodDAO.deleteFoodByKey(fid, userID);
+            if (food != null) {
+                for (String eachFood : food) {
+                    int labelSerial = LabelsDAO.getKeyByAttribute("Food", eachFood);
+                    Food foodObj = new Food(labelSerial, userID);
+                    FoodDAO.saveFood(foodObj);
+                }
+                Collection<String> collection = Arrays.asList(food);
+                List<Object> foodList = FoodDAO.getAllValuesWithUID(userID);
+                for (Object eachFoodObj : foodList) {
+                    Food eachFood = (Food) eachFoodObj;
+                    int fid = eachFood.getFid();
+                    String foodName = LabelsDAO.getLabelsByKey(fid).getFood();
+                    if (!collection.contains(foodName)) {
+                        FoodDAO.deleteFoodByKey(fid, userID);
+                    }
                 }
             }
 
-            for (String eachLocation : locations) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("Locations", eachLocation);
-                Location locationObj = new Location(labelSerial, userID);
-                LocationDAO.saveLocation(locationObj);
-            }
-            collection = Arrays.asList(locations);
-            List<Object> locationList = LocationDAO.getAllValuesWithUID(userID);
-            for (Object eachLocationObj : locationList) {
-                Location eachLocation = (Location) eachLocationObj;
-                int lid = eachLocation.getLid();
-                String locationName = LabelsDAO.getLabelsByKey(lid).getLocations();
-                if (!collection.contains(locationName)) {
-                    LocationDAO.deleteLocationByKey(lid, userID);
+            if (locations != null) {
+                for (String eachLocation : locations) {
+                    int labelSerial = LabelsDAO.getKeyByAttribute("Locations", eachLocation);
+                    Location locationObj = new Location(labelSerial, userID);
+                    LocationDAO.saveLocation(locationObj);
+                }
+                Collection<String> collection = Arrays.asList(locations);
+                List<Object> locationList = LocationDAO.getAllValuesWithUID(userID);
+                for (Object eachLocationObj : locationList) {
+                    Location eachLocation = (Location) eachLocationObj;
+                    int lid = eachLocation.getLid();
+                    String locationName = LabelsDAO.getLabelsByKey(lid).getLocations();
+                    if (!collection.contains(locationName)) {
+                        LocationDAO.deleteLocationByKey(lid, userID);
+                    }
                 }
             }
 
-            for (String eachFilm : films) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("Film", eachFilm);
-                Films filmsObj = new Films(labelSerial, userID);
-                FilmsDAO.saveFilms(filmsObj);
-            }
-            collection = Arrays.asList(films);
-            List<Object> filmsList = FilmsDAO.getAllValuesWithUID(userID);
-            for (Object eachFilmObj : filmsList) {
-                Films eachFilm = (Films) eachFilmObj;
-                int fid = eachFilm.getFid();
-                String filmName = LabelsDAO.getLabelsByKey(fid).getFilm();
-                if (!collection.contains(filmName)) {
-                    FilmsDAO.deleteFilmsByKey(fid, userID);
+            if (films != null) {
+                for (String eachFilm : films) {
+                    int labelSerial = LabelsDAO.getKeyByAttribute("Film", eachFilm);
+                    Films filmsObj = new Films(labelSerial, userID);
+                    FilmsDAO.saveFilms(filmsObj);
+                }
+                Collection<String> collection = Arrays.asList(films);
+                List<Object> filmsList = FilmsDAO.getAllValuesWithUID(userID);
+                for (Object eachFilmObj : filmsList) {
+                    Films eachFilm = (Films) eachFilmObj;
+                    int fid = eachFilm.getFid();
+                    String filmName = LabelsDAO.getLabelsByKey(fid).getFilm();
+                    if (!collection.contains(filmName)) {
+                        FilmsDAO.deleteFilmsByKey(fid, userID);
+                    }
                 }
             }
 
-            for (String eachBook : books) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("Book", eachBook);
-                Books booksObj = new Books(labelSerial, userID);
-                BooksDAO.saveBooks(booksObj);
-            }
-            collection = Arrays.asList(books);
-            List<Object> bookList = BooksDAO.getAllValuesWithUID(userID);
-            for (Object eachBookObj : bookList) {
-                Books eachBook = (Books) eachBookObj;
-                int bid = eachBook.getBid();
-                String bookName = LabelsDAO.getLabelsByKey(bid).getBook();
-                if (!collection.contains(bookName)) {
-                    BooksDAO.deleteBooksByKey(bid, userID);
+            if (books != null) {
+                for (String eachBook : books) {
+                    int labelSerial = LabelsDAO.getKeyByAttribute("Book", eachBook);
+                    Books booksObj = new Books(labelSerial, userID);
+                    BooksDAO.saveBooks(booksObj);
+                }
+                Collection<String> collection = Arrays.asList(books);
+                List<Object> bookList = BooksDAO.getAllValuesWithUID(userID);
+                for (Object eachBookObj : bookList) {
+                    Books eachBook = (Books) eachBookObj;
+                    int bid = eachBook.getBid();
+                    String bookName = LabelsDAO.getLabelsByKey(bid).getBook();
+                    if (!collection.contains(bookName)) {
+                        BooksDAO.deleteBooksByKey(bid, userID);
+                    }
                 }
             }
+
         } catch (Exception exception) {
             exception.printStackTrace();
         }
