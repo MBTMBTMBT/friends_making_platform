@@ -21,6 +21,7 @@
   String message9 = (String) request.getAttribute("msg9");
   String message10 = (String) request.getAttribute("msg10");
   String message11 = (String) request.getAttribute("msg11");
+  String usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +49,7 @@
     <tr>
       <td>
         <label for="email" style="color: white;font-size: larger;font-weight:bolder">E-mail</label>
-        <br> <span style="font-size: 16px;color:red"><%=request.getAttribute("msg1")%></span><br>
+        <br> <span style="font-size: 16px;color:red"><%=(usernameMsg.equals(""))? request.getAttribute("msg1") : usernameMsg%></span><br>
       </td>
       <%
         if (message1.equals("entre your email")) message1 = null;

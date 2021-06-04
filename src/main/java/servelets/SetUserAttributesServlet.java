@@ -23,7 +23,6 @@ public class SetUserAttributesServlet extends HttpServlet {
         // System.out.println(request.getParameter("birthday"));
 
         // username email wechat birthday gender_preference slogan industry
-
         try {
             // set new user name
             String newUserName = request.getParameter("screenname");

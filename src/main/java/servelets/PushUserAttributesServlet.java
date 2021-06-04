@@ -19,6 +19,7 @@ public class PushUserAttributesServlet extends HttpServlet {
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String username = (String) request.getAttribute("user_username");
+        String usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
         int userID = (int) request.getAttribute("user_id");
 
         User user = UserDAO.getUserByID(userID);
@@ -145,6 +146,7 @@ public class PushUserAttributesServlet extends HttpServlet {
         }
         request.setAttribute("user_username", username);
         request.setAttribute("user_id", userID);
+        if (usernameMsg != null && !usernameMsg.equals("")) request.setAttribute("msg_username", usernameMsg);
         request.getRequestDispatcher("/user_attributes.jsp").forward(request, response);
     }
 }
