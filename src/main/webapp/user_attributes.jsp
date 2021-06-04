@@ -28,7 +28,7 @@
 <head>
     <meta charset="UTF-8">
     <title>attributes</title>
-    <link rel="stylesheet" href="css/user_attributes.css">
+    <link rel="stylesheet" href="static/css/user_attributes.css">
   <style>
     table{border-spacing: 30px}
   </style>
@@ -338,7 +338,7 @@
     </tr>
     <tr>
       <td colspan="2" align="center"><input type="submit" value="submit all" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;"></td>
-      <td colspan="2" align="center"><input type="button" onclick="window.location.href='user.jsp';"
+      <td colspan="2" align="center"><input type="button" onclick="window.location.href='user_mainpage.jsp';"
                                             value="confirm and exit" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;"></td>
     </tr>
   </table>

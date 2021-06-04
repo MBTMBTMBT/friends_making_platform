@@ -4,7 +4,7 @@ request.setAttribute("msg", "Please entre your user/admin ID");
 }%>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="css/login_css.css">
+  <link rel="stylesheet" href="static/css/login_css.css">
   <title>user login</title>
 </head>
 
