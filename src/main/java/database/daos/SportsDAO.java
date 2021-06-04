@@ -20,7 +20,7 @@ public class SportsDAO {
 	public static List<Sports> getAllSports() {
 		List<Sports> l  = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = session.createQuery("from Sports").list();
+			l = session.createQuery("from StdSports").list();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -45,7 +45,7 @@ public class SportsDAO {
 	public static Sports getSportsByKey(int sid,int uid) {
 		Sports l = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = (Sports)session.createQuery("from Sports where Sid = "+ sid + " and Uid = "+uid).uniqueResult();
+			l = (Sports)session.createQuery("from StdSports where Sid = "+ sid + " and Uid = "+uid).uniqueResult();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -82,7 +82,7 @@ public class SportsDAO {
 	public static List<Object> getAllValuesWithUID(int userID) {
 		List<Object> list = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			list = (List<Object>) session.createQuery("from Sports where Uid = "+ userID).list();
+			list = (List<Object>) session.createQuery("from StdSports where Uid = "+ userID).list();
 			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();

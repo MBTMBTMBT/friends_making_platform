@@ -158,7 +158,7 @@ public class SetUserAttributesServlet extends HttpServlet {
             }
 
             for (String eachLocation : locations) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("Location", eachLocation);
+                int labelSerial = LabelsDAO.getKeyByAttribute("Locations", eachLocation);
                 Location locationObj = new Location(labelSerial, userID);
                 LocationDAO.saveLocation(locationObj);
             }

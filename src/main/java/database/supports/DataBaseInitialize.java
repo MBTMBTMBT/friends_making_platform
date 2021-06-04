@@ -29,7 +29,7 @@ public class DataBaseInitialize {
     public static void initializeLabels() {
         List<String> sports = new LinkedList<>();
         sports.add("gym"); sports.add("ski");
-        sports.add("swim"); sports.add("gym");
+        sports.add("swim"); sports.add("run");
         sports.add("bicycle"); sports.add("yoga");
         sports.add("basketball"); sports.add("football");
         sports.add("skateboard"); sports.add("table tennis");
@@ -39,8 +39,7 @@ public class DataBaseInitialize {
         sports.add("fencing"); sports.add("shooting");
         sports.add("boxing"); sports.add("Taekwondo");
         sports.add("mountain climbing"); sports.add("horseback riding");
-        sports.add("extreme sports"); sports.add("football");
-        sports.add("skateboard"); sports.add("volleyball");
+        sports.add("extreme sports"); sports.add("volleyball");
         sports.add("sleep");
 
         List<String> food = new LinkedList<>();
@@ -49,7 +48,7 @@ public class DataBaseInitialize {
         food.add("spicy pot"); food.add("lobster");
         food.add("dumplings"); food.add("braised pork rice");
         food.add("sushi"); food.add("sashimi");
-        food.add("Japanese ramen"); food.add("apanese style Teppanyaki");
+        food.add("Japanese ramen"); food.add("Japanese style Teppanyaki");
         food.add("bibimbap"); food.add("Korean barbecue");
         food.add("Thai food"); food.add("steak");
         food.add("pasta"); food.add("Mexican Tacos");
@@ -99,7 +98,7 @@ public class DataBaseInitialize {
         films.add("Fight Club"); films.add("The Upside");
         films.add("Hachiko: A Dog's Story"); films.add("Gone with the Wind");
         films.add("The Pursuit of Happiness"); films.add("One Flew Over the Cuckoo's Nest");
-        films.add("Scent Of A Woman"); films.add("\"Dead Poets Society");
+        films.add("Scent Of A Woman"); films.add("Dead Poets Society");
         films.add("The Lord of the Rings"); films.add("Harry Potter");
         films.add("Infernal Affairs"); films.add("American Dreams in China");
         films.add("Chungking express"); films.add("the silence of the lambs");

@@ -2,6 +2,7 @@ package database.supports;
 
 import java.util.Properties;
 
+import database.standarizedTables.*;
 import database.tables.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -47,6 +48,12 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(Relationship.class);
                 configuration.addAnnotatedClass(Sports.class);
                 configuration.addAnnotatedClass(UserPhoto.class);
+
+                configuration.addAnnotatedClass(StdLocation.class);
+                configuration.addAnnotatedClass(StdFilms.class);
+                configuration.addAnnotatedClass(StdFood.class);
+                configuration.addAnnotatedClass(StdBooks.class);
+                configuration.addAnnotatedClass(StdSports.class);
                 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

@@ -114,7 +114,7 @@ public class PushUserAttributesServlet extends HttpServlet {
         msgLst.add(location);
 
         String films = "";
-        List<Object> filmsList = SportsDAO.getAllValuesWithUID(userID);
+        List<Object> filmsList = FilmsDAO.getAllValuesWithUID(userID);
         count = 0;
         for (Object eachObject: filmsList) {
             count += 1;

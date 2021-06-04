@@ -21,7 +21,7 @@ public class LocationDAO {
 		List<Location> l  = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = session.createQuery("from Location").list();
+			l = session.createQuery("from StdLocation").list();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -49,7 +49,7 @@ public class LocationDAO {
 	public static Location getLocationByKey(int lid,int uid) {
 		Location l = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = (Location)session.createQuery("from Location where Lid = "+ lid + " and Uid = "+uid).uniqueResult();
+			l = (Location)session.createQuery("from StdLocation where Lid = "+ lid + " and Uid = "+uid).uniqueResult();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -91,7 +91,7 @@ public class LocationDAO {
 	public static List<Object> getAllValuesWithUID(int userID) {
 		List<Object> list = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			list = (List<Object>) session.createQuery("from Location where Uid = "+ userID).list();
+			list = (List<Object>) session.createQuery("from StdLocation where Uid = "+ userID).list();
 			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();

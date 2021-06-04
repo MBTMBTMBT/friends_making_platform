@@ -20,7 +20,7 @@ public class BooksDAO {
 	public static List<Books> getAllBooks() {
 		List<Books> l  = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = session.createQuery("from Books").list();
+			l = session.createQuery("from StdBooks").list();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -46,7 +46,7 @@ public class BooksDAO {
 	public static Books getBooksByKey(int bid,int uid) {
 		Books l = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			l = (Books)session.createQuery("from Books where Bid = "+ bid + " and Uid = "+uid).uniqueResult();
+			l = (Books)session.createQuery("from StdBooks where Bid = "+ bid + " and Uid = "+uid).uniqueResult();
 			session.close();
         } catch (Exception e) {
            e.printStackTrace();
@@ -82,7 +82,7 @@ public class BooksDAO {
 	public static List<Object> getAllValuesWithUID(int userID) {
 		List<Object> list = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			list = (List<Object>) session.createQuery("from Books where Uid = "+ userID).list();
+			list = (List<Object>) session.createQuery("from StdBooks where Uid = "+ userID).list();
 			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
