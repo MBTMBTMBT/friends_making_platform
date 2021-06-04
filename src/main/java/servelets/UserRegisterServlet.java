@@ -27,7 +27,6 @@ public class UserRegisterServlet extends HttpServlet {
             String surname = request.getParameter("surname");
             String forename = request.getParameter("forename");
             String sex = request.getParameter("sex");
-            System.out.println(sex);
 
             // none of these should be empty
             if (username.equals("")) {
@@ -71,23 +70,29 @@ public class UserRegisterServlet extends HttpServlet {
             assert person != null;  // the person have just been added so this shouldn't be null.
             int systemID = person.getSystemID();
 
-            // then create the user
-            User user = new User();
-            user.setSystemID(systemID);
-            user.setMentorID(1);
-            user.setWork(1);
-            UserDAO.saveUser(user);
-            user = UserDAO.getUserBySystemID(systemID);
-            int userID = user.getUserID();
+            try {
+                // then create the user
+                User user = new User();
+                user.setSystemID(systemID);
+                user.setMentorID(1);
+                user.setWork(1);
+                UserDAO.saveUser(user);
+                user = UserDAO.getUserBySystemID(systemID);
+                int userID = user.getUserID();
 
-            // return the message
-            request.setAttribute("user_id", userID);
-            request.setAttribute("user_username", username);
-            System.out.println(username);
-            System.out.println(userID);
-            request.getRequestDispatcher("/pushUserAttributesServlet").forward(request, response);
-        } catch (Exception ignore) {
-            registerFail(request, response, "sorry, an error occurs, please try again");
+                // return the message
+                request.setAttribute("user_id", userID);
+                request.setAttribute("user_username", username);
+                System.out.println(username);
+                System.out.println(userID);
+                request.getRequestDispatcher("/pushUserAttributesServlet").forward(request, response);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                registerFail(request, response, "sorry, an error occurs, please try again");
+                PersonDAO.deletePersonByID(systemID);  // if register for user failed, I should also remove this from Person
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 

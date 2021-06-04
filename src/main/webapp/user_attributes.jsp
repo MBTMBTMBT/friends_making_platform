@@ -98,12 +98,16 @@
         <br><span style="font-size: 16px;color:red"><%=request.getAttribute("msg5")%></span><br>
       </td>
         <%
-          if (message5.equals("entre your slogan")) message5 = null;
+          if (message5 == null || message5.equals("entre your slogan")) message5 = "";
         %>
-      <td><textarea type="text" rows="10" cols="40" name="slogan" id="slogan" style="font-size: smaller;font-family: Arial, Helvetica, sans-serif;" placeholder="entre your slogan"
-                    value=<%=(message5 == null)? "": message5%>></textarea></td>
+      <td>
+        <textarea type="text" rows="10" cols="40" name="slogan" id="slogan" style="font-size: smaller;font-family: Arial, Helvetica, sans-serif;" placeholder="entre your slogan"></textarea>
+      </td>
       <td colspan="2" align="center"><input type="submit" value="submit" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;"></td>
     </tr>
+    <script>
+      document.getElementById("slogan").value="<%=message5%>"
+    </script>
 
     <tr>
       <td>

@@ -2,7 +2,15 @@
 <%@ page import="database.supports.DataBaseInitialize" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  DataBaseInitialize.setDefaultValues();
+  Thread initTh = new DataBaseInitialize.InitThread();
+  initTh.start();
+  /*
+  try {
+    initTh.join();
+  } catch (InterruptedException e) {
+    e.printStackTrace();
+  }*/
+  // request.setAttribute("initTh", initTh);
 %>
 <%if (request.getAttribute("msg") == null) {
   request.setAttribute("msg", "");

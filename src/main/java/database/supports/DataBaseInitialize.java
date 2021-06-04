@@ -8,6 +8,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DataBaseInitialize {
+    public static class InitThread extends Thread {
+        @Override
+        public void run() {
+            initialize();
+        }
+    }
+
     public static void initialize() {
         setDefaultValues();
         initializeLabels();
