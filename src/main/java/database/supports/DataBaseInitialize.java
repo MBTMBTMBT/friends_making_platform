@@ -11,7 +11,7 @@ public class DataBaseInitialize {
     public static class InitThread extends Thread {
         @Override
         public void run() {
-            initialize();
+            setDefaultValues();
         }
     }
 

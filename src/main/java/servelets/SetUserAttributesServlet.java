@@ -98,9 +98,15 @@ public class SetUserAttributesServlet extends HttpServlet {
             }
 
             String work = request.getParameter("work");
-            if (work != null && !work.equals("") && !work.equals("not selected")) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("work", work);
-                user.setWork(labelSerial);
+            if (work != null) {
+                // System.out.println(work);
+                if (!work.equals("") && !work.equals("not selected")) {
+                    int labelSerial = LabelsDAO.getKeyByAttribute("work", work);
+                    // System.out.println("key " + labelSerial);
+                    user.setWork(labelSerial);
+                } else {
+                    user.setWork(1);
+                }
                 UserDAO.updateUser(user);
             }
 
@@ -110,10 +116,15 @@ public class SetUserAttributesServlet extends HttpServlet {
             String[] locations = request.getParameterValues("Travel Footprint");
             String[] films = request.getParameterValues("film");
             String[] books = request.getParameterValues("Books");
+            System.out.println(Arrays.toString(sports));
+            System.out.println(Arrays.toString(food));
+            System.out.println(Arrays.toString(locations));
+            System.out.println(Arrays.toString(films));
+            System.out.println(Arrays.toString(books));
 
             // sports
             for (String eachSport : sports) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("Sports", eachSport);
+                int labelSerial = LabelsDAO.getKeyByAttribute("Sport", eachSport);
                 Sports sportsObj = new Sports(labelSerial, userID);
                 SportsDAO.saveSports(sportsObj);
             }
@@ -163,7 +174,7 @@ public class SetUserAttributesServlet extends HttpServlet {
             }
 
             for (String eachFilm : films) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("Films", eachFilm);
+                int labelSerial = LabelsDAO.getKeyByAttribute("Film", eachFilm);
                 Films filmsObj = new Films(labelSerial, userID);
                 FilmsDAO.saveFilms(filmsObj);
             }
@@ -179,7 +190,7 @@ public class SetUserAttributesServlet extends HttpServlet {
             }
 
             for (String eachBook : books) {
-                int labelSerial = LabelsDAO.getKeyByAttribute("Books", eachBook);
+                int labelSerial = LabelsDAO.getKeyByAttribute("Book", eachBook);
                 Books booksObj = new Books(labelSerial, userID);
                 BooksDAO.saveBooks(booksObj);
             }

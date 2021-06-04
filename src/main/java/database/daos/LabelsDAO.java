@@ -81,8 +81,12 @@ public class LabelsDAO {
 	public static int getKeyByAttribute(String attributeName, String attributeValue) {
 		int key = 1;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			Labels l = (Labels)session.createQuery("from Labels where " + attributeName + " = " + attributeValue).uniqueResult();
+			attributeName = String.valueOf(attributeName.charAt(0)).toUpperCase() + attributeName.substring(1);
+			String query = "from Labels where " + attributeName + " = '" + attributeValue + "'";
+			System.out.println(query);
+			Labels l = (Labels)session.createQuery(query).uniqueResult();
 			key = l.getSerial();
+			System.out.println("result key is " + key);
 			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
