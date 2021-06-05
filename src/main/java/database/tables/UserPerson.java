@@ -171,17 +171,13 @@ public class UserPerson {
 		this.password = password;
 	}
 
-	static public List<UserPerson> userPersonJoin() {
+	public static List<UserPerson> userPersonJoin() {
 		List<UserPerson> list = new LinkedList<UserPerson>();
-		
 		try {
 			Connection conn = JDBCTool.getConnection();
 			Statement st = conn.createStatement();
-			
 			ResultSet rs = st.executeQuery("SELECT * FROM user inner join person on user.systemid = person.systemid");
-			
 			while(rs.next()) {
-				
 				int systemID = rs.getInt("SystemID");
 				int userID = rs.getInt("UserID");
 				String emailAddress = rs.getString("Emailaddress");
@@ -206,6 +202,7 @@ public class UserPerson {
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 		return list;
 	}
