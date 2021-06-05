@@ -37,15 +37,15 @@ public class LoginServlet extends HttpServlet {
             }
 
             if (personLogin(person, password)) {  // now try to login with the password
-                if (isAdmin(person)) {
-                    // login successfully for admin
-                    Administrator administrator = AdministractorDAO.getAdministractorBySystemID(person.getSystemID());
-                    int adminNumber = administrator.getAdminNumber();
-                    request.setAttribute("admin_number", adminNumber);
-                    request.setAttribute("admin_username", username);
-                    request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
+                if (isUser(person)) {
+                    // login successfully for user
+                    User user = UserDAO.getUserBySystemID(person.getSystemID());
+                    int userID = user.getUserID();
+                    request.setAttribute("user_id", userID);
+                    request.setAttribute("user_username", username);
+                    request.getRequestDispatcher("/userMainPageServlet").forward(request, response);
 
-                } else if (isMentor(person)) {
+                }  else if (isMentor(person)) {
                     // login successfully for mentor
                     PsychologicalMentor mentor = PsychologicalMentorDAO.getPsychologicalMentorBySystemID(person.getSystemID());
                     int mentorNumber = mentor.getMentorNumber();
@@ -53,13 +53,13 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("mentor_username", username);
                     request.getRequestDispatcher("/mentorMainPageServlet").forward(request, response);
 
-                } else if (isUser(person)) {
-                    // login successfully for user
-                    User user = UserDAO.getUserBySystemID(person.getSystemID());
-                    int userID = user.getUserID();
-                    request.setAttribute("user_id", userID);
-                    request.setAttribute("user_username", username);
-                    request.getRequestDispatcher("/userMainPageServlet").forward(request, response);
+                }  else if (isAdmin(person)) {
+                    // login successfully for admin
+                    Administrator administrator = AdministractorDAO.getAdministractorBySystemID(person.getSystemID());
+                    int adminNumber = administrator.getAdminNumber();
+                    request.setAttribute("admin_number", adminNumber);
+                    request.setAttribute("admin_username", username);
+                    request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
 
                 } else {
                     loginFail(request, response);  // this should never happen
