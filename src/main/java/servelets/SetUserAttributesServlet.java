@@ -8,6 +8,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,10 +20,22 @@ import java.util.prefs.Preferences;
 @WebServlet("/setUserAttributesServlet")
 public class SetUserAttributesServlet extends HttpServlet {
     @Override
-    public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("user_username");
-        int userID = Integer.parseInt(request.getParameter("user_id"));
-        // System.out.println(request.getParameter("birthday"));
+    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String username = null;
+        int userID = -1;
+
+        try {
+            username = (String) request.getAttribute("user_username");
+            userID = (int) request.getAttribute("user_id");
+        } catch (NullPointerException ignore) {
+        }
+
+        if (username == null || userID == -1) {
+            HttpSession session = request.getSession();
+            username = (String) session.getAttribute("user_username");
+            userID = (int) session.getAttribute("user_id");
+        }
 
         // username email wechat birthday gender_preference slogan industry
         try {
@@ -59,6 +74,7 @@ public class SetUserAttributesServlet extends HttpServlet {
             if (request.getParameter("birthday") != null && !request.getParameter("birthday").equals("")) {
                 try {
                     birthday = new java.sql.Date(parseDate.parse(request.getParameter("birthday")).getTime());
+                    System.out.println(birthday);
                     user.setDataOfBirth(birthday);
                     UserDAO.updateUser(user);
                 } catch (ParseException parseException) {

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.LinkedList;
@@ -18,8 +19,23 @@ import java.util.List;
 public class UserMainPageServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getAttribute("user_username");
-        int userID = (int) request.getAttribute("user_id");
+
+        String username = null;
+        String usernameMsg = null;
+        int userID = -1;
+
+        try {
+            username = (String) request.getAttribute("user_username");
+            usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
+            userID = (int) request.getAttribute("user_id");
+        } catch (NullPointerException ignore) {
+        }
+
+        if (username == null || userID == -1) {
+            HttpSession session = request.getSession();
+            username = (String) session.getAttribute("user_username");
+            userID = (int) session.getAttribute("user_id");
+        }
 
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
         UserPerson userPerson = userPersonDAO.getUserPersonByUserID(userID);

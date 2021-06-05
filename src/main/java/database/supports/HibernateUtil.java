@@ -23,7 +23,7 @@ public class HibernateUtil {
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
                 settings.put(Environment.URL, "jdbc:mysql://localhost:3306/groupwork?useSSL=false");
-                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/groupwork?serverTimezone=UTC&characterEncoding=utf-8");
+                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/groupwork?serverTimezone=Asia/Shanghai&characterEncoding=utf-8");
                 settings.put(Environment.USER, "root");
                 settings.put(Environment.PASS, "premacybenny");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");

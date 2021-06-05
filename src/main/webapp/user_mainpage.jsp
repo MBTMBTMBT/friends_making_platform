@@ -62,6 +62,9 @@
 	String message11 = (String) request.getAttribute("msg11");
 	request.setAttribute("user_username", username);
 	request.setAttribute("user_id", userID);
+	HttpSession httpSession = request.getSession();
+	httpSession.setAttribute("user_username", username);
+	httpSession.setAttribute("user_id", userID);
 %>
 
 <body>

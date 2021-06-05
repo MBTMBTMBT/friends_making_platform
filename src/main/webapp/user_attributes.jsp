@@ -22,6 +22,10 @@
   String usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
   request.setAttribute("user_username", username);
   request.setAttribute("user_id", userID);
+
+  HttpSession httpSession = request.getSession();
+  httpSession.setAttribute("user_username", username);
+  httpSession.setAttribute("user_id", userID);
 %>
 <!DOCTYPE html>
 <html lang="en">

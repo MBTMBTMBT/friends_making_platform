@@ -9,7 +9,7 @@ public class JDBCTool {
         Connection conn = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://"+url+"/"+dbname+"?serverTimezone=GMT", username, password);
+            conn = DriverManager.getConnection("jdbc:mysql://"+url+"/"+dbname+"?serverTimezone=Asia/Shanghai", username, password);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
