@@ -86,7 +86,7 @@ public class DynamicLabelsDAO extends DynamicDAO {
 
     public List<String> getAttributesByName(String attributeName) {
         attributeName = String.valueOf(attributeName.charAt(0)).toUpperCase() + attributeName.substring(1);
-        List<String> attributes = new LinkedList<>();
+        List<String> attributes;
         try {
             String query = "select " + attributeName + " from Labels";
             System.out.println(query);
@@ -96,5 +96,10 @@ public class DynamicLabelsDAO extends DynamicDAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static void main(String[] args) {
+        DynamicLabelsDAO labelsDAO = new DynamicLabelsDAO();
+        System.out.println(labelsDAO.getAttributesByName("Locations"));
     }
 }
