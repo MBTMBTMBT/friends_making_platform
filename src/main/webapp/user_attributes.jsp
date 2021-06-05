@@ -7,8 +7,6 @@
   int userID = (int) request.getAttribute("user_id");
   // System.out.println(username);
   // System.out.println(userID);
-%>
-<%
   String message0 = (String) request.getAttribute("msg0");
   String message1 = (String) request.getAttribute("msg1");
   String message2 = (String) request.getAttribute("msg2");
@@ -22,6 +20,8 @@
   String message10 = (String) request.getAttribute("msg10");
   String message11 = (String) request.getAttribute("msg11");
   String usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
+  request.setAttribute("user_username", username);
+  request.setAttribute("user_id", userID);
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -338,7 +338,7 @@
     </tr>
     <tr>
       <td colspan="2" align="center"><input type="submit" value="submit all" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;"></td>
-      <td colspan="2" align="center"><input type="button" onclick="window.location.href='user_mainpage.jsp';"
+      <td colspan="2" align="center"><input type="button" onclick="window.location.href='userMainPageServlet';"
                                             value="confirm and exit" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;"></td>
     </tr>
   </table>

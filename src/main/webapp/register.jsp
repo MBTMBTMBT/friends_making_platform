@@ -39,7 +39,7 @@
     .b{
       width:1100px;
       height: 550px;
-      background-image:url("image/picture.gif");
+      background-image:url("static/images/picture.gif");
       background-size: cover;
     }
     .c{
