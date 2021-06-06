@@ -1,18 +1,28 @@
 package database.supports;
 
 import database.daos.LabelsDAO;
+import database.daos.PersonDAO;
+import database.daos.UserDAO;
+import database.dynamicDAOs.*;
+import database.exceptions.WrongAttributeNameException;
+import database.standarizedTables.*;
 import database.tables.Labels;
+import database.tables.Person;
+import database.tables.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.sql.Date;
 import java.util.*;
 
 public class DataBaseDev {
     private static final String[] ALL_TABLES = new String[]{"Administrator", "Books", "Date", "Employee",
-            "EventLocation", "Event", "Films", "Food", "JoinEvent", "Labels", "Likes", "Location", "Person",
-            "PsychologicalMentor", "Relationship", "Sports", "User", "UserPhoto"};
+            "Event_Location", "Event", "Films", "Food", "Join_Event", "Labels", "Likes", "Location", "Person",
+            "phsycological_mentor", "Relationship", "Sports", "User", "User_Photos"};
+    private static final String[] LABELS = new String[] {"StdBooks", "StdFilms", "StdFood", "StdLocation", "StdSports"};
     private static final double HETERO_RATE = 0.96;
-    private static final double[] selection = new double[]{1, 0.95, 0.9, 0.85, 0.8, 0.7, 0.6, 0.5, 0.4};
+    // private static final double[] selection = new double[]{1, 0.95, 0.9, 0.85, 0.8, 0.7, 0.6, 0.5, 0.4};
     private static final Map<String, Integer> MAXIMUM_LENGTH = new HashMap<>();
 
     public static class InitThread extends Thread {
@@ -26,6 +36,7 @@ public class DataBaseDev {
         deleteAll();
         setDefaultValues();
         initializeLabels();
+        addRandomUsers();
     }
 
     public static void setDefaultValues() {
@@ -61,7 +72,7 @@ public class DataBaseDev {
         sports.add("extreme sports");
         sports.add("volleyball");
         sports.add("sleep");
-        MAXIMUM_LENGTH.put("Sports", sports.size());
+        MAXIMUM_LENGTH.put("StdSports", sports.size());
 
         List<String> food = new LinkedList<>();
         food.add("Beijing Roast Duck");
@@ -93,7 +104,7 @@ public class DataBaseDev {
         food.add("cheese");
         food.add("chocolate");
         food.add("ice cream");
-        MAXIMUM_LENGTH.put("Food", food.size());
+        MAXIMUM_LENGTH.put("StdFood", food.size());
 
         List<String> locations = new LinkedList<>();
         locations.add("Chengdu");
@@ -145,7 +156,7 @@ public class DataBaseDev {
         locations.add("England");
         locations.add("Ireland");
         locations.add("Germany");
-        MAXIMUM_LENGTH.put("Location", locations.size());
+        MAXIMUM_LENGTH.put("StdLocation", locations.size());
 
         List<String> films = new LinkedList<>();
         films.add("The Shawshank Redemption");
@@ -178,7 +189,7 @@ public class DataBaseDev {
         films.add("American Dreams in China");
         films.add("Chungking express");
         films.add("the silence of the lambs");
-        MAXIMUM_LENGTH.put("Films", films.size());
+        MAXIMUM_LENGTH.put("StdFilms", films.size());
 
         List<String> books = new LinkedList<>();
         books.add("A Tale of Two Cities");
@@ -203,7 +214,7 @@ public class DataBaseDev {
         books.add("The Great Gatsby");
         books.add("The Old Man and the Sea");
         books.add("Walden");
-        MAXIMUM_LENGTH.put("Books", books.size());
+        MAXIMUM_LENGTH.put("StdBooks", books.size());
 
         List<String> works = new LinkedList<>();
         works.add("student");
@@ -289,7 +300,78 @@ public class DataBaseDev {
     }
 
     public static void addRandomUsers() {
-        // pass
+        Collections.shuffle(NAMES);
+        int countUser = 0;
+        Random random = new Random();
+        for (String eachUserName: NAMES) {
+            countUser += 1;
+            Person person = new Person();
+            User user = new User();
+
+            person.setScreenName(eachUserName);
+            person.setpassword("p");
+            person.setSurname("TestedUser");
+            person.setForename(String.valueOf(countUser));
+            person.setGender((Math.random() >= 0.5)? "female": "male");
+            if (person.getGender().equals("male")) {
+                person.setHeadIcon("static/images/user_male.png");
+            } else {
+                person.setHeadIcon("static/images/user_female.png");
+            }
+            PersonDAO.savePerson(person);
+            person = PersonDAO.getPersonByScreenName(eachUserName);
+            assert person != null;
+            int systemID = person.getSystemID();
+
+            user.setDataOfBirth(new Date(100, 3, 28));
+            user.setGenderOrientation((Math.random() <= HETERO_RATE)? "hetero": "homosexual");
+            user.setWork(1);
+            user.setMentorID(1);
+            user.setSlogan("I love programming, I love CS!");
+            user.setSystemID(systemID);
+            UserDAO.saveUser(user);
+            user = UserDAO.getUserBySystemID(systemID);
+            int userID = user.getUserID();
+
+            UserCommonAttributesDAO commonAttributesDAO;
+            // save labels
+            for (String attributeName: LABELS) {
+                switch (attributeName) {
+                    case "StdBooks":
+                        commonAttributesDAO = new DynamicBooksDAO();
+                        break;
+                    case "StdFilms":
+                        commonAttributesDAO = new DynamicFilmsDAO();
+                        break;
+                    case "StdFood":
+                        commonAttributesDAO = new DynamicFoodDAO();
+                        break;
+                    case "StdLocation":
+                        commonAttributesDAO = new DynamicLocationDAO();
+                        break;
+                    case "StdSports":
+                        commonAttributesDAO = new DynamicSportsDAO();
+                        break;
+                    default:
+                        throw new WrongAttributeNameException("Attribute " + attributeName + " is not valid");
+                }
+                int howManyLabels = random.nextInt(9);
+                int[] labelNums = new int[MAXIMUM_LENGTH.get(attributeName) - 1];
+                for (int i = 2; i <= labelNums.length + 1; i++) labelNums[i - 2] = i;
+                List<Integer> labelNumsLst = new LinkedList<>();
+                for (int i: labelNums) labelNumsLst.add(i);
+                Collections.shuffle(labelNumsLst);
+                Iterator<Integer> labelNumIterator = labelNumsLst.iterator();
+                for (int i = 0; i < howManyLabels; i++) {
+                    int labelNum = labelNumIterator.next();
+                    LabelObject label = new StdObject();
+                    label.setUserId(userID);
+                    label.setLabelId(labelNum);
+                    commonAttributesDAO.saveLabel(label);
+                }
+                commonAttributesDAO.close();  // always close it!
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -298,7 +380,7 @@ public class DataBaseDev {
 
     // I really can't make out so many names,
     // So I copied these from https://blog.csdn.net/Mingyueyixi/article/details/78022592
-    private static final List<String> NAMES = new ArrayList<String> (Arrays.asList("Aaron",
+    private static final List<String> NAMES = new ArrayList<> (Arrays.asList("Aaron",
             "Abel",
             "Abraham",
             "Adam",

@@ -3,15 +3,22 @@ package servelets;
 import database.dynamicDAOs.*;
 import database.exceptions.WrongAttributeNameException;
 import database.standarizedTables.LabelObject;
+import database.supports.HibernateUtil;
+import database.tables.Sports;
+import database.tables.User;
 import database.tables.UserPerson;
+import org.hibernate.Session;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
+@WebServlet("/userMatchingServlet")
 public class UserMatchingServlet extends HttpServlet {
     private static final int SEARCH_UP_LIMIT = 20;
     private static final int OUTPUT_LIMIT = 15;
@@ -19,6 +26,58 @@ public class UserMatchingServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
+        String username = null;
+        String usernameMsg = null;
+        int userID = -1;
+
+        try {
+            username = (String) request.getAttribute("user_username");
+            usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
+            userID = (int) request.getAttribute("user_id");
+        } catch (NullPointerException ignore) {
+        }
+
+        if (username == null || userID == -1) {
+            HttpSession session = request.getSession();
+            username = (String) session.getAttribute("user_username");
+            userID = (int) session.getAttribute("user_id");
+        }
+
+        DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
+        UserPerson userPerson = userPersonDAO.getUserPersonByUserID(userID);
+        userPersonDAO.close();
+
+        List<CompareNode> nodes = matchLabelObjs(userPerson);
+        List<String> headIconList = new LinkedList<>();
+        List<String> userNameList = new LinkedList<>();
+        List<String> genderList = new LinkedList<>();
+        List<String> ageList = new LinkedList<>();
+        List<String> workList = new LinkedList<>();
+        DynamicLabelsDAO labelsDAO = new DynamicLabelsDAO();
+        for (CompareNode each: nodes) {
+            UserPerson eachUserPerson = each.getUserPerson();
+            headIconList.add(eachUserPerson.getHeadIcon());
+            userNameList.add(eachUserPerson.getScreenName());
+            genderList.add(eachUserPerson.getGender());
+            ageList.add(String.valueOf(eachUserPerson.getAge()));
+            workList.add(labelsDAO.getLabelsByKey(eachUserPerson.getWork()).getWork());
+        }
+        labelsDAO.close();
+        userPersonDAO.close();
+
+        List<List<String>> infoLists = new LinkedList<>();
+        infoLists.add(headIconList);
+        infoLists.add(userNameList);
+        infoLists.add(genderList);
+        infoLists.add(ageList);
+        infoLists.add(workList);
+
+        request.setAttribute("info_lists", infoLists);
+        request.setAttribute("user_username", username);
+        request.setAttribute("user_id", userID);
+        request.getRequestDispatcher("/recommendation.jsp").forward(request, response);
     }
 
     private static class CompareNode implements Comparable<CompareNode> {
@@ -70,38 +129,60 @@ public class UserMatchingServlet extends HttpServlet {
         }
     }
 
-    private List<CompareNode> matchLabelObjs(UserPerson userPerson) {
+    private static List<CompareNode> matchLabelObjs(UserPerson userPerson) {
         String genderPreference;
         String targetGenderOrientation;
-        if (userPerson.getGender().equals("female")) {
-            if (userPerson.getGenderOrientation().equals("hetero")) {
+        if (userPerson.getGenderOrientation() == null) {
+            targetGenderOrientation = "hetero";
+            if (userPerson.getGender().equals("female")) {
                 genderPreference = "male";
-                targetGenderOrientation = "hetero";
-            }
-            else {
+            } else {
                 genderPreference = "female";
-                targetGenderOrientation = "homosexual";
             }
         } else {
-            if (userPerson.getGenderOrientation().equals("hetero")) {
-                genderPreference = "female";
-                targetGenderOrientation = "hetero";
-            }
-            else {
-                genderPreference = "male";
-                targetGenderOrientation = "homosexual";
+            if (userPerson.getGender().equals("female")) {
+                if (userPerson.getGenderOrientation().equals("hetero")) {
+                    genderPreference = "male";
+                    targetGenderOrientation = "hetero";
+                } else {
+                    genderPreference = "female";
+                    targetGenderOrientation = "homosexual";
+                }
+            } else {
+                if (userPerson.getGenderOrientation().equals("hetero")) {
+                    genderPreference = "female";
+                    targetGenderOrientation = "hetero";
+                } else {
+                    genderPreference = "male";
+                    targetGenderOrientation = "homosexual";
+                }
             }
         }
+
         DynamicUserPersonDAO userDAO = new DynamicUserPersonDAO();
         UserCommonAttributesDAO commonAttributesDAO;
         List<CompareNode> remain = null;
+
         for (String attributeName: LABELS) {
-            if (attributeName.equals("StdBooks")) commonAttributesDAO = new DynamicBooksDAO();
-            else if (attributeName.equals("StdFilms")) commonAttributesDAO = new DynamicFilmsDAO();
-            else if (attributeName.equals("StdFood")) commonAttributesDAO = new DynamicFoodDAO();
-            else if (attributeName.equals("StdLocation")) commonAttributesDAO = new DynamicLocationDAO();
-            else if (attributeName.equals("StdSports")) commonAttributesDAO = new DynamicSportsDAO();
-            else throw new WrongAttributeNameException("Attribute " + attributeName + " is not valid");
+            switch (attributeName) {
+                case "StdBooks":
+                    commonAttributesDAO = new DynamicBooksDAO();
+                    break;
+                case "StdFilms":
+                    commonAttributesDAO = new DynamicFilmsDAO();
+                    break;
+                case "StdFood":
+                    commonAttributesDAO = new DynamicFoodDAO();
+                    break;
+                case "StdLocation":
+                    commonAttributesDAO = new DynamicLocationDAO();
+                    break;
+                case "StdSports":
+                    commonAttributesDAO = new DynamicSportsDAO();
+                    break;
+                default:
+                    throw new WrongAttributeNameException("Attribute " + attributeName + " is not valid");
+            }
 
             List<CompareNode> keepList = matchForOneTypeOfLabel(userPerson, commonAttributesDAO, userDAO,
                     genderPreference, targetGenderOrientation);
@@ -127,7 +208,7 @@ public class UserMatchingServlet extends HttpServlet {
                 remain = new ArrayList<>(union);
                 Collections.sort(remain);
 
-                remain = remain.subList(0, 20);
+                if (remain.size() > SEARCH_UP_LIMIT) remain = remain.subList(0, SEARCH_UP_LIMIT);
             } else {
                 remain = keepList;
             }
@@ -142,23 +223,28 @@ public class UserMatchingServlet extends HttpServlet {
         Collections.sort(remain);
 
         // take the first 15 person
-        remain = remain.subList(0, OUTPUT_LIMIT);
+        if (remain.size() > OUTPUT_LIMIT) remain = remain.subList(0, OUTPUT_LIMIT);
         return remain;
     }
 
-    private List<CompareNode> matchForOneTypeOfLabel(UserPerson userPerson, UserCommonAttributesDAO commonAttributesDAO,
+    private static List<CompareNode> matchForOneTypeOfLabel(UserPerson userPerson, UserCommonAttributesDAO commonAttributesDAO,
                                                      DynamicUserPersonDAO userDAO, String genderPreference,
                                                      String targetGenderOrientation) {
         List<LabelObject> thisUsersAttributes = commonAttributesDAO.getAllValuesWithUserID(userPerson.getUserID());
         List<CompareNode> remain = null;
         for (LabelObject eachObj: thisUsersAttributes) {
-            List<LabelObject> allUsersWithThisLabel = new ArrayList<>(commonAttributesDAO.getAllValuesWithLabelID(eachObj.getLabelId()));
+            if (eachObj.getLabelId() == 1) continue;  // we don't consider "not selected"
+            List<LabelObject> allUsersWithThisLabel = commonAttributesDAO.getAllValuesWithLabelID(eachObj.getLabelId());  // new ArrayList<>(commonAttributesDAO.getAllValuesWithLabelID(eachObj.getLabelId()));
+            // System.out.println(allUsersWithThisLabel.size());
+            // for (LabelObject each: allUsersWithThisLabel) System.out.println(each.getUserID());
             List<CompareNode> keepList = new LinkedList<>();
             if (allUsersWithThisLabel.size() <= SEARCH_UP_LIMIT) {
                 for (LabelObject each: allUsersWithThisLabel) {
                     UserPerson eachUser = userDAO.getUserPersonByUserID(each.getUserID());
+                    // System.out.println("looking for user " + eachUser.getScreenName());
                     if (each.getUserID() != userPerson.getUserID() && eachUser.getGender().equals(genderPreference)
                             && eachUser.getGenderOrientation().equals(targetGenderOrientation)) {
+                        System.out.println("add in");
                         keepList.add(new CompareNode(eachUser, 1));
                     }
                 }
@@ -167,8 +253,10 @@ public class UserMatchingServlet extends HttpServlet {
                 Collections.shuffle(allUsersWithThisLabel);
                 for (int i = 0; i < SEARCH_UP_LIMIT; i++) {
                     UserPerson eachUser = userDAO.getUserPersonByUserID(allUsersWithThisLabel.get(i).getUserID());
+                    System.out.println("looking for user " + eachUser.getScreenName());
                     if (eachUser.getUserID() != userPerson.getUserID() && eachUser.getGender().equals(genderPreference)
                             && eachUser.getGenderOrientation().equals(targetGenderOrientation)) {
+                        System.out.println("add in");
                         keepList.add(new CompareNode(eachUser, 1));
                     }
                 }
@@ -196,12 +284,24 @@ public class UserMatchingServlet extends HttpServlet {
                 remain = new ArrayList<>(union);
                 Collections.sort(remain);
 
-                remain = remain.subList(0, SEARCH_UP_LIMIT);
+                if (remain.size() > SEARCH_UP_LIMIT) remain = remain.subList(0, SEARCH_UP_LIMIT);
             } else {
                 remain = keepList;
             }
         }
 
         return remain;
+    }
+
+    public static void main(String[] args) {
+        DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
+        UserPerson userPerson = userPersonDAO.getUserPersonByScreenName("MBT");
+        userPersonDAO.close();
+
+        List<CompareNode> rst = matchLabelObjs(userPerson);
+        // System.out.println(rst.size());
+        for (CompareNode each: rst) {
+            System.out.println(each.getUserPerson().toString());
+        }
     }
 }

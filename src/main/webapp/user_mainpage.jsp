@@ -80,7 +80,7 @@
 		<a class="btn btn-info" href="head_icon.html">change my head icon</a>
 	</div>
 </div>
-	<a class="btn btn-danger" href="Recommendations.html">Recommendations</a>
+	<a class="btn btn-danger" href="userMatchingServlet">Recommendations</a>
 	<a class="btn btn-primary" href="Events.html">Events</a>
 	<a class="btn btn-warning" href="Likes.html">Likes</a>
 	<a class="btn btn-success" href="my_mentor.html">My mentor</a>

@@ -3,8 +3,11 @@ package database.dynamicDAOs;
 import database.daos.LabelsDAO;
 import database.standarizedTables.LabelObject;
 import database.standarizedTables.StdFood;
+import database.standarizedTables.StdSports;
 import org.hibernate.Transaction;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.*;
 
 public class DynamicFoodDAO extends UserCommonAttributesDAO {
@@ -32,7 +35,6 @@ public class DynamicFoodDAO extends UserCommonAttributesDAO {
             StdFood l = new StdFood(labelObject.getLabelId(), labelObject.getUserID());
             session.save(l);
             transaction.commit();
-            session.close();
         } catch (Exception exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -80,23 +82,47 @@ public class DynamicFoodDAO extends UserCommonAttributesDAO {
 
     @Override
     public List<LabelObject> getAllValuesWithUserID(int userID) {
-        List list = null;
+        List<LabelObject> list = new LinkedList<>();
         try {
-            list = session.createQuery("from StdFood where Uid = "+ userID).list();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM food WHERE Uid = ?;");
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                int Sid = rs.getInt("Fid");
+                int Uid = rs.getInt("Uid");
+                StdFood s = new StdFood(Sid,Uid);
+                list.add(s);
+            }
+            rs.close();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
+            list = null;
         }
+        // for (LabelObject each: list) System.out.println((each.getLabelId()));
         return list;
     }
 
     @Override
     public List<LabelObject> getAllValuesWithLabelID(int labelID) {
-        List list = null;
+        List<LabelObject> list = new LinkedList<>();
         try {
-            list = session.createQuery("from StdFood where Fid = "+ labelID).list();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM food WHERE Uid = ?;");
+            ps.setInt(1, labelID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                int Sid = rs.getInt("Fid");
+                int Uid = rs.getInt("Uid");
+                StdFood s = new StdFood(Sid,Uid);
+                list.add(s);
+            }
+            rs.close();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
+            list = null;
         }
+        // for (LabelObject each: list) System.out.println((each.getLabelId()));
         return list;
     }
 

@@ -68,8 +68,8 @@ public class StdLocation implements LabelObject {
 	}
 
 	@Override
-	public void setUserId(int UserId) {
-		this.Uid = UserId;
+	public void setUserId(int userId) {
+		this.Uid = userId;
 	}
 }
 

@@ -65,6 +65,11 @@ public class UserRegisterServlet extends HttpServlet {
             person.setGender(sex);
             System.out.println(sex);
             person.setpassword(password);
+            if (person.getGender().equals("male")) {
+                person.setHeadIcon("static/images/user_male.png");
+            } else {
+                person.setHeadIcon("static/images/user_female.png");
+            }
             PersonDAO.savePerson(person);
             person = PersonDAO.getPersonByScreenName(username);
             assert person != null;  // the person have just been added so this shouldn't be null.

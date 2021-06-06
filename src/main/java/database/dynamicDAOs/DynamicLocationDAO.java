@@ -3,7 +3,11 @@ package database.dynamicDAOs;
 import database.daos.LabelsDAO;
 import database.standarizedTables.LabelObject;
 import database.standarizedTables.StdLocation;
+import database.standarizedTables.StdSports;
 import org.hibernate.Transaction;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.*;
 
 
@@ -32,7 +36,6 @@ public class DynamicLocationDAO extends UserCommonAttributesDAO {
             StdLocation l = new StdLocation(labelObject.getLabelId(), labelObject.getUserID());
             session.save(l);
             transaction.commit();
-            session.close();
         } catch (Exception exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -80,23 +83,47 @@ public class DynamicLocationDAO extends UserCommonAttributesDAO {
 
     @Override
     public List<LabelObject> getAllValuesWithUserID(int userID) {
-        List list = null;
+        List<LabelObject> list = new LinkedList<>();
         try {
-            list = session.createQuery("from StdLocation where Uid = "+ userID).list();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM location WHERE Uid = ?;");
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                int Sid = rs.getInt("Lid");
+                int Uid = rs.getInt("Uid");
+                StdLocation s = new StdLocation(Sid,Uid);
+                list.add(s);
+            }
+            rs.close();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
+            list = null;
         }
+        // for (LabelObject each: list) System.out.println((each.getLabelId()));
         return list;
     }
 
     @Override
     public List<LabelObject> getAllValuesWithLabelID(int labelID) {
-        List list = null;
+        List<LabelObject> list = new LinkedList<>();
         try {
-            list = session.createQuery("from StdLocation where Lid = "+ labelID).list();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM location WHERE Uid = ?;");
+            ps.setInt(1, labelID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                int Sid = rs.getInt("Lid");
+                int Uid = rs.getInt("Uid");
+                StdLocation s = new StdLocation(Sid,Uid);
+                list.add(s);
+            }
+            rs.close();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
+            list = null;
         }
+        // for (LabelObject each: list) System.out.println((each.getLabelId()));
         return list;
     }
 

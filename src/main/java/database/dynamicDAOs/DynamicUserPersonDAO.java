@@ -128,7 +128,7 @@ public class DynamicUserPersonDAO extends DynamicDAO {
                     "person.HeadIcon, person.password, user.UserID, user.Emailaddress, user.Wechat, user.GenderOrientation, " +
                     "user.DataOfBirth, user.Slogan, user.Work, user.MentorID";
             String sql = "SELECT " + columns + " FROM user inner join person on user.SystemID = person.SystemID";
-            sql = "SELECT * FROM (" + sql + ") as UserPerson WHERE SystemID = " + screenName + ";";
+            sql = "SELECT * FROM (" + sql + ") as UserPerson WHERE screenName = '" + screenName + "';";
             PreparedStatement ps = connection.prepareStatement(sql);
             System.out.println(ps);
             ResultSet rs = ps.executeQuery();

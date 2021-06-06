@@ -5,6 +5,8 @@ import database.standarizedTables.LabelObject;
 import database.standarizedTables.StdSports;
 import org.hibernate.Transaction;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.*;
 
 public class DynamicSportsDAO extends UserCommonAttributesDAO {
@@ -32,7 +34,6 @@ public class DynamicSportsDAO extends UserCommonAttributesDAO {
             StdSports l = new StdSports(labelObject.getLabelId(), labelObject.getUserID());
             session.save(l);
             transaction.commit();
-            session.close();
         } catch (Exception exp) {
             if (transaction != null) {
                 transaction.rollback();
@@ -80,23 +81,47 @@ public class DynamicSportsDAO extends UserCommonAttributesDAO {
 
     @Override
     public List<LabelObject> getAllValuesWithUserID(int userID) {
-        List list = null;
+        List<LabelObject> list = new LinkedList<>();
         try {
-            list = session.createQuery("from StdSports where Uid = "+ userID).list();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM sports WHERE Uid = ?;");
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                int Sid = rs.getInt("Sid");
+                int Uid = rs.getInt("Uid");
+                StdSports s = new StdSports(Sid,Uid);
+                list.add(s);
+            }
+            rs.close();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
+            list = null;
         }
+        // for (LabelObject each: list) System.out.println((each.getLabelId()));
         return list;
     }
 
     @Override
     public List<LabelObject> getAllValuesWithLabelID(int labelID) {
-        List list = null;
+        List<LabelObject> list = new LinkedList<>();
         try {
-            list = session.createQuery("from StdSports where Sid = "+ labelID).list();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM sports WHERE Sid = ?;");
+            ps.setInt(1, labelID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                int Sid = rs.getInt("Sid");
+                int Uid = rs.getInt("Uid");
+                StdSports s = new StdSports(Sid,Uid);
+                list.add(s);
+            }
+            rs.close();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
+            list = null;
         }
+        for (LabelObject each: list) System.out.println((each.getUserID()));
         return list;
     }
 
