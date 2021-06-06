@@ -64,7 +64,7 @@ public class StdBooks implements LabelObject {
 	}
 
 	@Override
-	public int getUserId() {
+	public int getUserID() {
 		return Uid;
 	}
 

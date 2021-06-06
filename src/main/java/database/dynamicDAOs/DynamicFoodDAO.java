@@ -29,7 +29,7 @@ public class DynamicFoodDAO extends UserCommonAttributesDAO {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            StdFood l = new StdFood(labelObject.getLabelId(), labelObject.getUserId());
+            StdFood l = new StdFood(labelObject.getLabelId(), labelObject.getUserID());
             session.save(l);
             transaction.commit();
             session.close();
@@ -68,7 +68,7 @@ public class DynamicFoodDAO extends UserCommonAttributesDAO {
 
     @Override
     public void updateLabel(LabelObject labelObject) {
-        StdFood l = new StdFood(labelObject.getLabelId(), labelObject.getUserId());
+        StdFood l = new StdFood(labelObject.getLabelId(), labelObject.getUserID());
         try {
             Transaction transaction=session.beginTransaction();
             session.update(l);
@@ -109,11 +109,11 @@ public class DynamicFoodDAO extends UserCommonAttributesDAO {
             Map<Integer, Integer> map1 = new HashMap<>(), map2 = new HashMap<>();
             for (Object each: list1) {
                 LabelObject labelObject = (LabelObject) each;
-                map1.put(labelObject.getLabelId(), labelObject.getUserId());
+                map1.put(labelObject.getLabelId(), labelObject.getUserID());
             }
             for (Object each: list2) {
                 LabelObject labelObject = (LabelObject) each;
-                map2.put(labelObject.getLabelId(), labelObject.getUserId());
+                map2.put(labelObject.getLabelId(), labelObject.getUserID());
             }
             Set<Integer> set1 = map1.keySet(), set2 = map2.keySet();
             for (int lid: set1) {

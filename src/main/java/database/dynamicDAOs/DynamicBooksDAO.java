@@ -3,9 +3,6 @@ package database.dynamicDAOs;
 import database.daos.LabelsDAO;
 import database.standarizedTables.LabelObject;
 import database.standarizedTables.StdBooks;
-import database.supports.HibernateUtil;
-import database.tables.Books;
-import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.*;
@@ -32,7 +29,7 @@ public class DynamicBooksDAO extends UserCommonAttributesDAO {
 		Transaction transaction = null;
 		try {
 			transaction = session.beginTransaction();
-			StdBooks l = new StdBooks(labelObject.getLabelId(), labelObject.getUserId());
+			StdBooks l = new StdBooks(labelObject.getLabelId(), labelObject.getUserID());
 			session.save(l);
 			transaction.commit();
 			session.close();
@@ -71,7 +68,7 @@ public class DynamicBooksDAO extends UserCommonAttributesDAO {
 
 	@Override
 	public void updateLabel(LabelObject labelObject) {
-		StdBooks l = new StdBooks(labelObject.getLabelId(), labelObject.getUserId());
+		StdBooks l = new StdBooks(labelObject.getLabelId(), labelObject.getUserID());
 		try {
 			Transaction transaction=session.beginTransaction();
 			session.update(l);
@@ -112,11 +109,11 @@ public class DynamicBooksDAO extends UserCommonAttributesDAO {
 			Map<Integer, Integer> map1 = new HashMap<>(), map2 = new HashMap<>();
 			for (Object each: list1) {
 				LabelObject labelObject = (LabelObject) each;
-				map1.put(labelObject.getLabelId(), labelObject.getUserId());
+				map1.put(labelObject.getLabelId(), labelObject.getUserID());
 			}
 			for (Object each: list2) {
 				LabelObject labelObject = (LabelObject) each;
-				map2.put(labelObject.getLabelId(), labelObject.getUserId());
+				map2.put(labelObject.getLabelId(), labelObject.getUserID());
 			}
 			Set<Integer> set1 = map1.keySet(), set2 = map2.keySet();
 			for (int lid: set1) {

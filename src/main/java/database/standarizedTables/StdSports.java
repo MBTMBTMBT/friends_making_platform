@@ -63,7 +63,7 @@ public class StdSports implements LabelObject {
 	}
 
 	@Override
-	public int getUserId() {
+	public int getUserID() {
 		return Uid;
 	}
 
