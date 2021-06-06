@@ -6,7 +6,7 @@ import database.tables.Administrator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class AdministractorDAO {
+public class AdministratorDAO {
 	
 	public static List<Administrator> getAllAdministractor() {
 		List<Administrator> administrator = null;

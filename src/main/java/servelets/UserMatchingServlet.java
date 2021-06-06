@@ -46,6 +46,28 @@ public class UserMatchingServlet extends HttpServlet {
         public int compareTo(CompareNode o) {
             return Integer.compare(this.getMark(), o.getMark());
         }
+
+        public static List<CompareNode>[] mergeNodes(List<CompareNode> list1, List<CompareNode> list2) {
+            Map<Integer, CompareNode> map1 = new HashMap<>(), map2 = new HashMap<>();
+            for (CompareNode each: list1) map1.put(each.getUserPerson().getUserID(), each);
+            for (CompareNode each: list2) map2.put(each.getUserPerson().getUserID(), each);
+            for (int eachKey: map1.keySet()) {
+                if (map2.keySet().contains(eachKey)) {
+                    int mark1 = map1.get(eachKey).getMark();
+                    int mark2 = map2.get(eachKey).getMark();
+                    if (mark1 >= mark2) {
+                        map2.replace(eachKey, map1.get(eachKey));
+                    } else {
+                        map1.replace(eachKey, map2.get(eachKey));
+                    }
+                }
+            }
+            list1 = new LinkedList<>();
+            list2 = new LinkedList<>();
+            for (int eachKey: map1.keySet()) list1.add(map1.get(eachKey));
+            for (int eachKey: map2.keySet()) list2.add(map2.get(eachKey));
+            return new List[] {list1, list2};
+        }
     }
 
     private List<CompareNode> matchLabelObjs(UserPerson userPerson) {
@@ -54,19 +76,21 @@ public class UserMatchingServlet extends HttpServlet {
         if (userPerson.getGender().equals("female")) {
             if (userPerson.getGenderOrientation().equals("hetero")) {
                 genderPreference = "male";
+                targetGenderOrientation = "hetero";
             }
             else {
                 genderPreference = "female";
+                targetGenderOrientation = "homosexual";
             }
-            targetGenderOrientation = "hetero";
         } else {
             if (userPerson.getGenderOrientation().equals("hetero")) {
                 genderPreference = "female";
+                targetGenderOrientation = "hetero";
             }
             else {
                 genderPreference = "male";
+                targetGenderOrientation = "homosexual";
             }
-            targetGenderOrientation = "homosexual";
         }
         DynamicUserPersonDAO userDAO = new DynamicUserPersonDAO();
         UserCommonAttributesDAO commonAttributesDAO;
@@ -82,6 +106,10 @@ public class UserMatchingServlet extends HttpServlet {
             List<CompareNode> keepList = matchForOneTypeOfLabel(userPerson, commonAttributesDAO, userDAO,
                     genderPreference, targetGenderOrientation);
             if (remain != null) {
+                // merge nodes from two lists
+                List<CompareNode>[] lists = CompareNode.mergeNodes(remain, keepList);
+                remain = lists[0]; keepList = lists[1];
+
                 // take intersection of the old and new
                 Set<CompareNode> intersection = new HashSet<>(remain);
                 intersection.retainAll(keepList);
@@ -147,6 +175,10 @@ public class UserMatchingServlet extends HttpServlet {
             }
 
             if (remain != null) {
+                // merge nodes from two lists
+                List<CompareNode>[] lists = CompareNode.mergeNodes(remain, keepList);
+                remain = lists[0]; keepList = lists[1];
+
                 // take intersection of the old and new
                 Set<CompareNode> intersection = new HashSet<>(remain);
                 intersection.retainAll(keepList);

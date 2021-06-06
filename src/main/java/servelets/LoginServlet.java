@@ -1,6 +1,6 @@
 package servelets;
 
-import database.daos.AdministractorDAO;
+import database.daos.AdministratorDAO;
 import database.daos.PersonDAO;
 import database.daos.PsychologicalMentorDAO;
 import database.daos.UserDAO;
@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 
                 }  else if (isAdmin(person)) {
                     // login successfully for admin
-                    Administrator administrator = AdministractorDAO.getAdministractorBySystemID(person.getSystemID());
+                    Administrator administrator = AdministratorDAO.getAdministractorBySystemID(person.getSystemID());
                     int adminNumber = administrator.getAdminNumber();
                     request.setAttribute("admin_number", adminNumber);
                     request.setAttribute("admin_username", username);
@@ -76,7 +76,7 @@ public class LoginServlet extends HttpServlet {
     private static boolean isAdmin(Person person) {
         if (person == null) return false;
         int systemID = person.getSystemID();
-        Administrator admin = AdministractorDAO.getAdministractorBySystemID(systemID);
+        Administrator admin = AdministratorDAO.getAdministractorBySystemID(systemID);
         return admin != null;
     }
 

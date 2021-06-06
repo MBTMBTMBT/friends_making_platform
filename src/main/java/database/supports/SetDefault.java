@@ -43,7 +43,7 @@ public class SetDefault {
         try {
             // we also need a default admin
             // check if this default mentor exists
-            Administrator administrator = AdministractorDAO.getAdministractorByID(1);
+            Administrator administrator = AdministratorDAO.getAdministractorByID(1);
             if (administrator == null) {
                 String defaultAdminName = "Admin 1";
                 Person person = new Person();
@@ -66,7 +66,7 @@ public class SetDefault {
                 admin.setAdminNumber(1);
                 admin.setSystemID(systemID);
                 admin.setEmployeeID(employeeNum);
-                AdministractorDAO.saveAdministrator(admin);
+                AdministratorDAO.saveAdministrator(admin);
             }
         } catch (Exception exception) {
             System.out.println("meet an error when setting default mentor");

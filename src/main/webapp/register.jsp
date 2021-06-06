@@ -1,9 +1,9 @@
 <%@ page import="database.supports.SetDefault" %>
-<%@ page import="database.supports.DataBaseInitialize" %>
+<%@ page import="database.supports.DataBaseDev" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  Thread initTh = new DataBaseInitialize.InitThread();
-  initTh.start();
+  // Thread initTh = new DataBaseInitialize.InitThread();
+  // initTh.start();
   /*
   try {
     initTh.join();
