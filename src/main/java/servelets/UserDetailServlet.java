@@ -15,11 +15,11 @@ import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-@WebServlet("/userMainPageServlet")
-public class UserMainPageServlet extends HttpServlet {
+@WebServlet("/userDetailServlet")
+public class UserDetailServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        /*
         String username = null;
         String usernameMsg = null;
         int userID = -1;
@@ -36,14 +36,16 @@ public class UserMainPageServlet extends HttpServlet {
             username = (String) session.getAttribute("user_username");
             userID = (int) session.getAttribute("user_id");
         }
+         */
 
+        int userID = Integer.parseInt(request.getParameter("num"));
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
         UserPerson userPerson = userPersonDAO.getUserPersonByUserID(userID);
+        String username = userPerson.getScreenName();
 
         // screen name; 1.email; 2.wechat; 3.birthday; 4.gender; 5.slogan; 6.work; 7.sports; 8.food; 9.locations; 10.film; 11.book;
         List<String> msgLst = new LinkedList<>();
-        // msgLst.add(username);  // put username
-        msgLst.add(userPerson.getHeadIcon());
+        msgLst.add(username);  // put username
 
         String email = userPerson.getEmailAddress();
         if (email == null || email.equals("")) email = "you haven't set your email yet";

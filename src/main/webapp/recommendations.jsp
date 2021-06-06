@@ -1,5 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.LinkedList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +32,10 @@
   genderListIter = genderList.iterator();
   ageListIter = ageList.iterator();
   workListIter = workList.iterator();
+
+  // List<Integer> userNumbers = new LinkedList<>();
+  // for (int i = 1; i <= headIconList.size(); i++) userNumbers.add(i);
+  Iterator<String> userNumbersIter = listIterator.next().iterator();
 
   request.setAttribute("user_username", username);
   request.setAttribute("user_id", userID);
@@ -63,7 +69,13 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
+
   </tr>
 
   <tr>
@@ -72,7 +84,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -81,7 +98,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -90,7 +112,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -99,7 +126,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -108,7 +140,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -117,7 +154,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -126,7 +168,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -135,7 +182,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -144,7 +196,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -153,7 +210,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -162,7 +224,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -171,7 +238,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -180,7 +252,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
   <tr>
@@ -189,7 +266,12 @@
     <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
     <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
     <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="detail_information.html">detail information</a>  </td>
+    <td class="text-center"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post" >
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit>detail information</button>
+      </form>
+    </a></td>
   </tr>
 
 

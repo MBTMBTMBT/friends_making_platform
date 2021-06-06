@@ -88,7 +88,7 @@
 </div>
 <br>
 	<div align="center" >
-		<img border="0" src="static/images/headicon.png"  width="250" height="228">
+		<img border="0" src="<%=message0%>" width="250" height="228">
 		<br><br>
 	<table  class="table table-hover table-bordered " >
 		<tr class="active">

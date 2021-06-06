@@ -66,9 +66,9 @@ public class UserRegisterServlet extends HttpServlet {
             System.out.println(sex);
             person.setpassword(password);
             if (person.getGender().equals("male")) {
-                person.setHeadIcon("static/images/user_male.png");
+                person.setHeadIcon("static/images/usermale.png");
             } else {
-                person.setHeadIcon("static/images/user_female.png");
+                person.setHeadIcon("static/images/userfemale.png");
             }
             PersonDAO.savePerson(person);
             person = PersonDAO.getPersonByScreenName(username);

@@ -314,9 +314,9 @@ public class DataBaseDev {
             person.setForename(String.valueOf(countUser));
             person.setGender((Math.random() >= 0.5)? "female": "male");
             if (person.getGender().equals("male")) {
-                person.setHeadIcon("static/images/user_male.png");
+                person.setHeadIcon("static/images/usermale.png");
             } else {
-                person.setHeadIcon("static/images/user_female.png");
+                person.setHeadIcon("static/images/userfemale.png");
             }
             PersonDAO.savePerson(person);
             person = PersonDAO.getPersonByScreenName(eachUserName);

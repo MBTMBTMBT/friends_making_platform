@@ -47,7 +47,6 @@ public class UserMatchingServlet extends HttpServlet {
 
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
         UserPerson userPerson = userPersonDAO.getUserPersonByUserID(userID);
-        userPersonDAO.close();
 
         List<CompareNode> nodes = matchLabelObjs(userPerson);
         List<String> headIconList = new LinkedList<>();
@@ -55,6 +54,7 @@ public class UserMatchingServlet extends HttpServlet {
         List<String> genderList = new LinkedList<>();
         List<String> ageList = new LinkedList<>();
         List<String> workList = new LinkedList<>();
+        List<String> userIDList = new LinkedList<>();
         DynamicLabelsDAO labelsDAO = new DynamicLabelsDAO();
         for (CompareNode each: nodes) {
             UserPerson eachUserPerson = each.getUserPerson();
@@ -63,6 +63,7 @@ public class UserMatchingServlet extends HttpServlet {
             genderList.add(eachUserPerson.getGender());
             ageList.add(String.valueOf(eachUserPerson.getAge()));
             workList.add(labelsDAO.getLabelsByKey(eachUserPerson.getWork()).getWork());
+            userIDList.add(String.valueOf(eachUserPerson.getUserID()));
         }
         labelsDAO.close();
         userPersonDAO.close();
@@ -73,11 +74,12 @@ public class UserMatchingServlet extends HttpServlet {
         infoLists.add(genderList);
         infoLists.add(ageList);
         infoLists.add(workList);
+        infoLists.add(userIDList);
 
         request.setAttribute("info_lists", infoLists);
         request.setAttribute("user_username", username);
         request.setAttribute("user_id", userID);
-        request.getRequestDispatcher("/recommendation.jsp").forward(request, response);
+        request.getRequestDispatcher("/recommendations.jsp").forward(request, response);
     }
 
     private static class CompareNode implements Comparable<CompareNode> {
@@ -107,6 +109,8 @@ public class UserMatchingServlet extends HttpServlet {
         }
 
         public static List<CompareNode>[] mergeNodes(List<CompareNode> list1, List<CompareNode> list2) {
+            if (list1 == null) list1 = new LinkedList<>();
+            if (list2 == null) list2 = new LinkedList<>();
             Map<Integer, CompareNode> map1 = new HashMap<>(), map2 = new HashMap<>();
             for (CompareNode each: list1) map1.put(each.getUserPerson().getUserID(), each);
             for (CompareNode each: list2) map2.put(each.getUserPerson().getUserID(), each);
