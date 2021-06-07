@@ -36,26 +36,46 @@ public class UserDetailServlet extends HttpServlet {
             userID = (int) session.getAttribute("user_id");
         }
 
-        int checkedUserID = Integer.parseInt(request.getParameter("num"));
+        String checkedUsername = null;
+        // String usernameMsg = null;
+        int checkedUserID = -1;
+
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
+        try {
+            checkedUserID = Integer.parseInt(request.getParameter("num"));
+        } catch (NumberFormatException ignore) {
+            try {
+                checkedUsername = (String) request.getAttribute("checked_username");
+                // usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
+                checkedUserID = (int) request.getAttribute("checked_user_id");
+            } catch (NullPointerException ignoreIgnore) {
+                checkedUserID = -1;
+            }
+            if (checkedUserID == -1) {
+                HttpSession session = request.getSession();
+                checkedUsername = (String) session.getAttribute("checked_username");
+                checkedUserID = (int) session.getAttribute("checked_user_id");
+            }
+        }
+
         UserPerson userPerson = userPersonDAO.getUserPersonByUserID(checkedUserID);
-        String checkedUsername = userPerson.getScreenName();
+        checkedUsername = userPerson.getScreenName();
 
         // screen name; 1.email; 2.wechat; 3.birthday; 4.gender; 5.slogan; 6.work; 7.sports; 8.food; 9.locations; 10.film; 11.book;
         List<String> msgLst = new LinkedList<>();
         msgLst.add(checkedUsername);  // put username
 
         String email = userPerson.getEmailAddress();
-        if (email == null || email.equals("")) email = "you haven't set your email yet";
+        if (email == null || email.equals("")) email = "he/she hasn't selected set his/her email yet";
         msgLst.add(email);
 
         String wechat = userPerson.getWechat();
-        if (wechat == null || wechat.equals("")) wechat = "you haven't set your Wechat yet";
+        if (wechat == null || wechat.equals("")) wechat = "he/she hasn't set his/her Wechat yet";
         msgLst.add(wechat);
 
         Date birth = userPerson.getDateOfBirth();
         String birthStr;
-        if (birth == null) birthStr = "you haven't set your birthday yet";
+        if (birth == null) birthStr = "he/she hasn't set his/her birthday yet";
         else birthStr = birth.toString();
         msgLst.add(birthStr);
 
@@ -63,8 +83,7 @@ public class UserDetailServlet extends HttpServlet {
         msgLst.add(gender);
 
         String slogan = userPerson.getSlogan();
-        if (slogan == null || slogan.equals("")) slogan = "write this, about what kind of person you are, or what " +
-                "kind of him/her you are expecting";
+        if (slogan == null || slogan.equals("")) slogan = "he/she hasn't wrote anything yet";
         msgLst.add(slogan);
 
         int workID = userPerson.getWork();
@@ -82,7 +101,7 @@ public class UserDetailServlet extends HttpServlet {
             sports += " ";
             if (count % 3 == 0) sports += "\n";
         }
-        if (sports.equals("")) sports = "you can select the sports you do";
+        if (sports.equals("")) sports = "he/she hasn't selected the sports he/she does";
         msgLst.add(sports);
 
         String food = "";
@@ -95,7 +114,7 @@ public class UserDetailServlet extends HttpServlet {
             food += " ";
             if (count % 3 == 0) food += "\n";
         }
-        if (food.equals("")) food = "you can select the food you like";
+        if (food.equals("")) food = "he/she hasn't selected the food he/she likes";
         msgLst.add(food);
 
         String location = "";
@@ -108,7 +127,7 @@ public class UserDetailServlet extends HttpServlet {
             location += " ";
             if (count % 3 == 0) location += "\n";
         }
-        if (location.equals("")) location = "you can select the locations you've been to";
+        if (location.equals("")) location = "he/she hasn't selected the locations he/she has been to";
         msgLst.add(location);
 
         String films = "";
@@ -121,7 +140,7 @@ public class UserDetailServlet extends HttpServlet {
             films += " ";
             if (count % 3 == 0) films += "\n";
         }
-        if (films.equals("")) films = "you can select the films you like";
+        if (films.equals("")) films = "he/she hasn't selected the films he/she likes";
         msgLst.add(films);
 
         String books = "";
@@ -134,7 +153,7 @@ public class UserDetailServlet extends HttpServlet {
             books += " ";
             if (count % 3 == 0) books += "\n";
         }
-        if (books.equals("")) books = "you can select the books you've read";
+        if (books.equals("")) books = "he/she hasn't selected the books he/she has read";
         msgLst.add(books);
 
         msgLst.add(userPerson.getHeadIcon());
@@ -145,6 +164,9 @@ public class UserDetailServlet extends HttpServlet {
             count += 1;
         }
 
+        Likes likes = LikesDAO.getLikesByKey(userID, checkedUserID);
+
+        request.setAttribute("likes", likes != null);
         request.setAttribute("checked_username", checkedUsername);
         request.setAttribute("checked_user_id", checkedUserID);
         request.setAttribute("user_username", username);

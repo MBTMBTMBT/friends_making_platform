@@ -77,11 +77,12 @@ public class LikesDAO {
 	}
 
 	public static void deleteLikesByKey(int uid1,int uid2) {
-		Likes l = new Likes();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			Likes l = new Likes();
 			Transaction transaction=session.beginTransaction();
 			l.setUid1(uid1);
 			l.setUid2(uid2);
+			l.setConfession("");  // todo: all the delete methods might have some problem?
 			session.delete(l);
 			transaction.commit();
 	    	session.close();

@@ -16,8 +16,8 @@ import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-@WebServlet("/addLikeServlet")
-public class AddLikeServlet extends HttpServlet {
+@WebServlet("/cancelLikeServlet")
+public class CancelLikeServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = null;
@@ -63,10 +63,11 @@ public class AddLikeServlet extends HttpServlet {
         String checkedUsername = userPerson.getScreenName();
          */
 
-        Likes likes = new Likes();
-        System.out.println("Add likes: " + userID + " - " + checkedUserID);
-        likes.setUid1(userID); likes.setUid2(checkedUserID); likes.setConfession("");
-        LikesDAO.saveLikes(likes);
+        // Likes likes = new Likes();
+        System.out.println("Delete likes: " + userID + " - " + checkedUserID);
+        // Likes likes = LikesDAO.getLikesByKey(userID, checkedUserID);
+        // likes.setUid1(userID); likes.setUid2(checkedUserID);
+        LikesDAO.deleteLikesByKey(userID, checkedUserID);
 
         request.setAttribute("checked_username", checkedUsername);
         request.setAttribute("checked_user_id", checkedUserID);

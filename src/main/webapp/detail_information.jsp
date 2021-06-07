@@ -67,6 +67,7 @@
     httpSession.setAttribute("user_username", username);
     httpSession.setAttribute("user_id", userID);
     System.out.println(message12);
+    Boolean likes = (Boolean) request.getAttribute("likes");
 %>
 
 <body>
@@ -76,7 +77,9 @@
 <br>
 <div align="center">
     <a class="btn btn-primary" href="userMatchingServlet">Return</a>
-    <a class="btn btn-warning" href="addLikeServlet">Follow</a>
+    <a class="<%=!likes? "btn btn-warning": "btn btn-default"%>"
+       href="<%=!likes? "addLikeServlet": "cancelLikeServlet"%>">
+        <%=!likes? "like": "cancel like"%></a>
     <button class="btn btn-danger" >Start Relationship</button>
     <td align="center"></td>
 </div>

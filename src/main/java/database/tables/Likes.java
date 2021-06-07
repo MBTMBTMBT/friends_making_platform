@@ -21,7 +21,7 @@ public class Likes {
 	private int Uid2;
 	
 	@Column(name="Confession")
-	private String Confession;
+	private String Confession = null;
 	
 	public Likes() {
 	}
