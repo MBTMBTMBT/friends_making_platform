@@ -19,7 +19,6 @@ import java.util.List;
 public class UserDetailServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*
         String username = null;
         String usernameMsg = null;
         int userID = -1;
@@ -36,16 +35,15 @@ public class UserDetailServlet extends HttpServlet {
             username = (String) session.getAttribute("user_username");
             userID = (int) session.getAttribute("user_id");
         }
-         */
 
-        int userID = Integer.parseInt(request.getParameter("num"));
+        int checkedUserID = Integer.parseInt(request.getParameter("num"));
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
-        UserPerson userPerson = userPersonDAO.getUserPersonByUserID(userID);
-        String username = userPerson.getScreenName();
+        UserPerson userPerson = userPersonDAO.getUserPersonByUserID(checkedUserID);
+        String checkedUsername = userPerson.getScreenName();
 
         // screen name; 1.email; 2.wechat; 3.birthday; 4.gender; 5.slogan; 6.work; 7.sports; 8.food; 9.locations; 10.film; 11.book;
         List<String> msgLst = new LinkedList<>();
-        msgLst.add(username);  // put username
+        msgLst.add(checkedUsername);  // put username
 
         String email = userPerson.getEmailAddress();
         if (email == null || email.equals("")) email = "you haven't set your email yet";
@@ -75,7 +73,7 @@ public class UserDetailServlet extends HttpServlet {
         msgLst.add(work);
 
         String sports = "";
-        List<Object> sportsList = SportsDAO.getAllValuesWithUID(userID);
+        List<Object> sportsList = SportsDAO.getAllValuesWithUID(checkedUserID);
         int count = 0;
         for (Object eachObject: sportsList) {
             count += 1;
@@ -88,7 +86,7 @@ public class UserDetailServlet extends HttpServlet {
         msgLst.add(sports);
 
         String food = "";
-        List<Object> foodList = FoodDAO.getAllValuesWithUID(userID);
+        List<Object> foodList = FoodDAO.getAllValuesWithUID(checkedUserID);
         count = 0;
         for (Object eachObject: foodList) {
             count += 1;
@@ -101,7 +99,7 @@ public class UserDetailServlet extends HttpServlet {
         msgLst.add(food);
 
         String location = "";
-        List<Object> locationList = LocationDAO.getAllValuesWithUID(userID);
+        List<Object> locationList = LocationDAO.getAllValuesWithUID(checkedUserID);
         count = 0;
         for (Object eachObject: locationList) {
             count += 1;
@@ -114,7 +112,7 @@ public class UserDetailServlet extends HttpServlet {
         msgLst.add(location);
 
         String films = "";
-        List<Object> filmsList = FilmsDAO.getAllValuesWithUID(userID);
+        List<Object> filmsList = FilmsDAO.getAllValuesWithUID(checkedUserID);
         count = 0;
         for (Object eachObject: filmsList) {
             count += 1;
@@ -127,7 +125,7 @@ public class UserDetailServlet extends HttpServlet {
         msgLst.add(films);
 
         String books = "";
-        List<Object> booksList = BooksDAO.getAllValuesWithUID(userID);
+        List<Object> booksList = BooksDAO.getAllValuesWithUID(checkedUserID);
         count = 0;
         for (Object eachObject: booksList) {
             count += 1;
@@ -139,15 +137,19 @@ public class UserDetailServlet extends HttpServlet {
         if (books.equals("")) books = "you can select the books you've read";
         msgLst.add(books);
 
+        msgLst.add(userPerson.getHeadIcon());
+
         count = 0;
         for (String eachMsg: msgLst) {
             request.setAttribute("msg" + count, eachMsg);
             count += 1;
         }
 
+        request.setAttribute("checked_username", checkedUsername);
+        request.setAttribute("checked_user_id", checkedUserID);
         request.setAttribute("user_username", username);
         request.setAttribute("user_id", userID);
-        request.getRequestDispatcher("/user_mainpage.jsp").forward(request, response);
+        request.getRequestDispatcher("/detail_information.jsp").forward(request, response);
     }
 }
 

@@ -318,6 +318,7 @@ public class DataBaseDev {
             } else {
                 person.setHeadIcon("static/images/userfemale.png");
             }
+
             PersonDAO.savePerson(person);
             person = PersonDAO.getPersonByScreenName(eachUserName);
             assert person != null;

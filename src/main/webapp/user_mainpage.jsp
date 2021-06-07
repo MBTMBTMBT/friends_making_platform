@@ -65,6 +65,7 @@
 	HttpSession httpSession = request.getSession();
 	httpSession.setAttribute("user_username", username);
 	httpSession.setAttribute("user_id", userID);
+	System.out.println(message0);
 %>
 
 <body>
@@ -82,13 +83,25 @@
 </div>
 	<a class="btn btn-danger" href="userMatchingServlet">Recommendations</a>
 	<a class="btn btn-primary" href="Events.html">Events</a>
-	<a class="btn btn-warning" href="Likes.html">Likes</a>
+	<a class="btn btn-warning" href="Likes.jsp">Likes</a>
 	<a class="btn btn-success" href="my_mentor.html">My mentor</a>
 	<a class="btn btn-info" href="login.jsp">log out</a>
 </div>
 <br>
 	<div align="center" >
-		<img border="0" src="<%=message0%>" width="250" height="228">
+		<img border="0" src="<%=message0%>" width="250" height="228"><br><br>
+		<form method="post" action="uploadHeadIconServlet" enctype="multipart/form-data">
+			<table border="0" align="center">
+				<td>
+					<input class="btn btn-default btn-lg active" type="file" accept="image/*" name="photo" size="50"
+					placeholder="Choose your new head icon">
+				</td>
+				<td>
+					<button class="btn btn-default btn-lg active" type="submit">Save</button>
+				</td>
+
+			</table>
+		</form>
 		<br><br>
 	<table  class="table table-hover table-bordered " >
 		<tr class="active">

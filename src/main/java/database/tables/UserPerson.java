@@ -273,6 +273,7 @@ public class UserPerson {
 		return output;
 	}
 
+	// method borrowed from https://www.cnblogs.com/fuchuanzhipan1209/p/9596614.html
 	public int getAge() {
 		java.util.Date birthDay = new java.util.Date(getDateOfBirth().getTime());
 		Calendar cal = Calendar.getInstance();

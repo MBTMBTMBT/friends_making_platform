@@ -167,6 +167,8 @@ public class UserMatchingServlet extends HttpServlet {
         UserCommonAttributesDAO commonAttributesDAO;
         List<CompareNode> remain = null;
 
+        shuffle(LABELS);
+
         for (String attributeName: LABELS) {
             switch (attributeName) {
                 case "StdBooks":
@@ -295,6 +297,22 @@ public class UserMatchingServlet extends HttpServlet {
         }
 
         return remain;
+    }
+
+    private static <T> void swap(T[] a, int i, int j){
+        T temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
+    // idea borrowed from https://blog.csdn.net/qq_33256688/article/details/80304048
+    private static <T> void shuffle(T[] arr) {
+        Random rand = new Random();
+        int length = arr.length;
+        for ( int i = length; i > 0; i-- ){
+            int randInd = rand.nextInt(i);
+            swap(arr, randInd, i - 1);
+        }
     }
 
     public static void main(String[] args) {

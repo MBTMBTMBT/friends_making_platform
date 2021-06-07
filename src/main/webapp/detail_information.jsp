@@ -60,11 +60,13 @@
     String message9 = (String) request.getAttribute("msg9");
     String message10 = (String) request.getAttribute("msg10");
     String message11 = (String) request.getAttribute("msg11");
+    String message12 = (String) request.getAttribute("msg12");
     request.setAttribute("user_username", username);
     request.setAttribute("user_id", userID);
     HttpSession httpSession = request.getSession();
     httpSession.setAttribute("user_username", username);
     httpSession.setAttribute("user_id", userID);
+    System.out.println(message12);
 %>
 
 <body>
@@ -73,20 +75,19 @@
 
 <br>
 <div align="center">
-    <a class="btn btn-primary" href="Recommendations.html">Return</a>
+    <a class="btn btn-primary" href="userMatchingServlet">Return</a>
     <button class="btn btn-warning" >Follow</button>
-    <button class="btn btn-danger" >Strat Relationship</button>
-
+    <button class="btn btn-danger" >Start Relationship</button>
 
 </div>
 <br>
 <div align="center" >
-    <img border="0" src="main/webapp/static/images/headicon.png" width="250" height="228">
+    <img border="0" src="<%=message12%>" width="250" height="228">
     <br><br>
     <table  class="table table-hover table-bordered " >
         <tr class="active">
             <td align="center" width="100px">Username</td>
-            <td align="center"><%=request.getAttribute("user_username")%></td>
+            <td align="center"><%=request.getAttribute("checked_username")%></td>
         </tr>
         <tr class="success">
             <td align="center" width="100px">Gender</td>

@@ -8,7 +8,9 @@
     <meta charset="UTF-8">
     <title>Recommendations</title>
   <link rel="stylesheet" type="text/css" href="static/css/userpage_css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/userpage_css/style.css">
 </head>
+
 <body>
 <h2 style="text-align: center">Recommendations</h2>
 
@@ -46,236 +48,239 @@
 
 <form action="#" method = "post" id="search_username">
   <br>
+  <div align="center">
+  <td>
   <input type = "text" placeholder="search username" name = "search_username" style="font-size: large"
          style="background-color:rgba(0,0,1,0.5)">
   <button type=submit>search</button>
+  </td>
+  </div>
+
+  <div align="right">
   <td colspan="2" align="center"><input type="button" onclick="window.location.href='userMainPageServlet';"
-                                        value="confirm and exit" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;"></td>
+                                        value="return" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;"></td>
+  </div>
 </form>
 
-<table class="table table-striped  table-bordered" >
+<table class="table table-hover table-bordered" align="center">
   <tr>
-    <th class="text-center"> head icon</th>
-    <th class="text-center"> screenname</th>
-    <th class="text-center"> gender</th>
-    <th class="text-center"> age</th>
-    <th class="text-center"> work</th>
-    <th class="text-center"> operation</th>
+    <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> head icon</th>
+    <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> screenname</th>
+    <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> gender</th>
+    <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> age</th>
+    <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> work</th>
+    <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> operation</th>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
-      </form>
-    </a></td>
-
-  </tr>
-
-  <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
-        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
   <tr>
-    <td class="text-center"> <%=headIconListIter.hasNext()? headIconListIter.next(): ""%></td>
-    <td class="text-center"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
-    <td class="text-center"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
-    <td class="text-center"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
-    <td class="text-center"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
-    <td class="text-center"><a class="btn btn-primary" href="#">
-      <form action="userDetailServlet" method = "post" >
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
         <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
-        <button type=submit>detail information</button>
+        <button type=submit class="btn btn-default">detail information</button>
       </form>
     </a></td>
   </tr>
 
-
-
+  <tr>
+    <td align="center" ><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): ""%>" width="100" height="100"></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=userNameListIter.hasNext()? userNameListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=genderListIter.hasNext()? genderListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=ageListIter.hasNext()? ageListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=workListIter.hasNext()? workListIter.next(): ""%></td>
+    <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+      <form action="userDetailServlet" method = "post">
+        <input type = "hidden" name="num" value=<%=userNumbersIter.hasNext()? userNumbersIter.next(): "0"%>>
+        <button type=submit class="btn btn-default">detail information</button>
+      </form>
+    </a></td>
+  </tr>
 
 </table>
 
