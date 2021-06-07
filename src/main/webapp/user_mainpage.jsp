@@ -74,16 +74,24 @@
 
 <br>
 <div align="center">
-<div class="dropdown">
-	<button class="btn btn-toolbar">change</button>
-	<div class="dropdown-content">
-		<a class="btn btn-info" href="pushUserAttributesServlet">change my information and characters</a>
-		<a class="btn btn-info" href="head_icon.html">change my head icon</a>
-	</div>
-</div>
+	<!--div class="dropdown">
+		<button class="btn btn-toolbar">change</button>
+		<div class="dropdown-content">
+			<a class="btn btn-info" href="pushUserAttributesServlet">change my information and characters</a>
+			<a class="btn btn-info" href="head_icon.html">change my head icon</a>
+		</div>
+	</div-->
+	<a class="btn btn-info" href="userMatchingServlet">change my head icon</a>
 	<a class="btn btn-danger" href="userMatchingServlet">Recommendations</a>
 	<a class="btn btn-primary" href="Events.html">Events</a>
-	<a class="btn btn-warning" href="Likes.jsp">Likes</a>
+	<!--a class="btn btn-warning" href="Likes.jsp">Likes</a-->
+	<div class="dropdown">
+		<button class="btn btn-toolbar">Likes</button>
+		<div class="dropdown-content">
+			<a class="btn btn-info" href="userLikeServlet">Who I like?</a>
+			<a class="btn btn-info" href="userLikedServlet">Who likes me?</a>
+		</div>
+	</div>
 	<a class="btn btn-success" href="my_mentor.html">My mentor</a>
 	<a class="btn btn-info" href="login.jsp">log out</a>
 </div>

@@ -45,7 +45,6 @@ public class LikesDAO {
         }
 	}
 
-	
 	public static Likes getLikesByKey(int uid1,int uid2) {
 		Likes l = null;
 		
@@ -55,10 +54,28 @@ public class LikesDAO {
            e.printStackTrace();
         }
 		return l;
-
 	}
-	
-	
+
+	public static Likes getLikesByFirstKey(int uid1) {
+		Likes l = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			l = (Likes)session.createQuery("from Likes where Uid1 = "+ uid1).uniqueResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return l;
+	}
+
+	public static Likes getLikesBySecondKey(int uid2) {
+		Likes l = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			l = (Likes)session.createQuery("from Likes where Uid2 = "+ uid2).uniqueResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return l;
+	}
+
 	public static void deleteLikesByKey(int uid1,int uid2) {
 		Likes l = new Likes();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -68,13 +85,10 @@ public class LikesDAO {
 			session.delete(l);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
         }
 	}
-	
-	
 	
 	public static void updateLikes(Likes e) {
 		

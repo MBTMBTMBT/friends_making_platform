@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>detail_information</title>
-    <link rel="stylesheet" type="text/css" href="main/webapp/static/css/userpage_css/bootstrap.min.css">
-    <link rel="stylesheet" href="main/webapp/static/css/userpage_css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/userpage_css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/userpage_css/style.css">
 </head>
 <style>
     .table
@@ -76,9 +76,9 @@
 <br>
 <div align="center">
     <a class="btn btn-primary" href="userMatchingServlet">Return</a>
-    <button class="btn btn-warning" >Follow</button>
+    <a class="btn btn-warning" href="addLikeServlet">Follow</a>
     <button class="btn btn-danger" >Start Relationship</button>
-
+    <td align="center"></td>
 </div>
 <br>
 <div align="center" >

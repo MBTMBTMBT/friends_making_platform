@@ -150,6 +150,10 @@ public class UserDetailServlet extends HttpServlet {
         request.setAttribute("user_username", username);
         request.setAttribute("user_id", userID);
         request.getRequestDispatcher("/detail_information.jsp").forward(request, response);
+
+        HttpSession session = request.getSession();
+        session.setAttribute("checked_username", checkedUsername);
+        session.setAttribute("checked_user_id", checkedUserID);
     }
 }
 
