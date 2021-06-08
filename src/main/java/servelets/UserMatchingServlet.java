@@ -48,7 +48,11 @@ public class UserMatchingServlet extends HttpServlet {
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
         UserPerson userPerson = userPersonDAO.getUserPersonByUserID(userID);
 
-        List<CompareNode> nodes = matchLabelObjs(userPerson);
+        List<CompareNode> nodes = new LinkedList<>();
+        try {
+            nodes = matchLabelObjs(userPerson);
+        } catch (NullPointerException ignore) {
+        }
         List<String> headIconList = new LinkedList<>();
         List<String> userNameList = new LinkedList<>();
         List<String> genderList = new LinkedList<>();
@@ -226,7 +230,10 @@ public class UserMatchingServlet extends HttpServlet {
         userDAO.close();
 
         // sort the total mark
-        Collections.sort(remain);
+        try {
+            Collections.sort(remain);
+        } catch (Exception ignore) {
+        }
 
         // take the first 15 person
         if (remain.size() > OUTPUT_LIMIT) remain = remain.subList(0, OUTPUT_LIMIT);

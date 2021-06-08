@@ -81,7 +81,7 @@
 			<a class="btn btn-info" href="head_icon.html">change my head icon</a>
 		</div>
 	</div-->
-	<a class="btn btn-info" href="userMatchingServlet">change my head icon</a>
+	<a class="btn btn-info" href="pushUserAttributesServlet">change my attributes</a>
 	<a class="btn btn-danger" href="userMatchingServlet">Recommendations</a>
 	<a class="btn btn-primary" href="Events.html">Events</a>
 	<!--a class="btn btn-warning" href="Likes.jsp">Likes</a-->
@@ -92,7 +92,7 @@
 			<a class="btn btn-info" href="userLikedByOthersServlet">Who likes me?</a>
 		</div>
 	</div>
-	<a class="btn btn-success" href="my_mentor.html">My mentor</a>
+	<a class="btn btn-success" href="userMentorServlet">My mentor</a>
 	<a class="btn btn-info" href="login.jsp">log out</a>
 </div>
 <br>

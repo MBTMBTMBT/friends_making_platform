@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-@WebServlet("/userMatchingServlet")
+@WebServlet("/userMentorServlet")
 public class UserMentorServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,9 +43,13 @@ public class UserMentorServlet extends HttpServlet {
 
         List<PsychologicalMentor> mentors = getRecommendedMentor(userID);
         Collections.shuffle(mentors);
-        mentors = mentors.subList(0, 5);
+        try {
+            mentors = mentors.subList(0, 5);
+        } catch (IndexOutOfBoundsException ignore) {
+        }
         List<Person> people = new LinkedList<>();
         for (PsychologicalMentor eachMentor: mentors) {
+            if (eachMentor.getMentorNumber() == 1) continue;
             int eachSystemId = eachMentor.getSystemID();
             people.add(PersonDAO.getPersonByID(eachSystemId));
         }
@@ -53,17 +57,21 @@ public class UserMentorServlet extends HttpServlet {
         List<String> headIconList = new LinkedList<>();
         List<String> userNameList = new LinkedList<>();
         List<String> genderList = new LinkedList<>();
+        List<String> idList = new LinkedList<>();
 
         for (Person each: people) {
             headIconList.add(each.getHeadIcon());
             userNameList.add(each.getScreenName());
             genderList.add(each.getGender());
+            PsychologicalMentor eachMentor = PsychologicalMentorDAO.getPsychologicalMentorBySystemID(each.getSystemID());
+            idList.add(String.valueOf(eachMentor.getMentorNumber()));
         }
 
         List<List<String>> infoLists = new LinkedList<>();
         infoLists.add(headIconList);
         infoLists.add(userNameList);
         infoLists.add(genderList);
+        infoLists.add(idList);
 
         request.setAttribute("info_lists", infoLists);
         request.setAttribute("user_username", username);
@@ -80,7 +88,12 @@ public class UserMentorServlet extends HttpServlet {
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
         UserPerson userPerson = userPersonDAO.getUserPersonByUserID(uid);
         userPersonDAO.close();
-        int age = userPerson.getAge();
+        int age;
+        try {
+            age = userPerson.getAge();
+        } catch (NullPointerException nullPointerException) {
+            age = 20;
+        }
         int ageRange;
         if (age < 30) ageRange = 10;
         else if (age < 50) ageRange = 20;
