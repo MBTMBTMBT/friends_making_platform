@@ -1,14 +1,10 @@
 package database.supports;
 
-import database.daos.LabelsDAO;
-import database.daos.PersonDAO;
-import database.daos.UserDAO;
+import database.daos.*;
 import database.dynamicDAOs.*;
 import database.exceptions.WrongAttributeNameException;
 import database.standarizedTables.*;
-import database.tables.Labels;
-import database.tables.Person;
-import database.tables.User;
+import database.tables.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -37,6 +33,8 @@ public class DataBaseDev {
         setDefaultValues();
         initializeLabels();
         addRandomUsers();
+        addRandomAdmins();
+        addRandomMentors();
     }
 
     public static void setDefaultValues() {
@@ -296,6 +294,68 @@ public class DataBaseDev {
                 transaction.rollback();
             }
             exp.printStackTrace();
+        }
+    }
+
+    public static void addRandomMentors() {
+        for (int i = 0; i < 100; i++) {
+            Person person = new Person();
+            person.setScreenName("Mentor" + i);
+            person.setSurname("TestedMentor");
+            person.setForename(String.valueOf(i));
+            person.setpassword("p");
+            if (Math.random() > 0.5) {
+                person.setHeadIcon("static/images/employeefemale.png");
+                person.setGender("female");
+            } else {
+                person.setHeadIcon("static/images/employeemale.png");
+                person.setGender("male");
+            }
+            PersonDAO.savePerson(person);
+            person = PersonDAO.getPersonByScreenName("Mentor" + i);
+            assert person != null;
+            int systemID = person.getSystemID();
+            Employee employee = new Employee();
+            employee.setSystemID(systemID);
+            EmployeeDAO.saveEmployee(employee);
+            employee = EmployeeDAO.getEmployeeBySystemID(systemID);
+            PsychologicalMentor mentor = new PsychologicalMentor();
+            mentor.setSystemID(systemID);
+            mentor.setEmployeeID(employee.getEmployeeID());
+            double ageRangeRange = Math.random();
+            int ageRange = ageRangeRange < 0.5? 10: (ageRangeRange < 0.75? 20: 80);
+            mentor.setAgeRangeInRange(ageRange);
+            mentor.setGenderOrientationInCharge((Math.random() <= HETERO_RATE)? "hetero": "homosexual");
+            PsychologicalMentorDAO.savePhsycologicalMentor(mentor);
+        }
+    }
+
+    public static void addRandomAdmins() {
+        for (int i = 0; i < 10; i++) {
+            Person person = new Person();
+            person.setScreenName("Mentor" + i);
+            person.setSurname("TestedMentor");
+            person.setForename(String.valueOf(i));
+            person.setpassword("p");
+            if (Math.random() > 0.5) {
+                person.setHeadIcon("static/images/employeefemale.png");
+                person.setGender("female");
+            } else {
+                person.setHeadIcon("static/images/employeemale.png");
+                person.setGender("male");
+            }
+            PersonDAO.savePerson(person);
+            person = PersonDAO.getPersonByScreenName("Mentor" + i);
+            assert person != null;
+            int systemID = person.getSystemID();
+            Employee employee = new Employee();
+            employee.setSystemID(systemID);
+            EmployeeDAO.saveEmployee(employee);
+            employee = EmployeeDAO.getEmployeeBySystemID(systemID);
+            Administrator admin = new Administrator();
+            admin.setSystemID(systemID);
+            admin.setEmployeeID(employee.getEmployeeID());
+            AdministratorDAO.saveAdministrator(admin);
         }
     }
 

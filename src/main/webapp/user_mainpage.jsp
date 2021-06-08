@@ -88,8 +88,8 @@
 	<div class="dropdown">
 		<button class="btn btn-toolbar">Likes</button>
 		<div class="dropdown-content">
-			<a class="btn btn-info" href="userLikeServlet">Who I like?</a>
-			<a class="btn btn-info" href="userLikedServlet">Who likes me?</a>
+			<a class="btn btn-info" href="userLikeOthersServlet">Who I like?</a>
+			<a class="btn btn-info" href="userLikedByOthersServlet">Who likes me?</a>
 		</div>
 	</div>
 	<a class="btn btn-success" href="my_mentor.html">My mentor</a>

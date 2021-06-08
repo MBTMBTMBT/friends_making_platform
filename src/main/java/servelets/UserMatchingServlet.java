@@ -29,12 +29,12 @@ public class UserMatchingServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String username = null;
-        String usernameMsg = null;
+        // String usernameMsg = null;
         int userID = -1;
 
         try {
             username = (String) request.getAttribute("user_username");
-            usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
+            // usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
             userID = (int) request.getAttribute("user_id");
         } catch (NullPointerException ignore) {
         }

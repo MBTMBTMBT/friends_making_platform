@@ -23,6 +23,11 @@ public class AddLikeServlet extends HttpServlet {
         String username = null;
         // String usernameMsg = null;
         int userID = -1;
+        boolean recommendation = false;
+        boolean like = false;
+        boolean liked = false;
+
+        HttpSession session = request.getSession();
 
         try {
             username = (String) request.getAttribute("user_username");
@@ -32,10 +37,24 @@ public class AddLikeServlet extends HttpServlet {
         }
 
         if (username == null || userID == -1) {
-            HttpSession session = request.getSession();
+            session = request.getSession();
             username = (String) session.getAttribute("user_username");
             userID = (int) session.getAttribute("user_id");
         }
+
+        try {
+            recommendation = (Boolean) request.getAttribute("recommendation");
+            like = (Boolean) request.getAttribute("like");
+            liked = (Boolean) request.getAttribute("liked");
+        } catch (NullPointerException ignore) {
+            recommendation = (Boolean) session.getAttribute("recommendation");
+            like = (Boolean) session.getAttribute("like");
+            liked = (Boolean) session.getAttribute("liked");
+        }
+
+        request.setAttribute("recommendation", recommendation);
+        request.setAttribute("like", like);
+        request.setAttribute("liked", liked);
 
         String checkedUsername = null;
         // String usernameMsg = null;
@@ -50,7 +69,7 @@ public class AddLikeServlet extends HttpServlet {
         }
 
         if (checkedUserID == -1) {
-            HttpSession session = request.getSession();
+            session = request.getSession();
             checkedUsername = (String) session.getAttribute("checked_username");
             checkedUserID = (int) session.getAttribute("checked_user_id");
         }

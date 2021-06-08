@@ -79,7 +79,7 @@ public class UserMainPageServlet extends HttpServlet {
             count += 1;
             Sports eachSport = (Sports) eachObject;
             sports += LabelsDAO.getLabelsByKey(eachSport.getSid()).getSport();
-            sports += " ";
+            sports += "; ";
             if (count % 3 == 0) sports += "\n";
         }
         if (sports.equals("")) sports = "you can select the sports you do";
@@ -92,7 +92,7 @@ public class UserMainPageServlet extends HttpServlet {
             count += 1;
             Food eachFood = (Food) eachObject;
             food += LabelsDAO.getLabelsByKey(eachFood.getFid()).getFood();
-            food += " ";
+            food += "; ";
             if (count % 3 == 0) food += "\n";
         }
         if (food.equals("")) food = "you can select the food you like";
@@ -105,7 +105,7 @@ public class UserMainPageServlet extends HttpServlet {
             count += 1;
             Location eachLocation = (Location) eachObject;
             location += LabelsDAO.getLabelsByKey(eachLocation.getLid()).getLocations();
-            location += " ";
+            location += "; ";
             if (count % 3 == 0) location += "\n";
         }
         if (location.equals("")) location = "you can select the locations you've been to";
@@ -118,7 +118,7 @@ public class UserMainPageServlet extends HttpServlet {
             count += 1;
             Films eachFilm = (Films) eachObject;
             films += LabelsDAO.getLabelsByKey(eachFilm.getFid()).getFilm();
-            films += " ";
+            films += "; ";
             if (count % 3 == 0) films += "\n";
         }
         if (films.equals("")) films = "you can select the films you like";
@@ -131,7 +131,7 @@ public class UserMainPageServlet extends HttpServlet {
             count += 1;
             Books eachBook = (Books) eachObject;
             books += LabelsDAO.getLabelsByKey(eachBook.getBid()).getBook();
-            books += " ";
+            books += "; ";
             if (count % 3 == 0) books += "\n";
         }
         if (books.equals("")) books = "you can select the books you've read";

@@ -67,7 +67,21 @@
     httpSession.setAttribute("user_username", username);
     httpSession.setAttribute("user_id", userID);
     System.out.println(message12);
-    Boolean likes = (Boolean) request.getAttribute("likes");
+    boolean likes = (Boolean) request.getAttribute("likes");
+
+    boolean recommendation = (Boolean) request.getAttribute("recommendation");
+    boolean like = (Boolean) request.getAttribute("like");
+    boolean liked = (Boolean) request.getAttribute("liked");
+
+    System.out.println(recommendation);
+    System.out.println(like);
+    System.out.println(liked);
+    request.setAttribute("recommendation", recommendation);
+    request.setAttribute("like", like);
+    request.setAttribute("liked", liked);
+    session.setAttribute("recommendation", recommendation);
+    session.setAttribute("like", like);
+    session.setAttribute("liked", liked);
 %>
 
 <body>
@@ -76,7 +90,8 @@
 
 <br>
 <div align="center">
-    <a class="btn btn-primary" href="userMatchingServlet">Return</a>
+    <a class="btn btn-primary" href="<%=
+    recommendation? "userMatchingServlet": (like? "userLikeOthersServlet": "userLikedByOthersServlet")%>">Return</a>
     <a class="<%=!likes? "btn btn-warning": "btn btn-default"%>"
        href="<%=!likes? "addLikeServlet": "cancelLikeServlet"%>">
         <%=!likes? "like": "cancel like"%></a>

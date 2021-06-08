@@ -20,12 +20,12 @@ public class UserDetailServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = null;
-        String usernameMsg = null;
+        // String usernameMsg = null;
         int userID = -1;
 
         try {
             username = (String) request.getAttribute("user_username");
-            usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
+            // usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
             userID = (int) request.getAttribute("user_id");
         } catch (NullPointerException ignore) {
         }
@@ -40,9 +40,43 @@ public class UserDetailServlet extends HttpServlet {
         // String usernameMsg = null;
         int checkedUserID = -1;
 
+        // flags to see which page to go back
+        boolean recommendation = false;
+        boolean like = false;
+        boolean liked = false;
+
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
         try {
-            checkedUserID = Integer.parseInt(request.getParameter("num"));
+            if (request.getParameter("num") != null) {
+                recommendation = true;
+                checkedUserID = Integer.parseInt(request.getParameter("num"));
+                System.out.println("wozaizheliya0");
+                System.out.println(checkedUserID);
+            } else if (request.getParameter("num_like") != null) {
+                like = true;
+                checkedUserID = Integer.parseInt(request.getParameter("num_like"));
+                System.out.println(checkedUserID);
+            } else if (request.getAttribute("num_liked") != null) {
+                liked = true;
+                checkedUserID = Integer.parseInt(request.getParameter("num_liked"));
+                System.out.println(checkedUserID);
+            } else {
+                recommendation = (Boolean) request.getAttribute("recommendation");
+                like = (Boolean) request.getAttribute("like");
+                liked = (Boolean) request.getAttribute("liked");
+                try {
+                    checkedUsername = (String) request.getAttribute("checked_username");
+                    // usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
+                    checkedUserID = (int) request.getAttribute("checked_user_id");
+                } catch (NullPointerException ignoreIgnore) {
+                    checkedUserID = -1;
+                }
+                if (checkedUserID == -1) {
+                    HttpSession session = request.getSession();
+                    checkedUsername = (String) session.getAttribute("checked_username");
+                    checkedUserID = (int) session.getAttribute("checked_user_id");
+                }
+            }
         } catch (NumberFormatException ignore) {
             try {
                 checkedUsername = (String) request.getAttribute("checked_username");
@@ -58,6 +92,7 @@ public class UserDetailServlet extends HttpServlet {
             }
         }
 
+        System.out.println("wozaizheliya2");
         UserPerson userPerson = userPersonDAO.getUserPersonByUserID(checkedUserID);
         checkedUsername = userPerson.getScreenName();
 
@@ -98,7 +133,7 @@ public class UserDetailServlet extends HttpServlet {
             count += 1;
             Sports eachSport = (Sports) eachObject;
             sports += LabelsDAO.getLabelsByKey(eachSport.getSid()).getSport();
-            sports += " ";
+            sports += "; ";
             if (count % 3 == 0) sports += "\n";
         }
         if (sports.equals("")) sports = "he/she hasn't selected the sports he/she does";
@@ -111,7 +146,7 @@ public class UserDetailServlet extends HttpServlet {
             count += 1;
             Food eachFood = (Food) eachObject;
             food += LabelsDAO.getLabelsByKey(eachFood.getFid()).getFood();
-            food += " ";
+            food += "; ";
             if (count % 3 == 0) food += "\n";
         }
         if (food.equals("")) food = "he/she hasn't selected the food he/she likes";
@@ -124,7 +159,7 @@ public class UserDetailServlet extends HttpServlet {
             count += 1;
             Location eachLocation = (Location) eachObject;
             location += LabelsDAO.getLabelsByKey(eachLocation.getLid()).getLocations();
-            location += " ";
+            location += "; ";
             if (count % 3 == 0) location += "\n";
         }
         if (location.equals("")) location = "he/she hasn't selected the locations he/she has been to";
@@ -137,7 +172,7 @@ public class UserDetailServlet extends HttpServlet {
             count += 1;
             Films eachFilm = (Films) eachObject;
             films += LabelsDAO.getLabelsByKey(eachFilm.getFid()).getFilm();
-            films += " ";
+            films += "; ";
             if (count % 3 == 0) films += "\n";
         }
         if (films.equals("")) films = "he/she hasn't selected the films he/she likes";
@@ -150,7 +185,7 @@ public class UserDetailServlet extends HttpServlet {
             count += 1;
             Books eachBook = (Books) eachObject;
             books += LabelsDAO.getLabelsByKey(eachBook.getBid()).getBook();
-            books += " ";
+            books += "; ";
             if (count % 3 == 0) books += "\n";
         }
         if (books.equals("")) books = "he/she hasn't selected the books he/she has read";
@@ -171,7 +206,16 @@ public class UserDetailServlet extends HttpServlet {
         request.setAttribute("checked_user_id", checkedUserID);
         request.setAttribute("user_username", username);
         request.setAttribute("user_id", userID);
+
+        request.setAttribute("recommendation", recommendation);
+        request.setAttribute("like", like);
+        request.setAttribute("liked", liked);
+
+        System.out.println("wozaizheliya3");
         request.getRequestDispatcher("/detail_information.jsp").forward(request, response);
+        // else if (like) {
+            // request.getRequestDispatcher("/like.jsp").forward(request, response);
+        // }
 
         HttpSession session = request.getSession();
         session.setAttribute("checked_username", checkedUsername);
