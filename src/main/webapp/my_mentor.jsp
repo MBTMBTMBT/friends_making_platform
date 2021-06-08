@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.Map" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,6 +69,8 @@
     for (int i = 0; i < 5; i++) {
         mentorNumValue[i] = idListIter.hasNext() ? idListIter.next() : "0";
     }
+
+    Map<String, String> mentorMap = (Map<String, String>) request.getAttribute("mentor_map");
 %>
 
 <head>
@@ -96,30 +99,26 @@
 <table class="table table-hover table-bordered" align="center">
     <tr>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> head icon</th>
-        <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> screenname</th>
+        <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> screen name</th>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> gender</th>
-        <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> age</th>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> operation</th>
 
     </tr>
     <tr>
-        <td align="center"><img src="image.jpg" width="100" height="100"></td>
+        <td align="center"><img src="<%=mentorMap.get("headicon")%>" width="100" height="100"></td>
         <td class="text-center"
             style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);">
-            2
+            <%=mentorMap.get("screenname")%>
         </td>
         <td class="text-center"
             style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);">
-            2
-        </td>
-        <td class="text-center"
-            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);">
-            2
+            <%=mentorMap.get("gender")%>
         </td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;">
-            <button class="btn btn-danger">Cancle
-                choose
-            </button>
+            <form action="<%=(!mentorNumValue[0].equals("0"))? "cancelMentorServlet": "#"%>" method="post">
+                <input type="hidden" name="mentor" value=<%=mentorNumValue[0]%>>
+                <button type=submit class="btn btn-default">cancel choice</button>
+            </form>
         </td>
     </tr>
 </table>
@@ -144,7 +143,6 @@
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> screenname</th>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> gender</th>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> operation</th>
-
     </tr>
     <tr>
         <td align="center"><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): darkIcon%>" width="100"

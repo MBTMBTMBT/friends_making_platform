@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @WebServlet("/userMentorServlet")
 public class UserMentorServlet extends HttpServlet {
@@ -73,6 +71,23 @@ public class UserMentorServlet extends HttpServlet {
         infoLists.add(genderList);
         infoLists.add(idList);
 
+        // if user currently have a mentor
+        DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
+        UserPerson userPerson = userPersonDAO.getUserPersonByUserID(userID);
+        userPersonDAO.close();
+        Map<String, String> mentorMap = new HashMap<>();
+        mentorMap.put("headicon", "static/images/unknowndark.png");
+        mentorMap.put("screenname", "");
+        mentorMap.put("gender", "");
+        if (userPerson.getMentorID() != 1) {
+            PsychologicalMentor mentor = PsychologicalMentorDAO.getPhsycologicalMentorByID(userPerson.getMentorID());
+            Person mentorPerson = PersonDAO.getPersonByID(mentor.getSystemID());
+            mentorMap.replace("headicon", mentorPerson.getHeadIcon());
+            mentorMap.replace("screenname", mentorPerson.getScreenName());
+            mentorMap.replace("gender", mentorPerson.getGender());
+        }
+
+        request.setAttribute("mentor_map", mentorMap);
         request.setAttribute("info_lists", infoLists);
         request.setAttribute("user_username", username);
         request.setAttribute("user_id", userID);
