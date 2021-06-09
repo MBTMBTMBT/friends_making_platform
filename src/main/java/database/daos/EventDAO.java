@@ -6,10 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import com.mysql.cj.jdbc.JdbcConnection;
+import database.standarizedTables.StdSports;
 import database.supports.HibernateUtil;
+import database.supports.JDBCTool;
 import database.tables.Event;
+import database.tables.Likes;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -54,30 +59,65 @@ public class EventDAO {
 		return event;
 	}
 
-	public static List<Event> getEventByLocation(int LocationID) {
-		List<Event> events = null;
+	public static List<Event> getEventByLocation(int locationID) {
+		List<Event> events = new LinkedList<>();
+		/*
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			System.out.println("from Event where LocationID = "+ LocationID);
 			events = session.createQuery("from Event where LocationID = "+ LocationID).list();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} */
+		try {
+			Connection connection = JDBCTool.getConnection();
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM event WHERE LocationID = ?;");
+			ps.setInt(1, locationID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()){
+				// int Uid1 = rs.getInt("Uid1");
+				// int Uid2 = rs.getInt("Uid2");
+				Event event = new Event();
+				event.setActivities(rs.getString("Activities"));
+				event.setTime(rs.getString("Time"));
+				event.setNumberofparticipants(rs.getInt("Number_of_participants"));
+				event.setLocationID(rs.getInt("LocationID"));
+				events.add(event);
+			}
+			connection.close();
+			rs.close();
+			ps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			events = null;
 		}
 		return events;
 	}
 	
 	public static void deleteEventByKey(int LocationID, String time) {
-		Event event = new Event();
+		Event event;
+		try {
+			Connection connection = JDBCTool.getConnection();
+			String sql = "DELETE FROM event WHERE LocationID = " + LocationID + " and time = '" + time + "';";
+			System.out.println(sql);
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.executeUpdate();
+			pst.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		/*
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			event = getEventByKey(LocationID, time);
 			Transaction transaction=session.beginTransaction();
 			event.setLocationID(LocationID);
 			event.setTime(time);
 			session.delete(event);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
-        }
+        } */
 	}
 	
 	

@@ -65,7 +65,6 @@ public class EmployeeDAO {
 			session.delete(employee);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
         }

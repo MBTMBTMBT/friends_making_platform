@@ -76,7 +76,10 @@
 
     List<String> eventKeyList = new LinkedList<>();
     for (int i = 0; i < locationIDList.size(); i++) {
-        eventKeyList.add(locationIDList.get(i) + " " + eventTimeList.get(i));
+        String key = locationIDList.get(i) + "%" + eventTimeList.get(i).split(" ")[0]
+                + "%" + eventTimeList.get(i).split(" ")[1];
+        eventKeyList.add(key);
+        System.out.println(key);
     }
 
     Iterator<String> eventKeyListIter = eventKeyList.iterator();
@@ -110,11 +113,14 @@
     </tr>
 
 
+
+    <td align="center">
     <tr align="center">
         <span style="font-size: 16px;color:red">
             You can organise maximum one location
         </span>
     </tr>
+    </td>
 
     <form action="addEventLocationServlet" method="post" id="addEventLocation">
         <tr>
@@ -140,7 +146,7 @@
                     </div>
             </td>
             <td class="text-center">
-                <input type="submit" class="btn btn-default" placeholder="Confirm" style="vertical-align:middle"/>
+                <input type="submit" class="btn btn-default" placeholder="Confirm" style="vertical-align:center; horiz-align:center"/>
             </td>
         </tr>
     </form>
@@ -177,7 +183,7 @@
         </td>
         <td align="center">
             <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEvent":"#"%>" method="post">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -199,7 +205,7 @@
         </td>
         <td align="center">
             <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEvent":"#"%>" method="post">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -221,7 +227,7 @@
         </td>
         <td align="center">
             <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEvent":"#"%>" method="post">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -243,7 +249,7 @@
         </td>
         <td align="center">
             <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEvent":"#"%>" method="post">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -265,7 +271,7 @@
         </td>
         <td align="center">
             <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEvent":"#"%>" method="post">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -308,7 +314,7 @@
             </label>
         </td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;">
-            <input type="submit" class="btn btn-primary">add</input>
+            <input type="submit" class="btn btn-primary"/>
         </td>
         </form>
     </tr>
