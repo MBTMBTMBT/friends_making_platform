@@ -103,7 +103,7 @@
             style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=locationMap.get("geographical_location")%>
         </td>
         <td class="text-center">
-            <input type="button" onclick="window.location.href='locationRemoveServlet';"
+            <input type="button" onclick="window.location.href='deleteEventLocationServlet';"
                    value="delete" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;">
         </td>
 
