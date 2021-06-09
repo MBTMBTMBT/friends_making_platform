@@ -277,34 +277,34 @@
         <form action="addEventServlet" method="post" id="addEvent">
         <td class="text-center"
             style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);">
-            <input type="datetime-local" name="Activity_time1" id="Activity_time1">
+            <input type="datetime-local" name="activity_time" id="activity_time">
         </td>
         <td class="text-center"
             style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);">
-            <label class="checkbox-inline">
-                <input type="checkbox" id="blind date" value="blind date"> blind date
+            <label class="radio-inline">
+                <input type="radio" name="activity_type" id="blind date" value="blind date"> blind date
             </label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="picnic" value="picnic"> picnic
+            <label class="radio-inline">
+                <input type="radio" name="activity_type" id="picnic" value="picnic"> picnic
             </label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="home party" value="home party"> home party
+            <label class="radio-inline">
+                <input type="radio" name="activity_type" id="home party" value="home party"> home party
             </label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="barbeque" value="barbeque"> barbeque
+            <label class="radio-inline">
+                <input type="radio" name="activity_type" id="barbeque" value="barbeque"> barbeque
             </label><br>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="role playing detective" value="role playing detective"> role playing
+            <label class="radio-inline">
+                <input type="radio" name="activity_type" id="role playing detective" value="role playing detective"> role playing
                 detective
             </label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="KTV" value="KTV"> KTV
+            <label class="radio-inline">
+                <input type="radio" name="activity_type" id="KTV" value="KTV"> KTV
             </label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="hiking" value="hiking"> hiking
+            <label class="radio-inline">
+                <input type="radio" name="activity_type" id="hiking" value="hiking"> hiking
             </label>
-            <label class="checkbox-inline">
-                <input type="checkbox" id="others" value="others"> others
+            <label class="radio-inline">
+                <input type="radio" name="activity_type" id="others" value="others"> others
             </label>
         </td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;">

@@ -57,6 +57,7 @@ public class EventDAO {
 	public static List<Event> getEventByLocation(int LocationID) {
 		List<Event> events = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			System.out.println("from Event where LocationID = "+ LocationID);
 			events = session.createQuery("from Event where LocationID = "+ LocationID).list();
 		} catch (Exception e) {
 			e.printStackTrace();

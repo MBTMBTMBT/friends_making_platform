@@ -20,7 +20,7 @@ public class Event {
 	@Column(name="Time")
 	private String Time;
 	
-	@Column(name="Number of participants")
+	@Column(name="Number_of_participants")
 	private int Numberofparticipants;
 	
 	@Column(name="Activities")

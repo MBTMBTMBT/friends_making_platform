@@ -156,7 +156,7 @@ REFERENCES groupwork.phsycological_mentor (MentorNumber) ON DELETE CASCADE ON UP
 CREATE TABLE groupwork.event (
   LocationID int NOT NULL AUTO_INCREMENT,
   Time datetime NOT NULL,
-  `Number of participants` int DEFAULT NULL,
+  Number_of_participants int DEFAULT NULL,
   Activities char(15) DEFAULT NULL,
   PRIMARY KEY (LocationID, Time)
 )
