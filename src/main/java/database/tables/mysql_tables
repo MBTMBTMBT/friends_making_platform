@@ -317,3 +317,6 @@ ALTER TABLE groupwork.sports
 ADD CONSTRAINT sports_ibfk_2 FOREIGN KEY (Uid)
 REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
 
+CREATE VIEW UserPerson AS SELECT person.SystemID, person.Surname, person.Forename, person.Gender, person.ScreenName,
+person.HeadIcon, person.password, user.UserID, user.Emailaddress, user.Wechat, user.GenderOrientation, user.DataOfBirth,
+ user.Slogan, user.Work, user.MentorID FROM user inner join person on user.SystemID = person.SystemID;

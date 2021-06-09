@@ -53,6 +53,7 @@ public class UserMatchingServlet extends HttpServlet {
             nodes = matchLabelObjs(userPerson);
         } catch (NullPointerException ignore) {
         }
+
         List<String> headIconList = new LinkedList<>();
         List<String> userNameList = new LinkedList<>();
         List<String> genderList = new LinkedList<>();
