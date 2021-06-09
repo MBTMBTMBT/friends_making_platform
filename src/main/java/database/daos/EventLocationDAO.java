@@ -17,20 +17,17 @@ import com.mysql.cj.Query;
 
 public class EventLocationDAO {
 	
-	public static List<EventLocation> getAllEvent_Location() {
+	public static List<EventLocation> getAllEventLocation() {
 		List<EventLocation> eventLocation  = null;
-			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			eventLocation = session.createQuery("from EventLocation").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		
 		return eventLocation;
 	}
-	
-	
-	public static void saveEvent_Location(EventLocation eventLocation) {
+
+	public static void saveEventLocation(EventLocation eventLocation) {
 		Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -44,19 +41,25 @@ public class EventLocationDAO {
         }
 	}
 
-	
-	public static EventLocation getEvent_LocationByKey(int id) {
+	public static EventLocation getEventLocationByKey(int id) {
 		EventLocation eventLocation = null;
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			eventLocation = (EventLocation)session.createQuery("from EventLocation where LocationID = " + id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		return eventLocation;
-
 	}
-	
+
+	public static EventLocation getEventLocationByMentorID(int mentor_id) {
+		EventLocation eventLocation = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			eventLocation = (EventLocation)session.createQuery("from EventLocation where ManagerID = " + mentor_id).uniqueResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return eventLocation;
+	}
 	
 	public static void deleteEventLocationByKey(int id) {
 		EventLocation eventLocation = new EventLocation();
@@ -66,28 +69,20 @@ public class EventLocationDAO {
 			session.delete(eventLocation);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception e) {
            e.printStackTrace();
         }
 	}
 	
-	
-	
 	public static void updateEventLocation(EventLocation eventLocation) {
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();
 			session.update(eventLocation);
 			transaction.commit();
 	    	session.close();
-			
         } catch (Exception m) {
            m.printStackTrace();
         }
-		
 	}
-
-
 }
 

@@ -48,17 +48,24 @@ public class JoinEventDAO {
 	
 	public static JoinEvent getJoinEventByKey(int Uid,int EventLocationID) {
 		JoinEvent event = null;
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			event = (JoinEvent)session.createQuery("from JoinEvent where Uid = "+ Uid + "and EventLocationID = "+ EventLocationID).uniqueResult();
+			event = (JoinEvent)session.createQuery("from JoinEvent where Uid = "+ Uid + " and EventLocationID = "+ EventLocationID).uniqueResult();
         } catch (Exception e) {
            //e.printStackTrace();
         }
 		return event;
-
 	}
-	
-	
+
+	public static List<JoinEvent> getJoinEventByLocation(int EventLocationID) {
+		List<JoinEvent> events = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			events = session.createQuery("from JoinEvent where EventLocationID = "+ EventLocationID).list();
+		} catch (Exception e) {
+			return null;
+		}
+		return events;
+	}
+
 	public static void deleteJoinEventByKey(int Uid,int EventLocationID) {
 		JoinEvent event = new JoinEvent();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {

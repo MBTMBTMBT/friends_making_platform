@@ -35,6 +35,7 @@ public class DataBaseDev {
         addRandomUsers();
         addRandomAdmins();
         addRandomMentors();
+        setRandomMentors();
     }
 
     public static void setDefaultValues() {
@@ -287,6 +288,7 @@ public class DataBaseDev {
             for (String each : ALL_TABLES) {
                 transaction = session.beginTransaction();
                 session.createSQLQuery("DELETE FROM " + each).executeUpdate();
+                // session.createSQLQuery("").executeUpdate();
                 transaction.commit();
             }
         } catch (Exception exp) {
@@ -387,6 +389,8 @@ public class DataBaseDev {
             user.setDataOfBirth(new Date(100, 3, 28));
             user.setGenderOrientation((Math.random() <= HETERO_RATE)? "hetero": "homosexual");
             user.setWork(1);
+            // int mentorNum = (int) (99 * Math.random());
+            // if (mentorNum == 0) mentorNum = 1;
             user.setMentorID(1);
             user.setSlogan("I love programming, I love CS!");
             user.setSystemID(systemID);
@@ -433,6 +437,19 @@ public class DataBaseDev {
                 commonAttributesDAO.close();  // always close it!
             }
         }
+    }
+
+    private static void setRandomMentors() {
+        DynamicUserDAO userDAO = new DynamicUserDAO();
+        List<User> users = userDAO.getAllUsers();
+        Collections.shuffle(users);
+        for (User each: users) {
+            int mentorNum = (int) (100 * Math.random());
+            if (mentorNum == 0) mentorNum = 1;
+            each.setMentorID(mentorNum);
+            userDAO.updateUser(each);
+        }
+        userDAO.close();
     }
 
     public static void main(String[] args) {

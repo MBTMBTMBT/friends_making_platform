@@ -44,21 +44,27 @@ public class EventDAO {
         }
 	}
 
-	
-	public static Event getEventByKey(int LocationID,String time) {
+	public static Event getEventByKey(int LocationID, String time) {
 		Event event = null;
-		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			event = (Event)session.createQuery("from Event where LocationID = "+ LocationID + "and Time = '"+ time + "'").uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
 		return event;
+	}
 
+	public static List<Event> getEventByLocation(int LocationID) {
+		List<Event> events = null;
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			events = session.createQuery("from Event where LocationID = "+ LocationID).list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return events;
 	}
 	
-	
-	public static void deleteEventByKey(int LocationID,String time) {
+	public static void deleteEventByKey(int LocationID, String time) {
 		Event event = new Event();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction=session.beginTransaction();

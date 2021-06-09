@@ -33,6 +33,7 @@ public class DynamicDAO {
             connection = null;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
+        } catch (NullPointerException ignore) {
         }
     }
 }

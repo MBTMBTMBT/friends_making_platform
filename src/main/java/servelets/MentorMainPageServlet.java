@@ -28,9 +28,8 @@ public class MentorMainPageServlet extends HttpServlet {
 
         try {
             searchedName = request.getParameter("find_screenname");
-        } catch (Exception iDontKnowWhatExceptionCanComeButIJustWorry) {
-            // I am a tired and miserable person
-            iDontKnowWhatExceptionCanComeButIJustWorry.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         HttpSession session = request.getSession();
