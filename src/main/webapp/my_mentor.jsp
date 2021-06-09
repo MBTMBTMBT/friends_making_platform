@@ -128,13 +128,15 @@
     mentor
 </h2>
 
-<br>
-<td align="center">
-    <span style="font-size: 16px;color:red">
-        <%=request.getAttribute("msg") == null ? "" : request.getAttribute("msg")%>
-    </span>
-</td>
-<br>
+<table class="table table-hover table-bordered" align="center">
+    <br>
+    <td align="center">
+        <span style="font-size: 16px;color:red">
+            <%=request.getAttribute("msg") == null ? "You can choose maximum one mentor" : request.getAttribute("msg")%>
+        </span>
+    </td>
+    <br>
+</table>
 
 <br>
 <table class="table table-hover table-bordered" align="center">
