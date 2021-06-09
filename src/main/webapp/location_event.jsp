@@ -97,14 +97,16 @@
     </tr>
     <tr>
         <td class="text-center"
-            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> 2
+            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=locationMap.get("type")%>
         </td>
         <td class="text-center"
-            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> 2
+            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=locationMap.get("geographical_location")%>
         </td>
         <td class="text-center">
-            <button type="submit" class="btn btn-default">Delete</button>
+            <input type="button" onclick="window.location.href='locationRemoveServlet';"
+                   value="delete" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;">
         </td>
+
     </tr>
 
 
@@ -117,35 +119,28 @@
     <form action="addEventLocationServlet" method="post" id="addEventLocation">
         <tr>
             <td>
-                <form class="form-inline" style="text-align: center">
                     <div class="form-group">
                         <label>Location type</label>
-                        <select class="form-control " style=" width: 200px;">
-                            <option>coffee/tea house</option>
-                            <option>bar</option>
-                            <option>restaurant</option>
-                            <option>shopping centre</option>
-                            <option>park</option>
-                            <option>cinema</option>
-                            <option>theatre</option>
+                        <select name="location_type" class="form-control " style=" width: 200px;">
+                            <option value="coffee/tea house">coffee/tea house</option>
+                            <option value="bar">bar</option>
+                            <option value="restaurant">restaurant</option>
+                            <option value="shopping centre">shopping centre</option>
+                            <option value="park">park</option>
+                            <option value="cinema">cinema</option>
+                            <option value="theatre">theatre</option>
                         </select>
                     </div>
-                </form>
 
             </td>
             <td>
-                <form class="form-inline" style="text-align: center">
                     <div class="form-group">
                         <label>Geographical location</label>
-                        <label>
-                            <textarea class="form-control" rows="2"></textarea>
-                        </label>
+                        <textarea name="geographical_location" class="form-control" rows="2"></textarea>
                     </div>
-                </form>
-
             </td>
             <td class="text-center">
-                <input type="submit" class="btn btn-default">Confirm</input>
+                <input type="submit" class="btn btn-default" placeholder="Confirm" style="vertical-align:middle"/>
             </td>
         </tr>
     </form>

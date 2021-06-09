@@ -113,7 +113,7 @@
 <h1 style="text-align: center;color: rgb(85, 74, 90);text-shadow: rgb(156, 153, 153) 2.5px 1.5px 1.5px;">Mentor</h1>
 <br>
 <div align="center">
-    <a class="btn btn-info" href="location_event.html">set locations and events</a>
+    <a class="btn btn-info" href="locationEventPushServlet">set locations and events</a>
     <a class="btn btn-warning" href="login.jsp">logout</a>
 </div>
 <br>

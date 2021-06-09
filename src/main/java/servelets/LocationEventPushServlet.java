@@ -85,6 +85,6 @@ public class LocationEventPushServlet extends HttpServlet {
         session.setAttribute("mentor_username", mentorUsername);
         session.setAttribute("mentor_number", mentorNumber);
 
-        request.getRequestDispatcher("/mentor.jsp").forward(request, response);
+        request.getRequestDispatcher("/location_event.jsp").forward(request, response);
     }
 }
