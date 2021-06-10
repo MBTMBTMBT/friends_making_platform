@@ -1,6 +1,7 @@
-package servelets;
+package servelets.user_servlets;
 
 import database.daos.*;
+import database.dynamicDAOs.DynamicUserPersonDAO;
 import database.tables.*;
 
 import javax.servlet.ServletException;
@@ -14,11 +15,10 @@ import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-@WebServlet("/pushUserAttributesServlet")
-public class PushUserAttributesServlet extends HttpServlet {
+@WebServlet("/userMainPageServlet")
+public class UserMainPageServlet extends HttpServlet {
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
 
         String username = null;
         String usernameMsg = null;
@@ -37,54 +37,37 @@ public class PushUserAttributesServlet extends HttpServlet {
             userID = (int) session.getAttribute("user_id");
         }
 
-        User user = UserDAO.getUserByID(userID);
-        Person person = PersonDAO.getPersonByScreenName(username);
+        DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
+        UserPerson userPerson = userPersonDAO.getUserPersonByUserID(userID);
 
-        // screen name; email; wechat; birthday; gender orientation; slogan; sports; food; locations; film; book;
+        // screen name; 1.email; 2.wechat; 3.birthday; 4.gender; 5.slogan; 6.work; 7.sports; 8.food; 9.locations; 10.film; 11.book;
         List<String> msgLst = new LinkedList<>();
-        msgLst.add(username);  // put username
+        // msgLst.add(username);  // put username
+        msgLst.add(userPerson.getHeadIcon());
 
-        String email = user.getEmailaddress();
-        if (email == null || email.equals("")) email = "entre your email";
+        String email = userPerson.getEmailAddress();
+        if (email == null || email.equals("")) email = "you haven't set your email yet";
         msgLst.add(email);
 
-        String weChat = user.getWechat();
-        if (weChat == null || weChat.equals("")) weChat = "entre your wechat";
-        msgLst.add(weChat);
+        String wechat = userPerson.getWechat();
+        if (wechat == null || wechat.equals("")) wechat = "you haven't set your Wechat yet";
+        msgLst.add(wechat);
 
-        Date birth = user.getDataOfBirth();
+        Date birth = userPerson.getDateOfBirth();
         String birthStr;
-        if (birth == null) birthStr = "entre your birthday";
+        if (birth == null) birthStr = "you haven't set your birthday yet";
         else birthStr = birth.toString();
         msgLst.add(birthStr);
 
-        String genderExpectation;
-        assert person != null;
-        String gender = person.getGender();
-        String genderOrientation = user.getGenderOrientation();
-        if (genderOrientation == null) genderExpectation = "select the gender you wish to view";
-        else {
-            if (gender.equals("male")) {
-                if (genderOrientation.equals("hetero")) {
-                    genderExpectation = "female";
-                } else {
-                    genderExpectation = "male";
-                }
-            } else {
-                if (genderOrientation.equals("hetero")) {
-                    genderExpectation = "male";
-                } else {
-                    genderExpectation = "female";
-                }
-            }
-        }
-        msgLst.add(genderExpectation);
+        String gender = userPerson.getGender();
+        msgLst.add(gender);
 
-        String slogan = user.getSlogan();
-        if (slogan == null || slogan.equals("")) slogan = "entre your slogan";
+        String slogan = userPerson.getSlogan();
+        if (slogan == null || slogan.equals("")) slogan = "write this, about what kind of person you are, or what " +
+                "kind of him/her you are expecting";
         msgLst.add(slogan);
 
-        int workID = user.getWork();
+        int workID = userPerson.getWork();
         Labels labels = LabelsDAO.getLabelsByKey(workID);
         String work = labels.getWork();
         msgLst.add(work);
@@ -96,10 +79,10 @@ public class PushUserAttributesServlet extends HttpServlet {
             count += 1;
             Sports eachSport = (Sports) eachObject;
             sports += LabelsDAO.getLabelsByKey(eachSport.getSid()).getSport();
-            sports += " ";
+            sports += "; ";
             if (count % 3 == 0) sports += "\n";
         }
-        if (sports.equals("")) sports = "select the sports you do";
+        if (sports.equals("")) sports = "you can select the sports you do";
         msgLst.add(sports);
 
         String food = "";
@@ -109,10 +92,10 @@ public class PushUserAttributesServlet extends HttpServlet {
             count += 1;
             Food eachFood = (Food) eachObject;
             food += LabelsDAO.getLabelsByKey(eachFood.getFid()).getFood();
-            food += " ";
+            food += "; ";
             if (count % 3 == 0) food += "\n";
         }
-        if (food.equals("")) food = "select the food you like";
+        if (food.equals("")) food = "you can select the food you like";
         msgLst.add(food);
 
         String location = "";
@@ -122,10 +105,10 @@ public class PushUserAttributesServlet extends HttpServlet {
             count += 1;
             Location eachLocation = (Location) eachObject;
             location += LabelsDAO.getLabelsByKey(eachLocation.getLid()).getLocations();
-            location += " ";
+            location += "; ";
             if (count % 3 == 0) location += "\n";
         }
-        if (location.equals("")) location = "select the locations you've been to";
+        if (location.equals("")) location = "you can select the locations you've been to";
         msgLst.add(location);
 
         String films = "";
@@ -135,10 +118,10 @@ public class PushUserAttributesServlet extends HttpServlet {
             count += 1;
             Films eachFilm = (Films) eachObject;
             films += LabelsDAO.getLabelsByKey(eachFilm.getFid()).getFilm();
-            films += " ";
+            films += "; ";
             if (count % 3 == 0) films += "\n";
         }
-        if (films.equals("")) films = "select the films you like";
+        if (films.equals("")) films = "you can select the films you like";
         msgLst.add(films);
 
         String books = "";
@@ -148,10 +131,10 @@ public class PushUserAttributesServlet extends HttpServlet {
             count += 1;
             Books eachBook = (Books) eachObject;
             books += LabelsDAO.getLabelsByKey(eachBook.getBid()).getBook();
-            books += " ";
+            books += "; ";
             if (count % 3 == 0) books += "\n";
         }
-        if (books.equals("")) books = "select the books you've read";
+        if (books.equals("")) books = "you can select the books you've read";
         msgLst.add(books);
 
         count = 0;
@@ -159,9 +142,11 @@ public class PushUserAttributesServlet extends HttpServlet {
             request.setAttribute("msg" + count, eachMsg);
             count += 1;
         }
+
         request.setAttribute("user_username", username);
         request.setAttribute("user_id", userID);
-        if (usernameMsg != null && !usernameMsg.equals("")) request.setAttribute("msg_username", usernameMsg);
-        request.getRequestDispatcher("/user_attributes.jsp").forward(request, response);
+        request.getRequestDispatcher("/user_mainpage.jsp").forward(request, response);
     }
 }
+
+// <a class="btn btn-info" href="modify.html">change my information</a>

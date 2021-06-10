@@ -1,4 +1,4 @@
-package servelets;
+package servelets.mentor_servlets;
 
 import database.daos.EventDAO;
 import database.daos.EventLocationDAO;
@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/addEventServlet")
-public class AddEventServlet extends HttpServlet {
+@WebServlet("/deleteEventServlet")
+public class DeleteEventServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,30 +42,18 @@ public class AddEventServlet extends HttpServlet {
         session.setAttribute("mentor_username", mentorUsername);
         session.setAttribute("mentor_number", mentorNumber);
 
-        String activityTime = null, activityType = null;
+        String key = null;
         try {
-            activityTime = request.getParameter("activity_time");
-            activityType = request.getParameter("activity_type");
-            activityTime = activityTime.replace('T', ' ');
-            activityTime += ":00";
-            System.out.println(activityTime + " " + activityType);
-        } catch (Exception ignore) {
+            key = request.getParameter("num");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        EventLocation eventLocation = EventLocationDAO.getEventLocationByMentorID(mentorNumber);
-        if (activityType != null && eventLocation != null) {
-            int eventNum = EventDAO.getEventByLocation(eventLocation.getLocationID()).size();
-            if (eventNum < 5) {
-                Event event = new Event();
-                event.setActivities(activityType);
-                event.setTime(activityTime);
-                event.setLocationID(eventLocation.getLocationID());
-                try {
-                    EventDAO.saveEvent(event);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        assert key != null;
+        System.out.println(key);
+        String[] keys = key.split("%");
+        String locationID = keys[0];
+        String eventTime = keys[1] + " " + keys[2];
+        EventDAO.deleteEventByKey(Integer.parseInt(locationID), eventTime);
 
         request.getRequestDispatcher("/locationEventPushServlet").forward(request, response);
     }

@@ -1,9 +1,7 @@
-package servelets;
+package servelets.mentor_servlets;
 
-import database.daos.EventDAO;
 import database.daos.EventLocationDAO;
 import database.daos.LocationDAO;
-import database.tables.Event;
 import database.tables.EventLocation;
 
 import javax.servlet.ServletException;
@@ -13,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 
-@WebServlet("/deleteEventServlet")
-public class DeleteEventServlet extends HttpServlet {
+@WebServlet("/deleteEventLocationServlet")
+public class DeleteEventLocationServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,18 +39,10 @@ public class DeleteEventServlet extends HttpServlet {
         session.setAttribute("mentor_username", mentorUsername);
         session.setAttribute("mentor_number", mentorNumber);
 
-        String key = null;
-        try {
-            key = request.getParameter("num");
-        } catch (Exception e) {
-            e.printStackTrace();
+        EventLocation eventLocation = EventLocationDAO.getEventLocationByMentorID(mentorNumber);
+        if (eventLocation != null) {
+            EventLocationDAO.deleteEventLocationByKey(eventLocation.getLocationID());
         }
-        assert key != null;
-        System.out.println(key);
-        String[] keys = key.split("%");
-        String locationID = keys[0];
-        String eventTime = keys[1] + " " + keys[2];
-        EventDAO.deleteEventByKey(Integer.parseInt(locationID), eventTime);
 
         request.getRequestDispatcher("/locationEventPushServlet").forward(request, response);
     }

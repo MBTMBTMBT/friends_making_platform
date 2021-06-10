@@ -1,4 +1,4 @@
-package servelets;
+package servelets.user_servlets;
 
 import database.daos.LikesDAO;
 import database.dynamicDAOs.DynamicLabelsDAO;
@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-@WebServlet("/userLikeOthersServlet")
-public class UserLikeOthersServlet extends HttpServlet {
+@WebServlet("/userLikedByOthersServlet")
+public class UserLikedByOthersServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +44,7 @@ public class UserLikeOthersServlet extends HttpServlet {
         UserPerson userPerson = userPersonDAO.getUserPersonByUserID(userID);
 
         // List<UserMatchingServlet.CompareNode> nodes = matchLabelObjs(userPerson);
-        List<Likes> likesList = LikesDAO.getLikesByFirstKey(userPerson.getUserID());
+        List<Likes> likesList = LikesDAO.getLikesBySecondKey(userPerson.getUserID());
         List<String> headIconList = new LinkedList<>();
         List<String> userNameList = new LinkedList<>();
         List<String> genderList = new LinkedList<>();
@@ -53,7 +53,7 @@ public class UserLikeOthersServlet extends HttpServlet {
         List<String> userIDList = new LinkedList<>();
         DynamicLabelsDAO labelsDAO = new DynamicLabelsDAO();
         for (Likes each : likesList) {
-            UserPerson eachUserPerson = userPersonDAO.getUserPersonByUserID(each.getUid2());
+            UserPerson eachUserPerson = userPersonDAO.getUserPersonByUserID(each.getUid1());
             headIconList.add(eachUserPerson.getHeadIcon());
             userNameList.add(eachUserPerson.getScreenName());
             genderList.add(eachUserPerson.getGender());
@@ -84,6 +84,6 @@ public class UserLikeOthersServlet extends HttpServlet {
         request.setAttribute("user_gender", userPerson.getGender());
         session.setAttribute("user_gender", userPerson.getGender());
 
-        request.getRequestDispatcher("/like.jsp").forward(request, response);
+        request.getRequestDispatcher("/liked.jsp").forward(request, response);
     }
 }

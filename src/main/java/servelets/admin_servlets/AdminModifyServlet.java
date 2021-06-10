@@ -1,4 +1,4 @@
-package servelets;
+package servelets.admin_servlets;
 
 import database.daos.PersonDAO;
 import database.dynamicDAOs.DynamicUserPersonDAO;

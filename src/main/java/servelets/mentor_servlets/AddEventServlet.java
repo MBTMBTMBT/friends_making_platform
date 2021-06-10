@@ -1,7 +1,9 @@
-package servelets;
+package servelets.mentor_servlets;
 
+import database.daos.EventDAO;
 import database.daos.EventLocationDAO;
 import database.daos.LocationDAO;
+import database.tables.Event;
 import database.tables.EventLocation;
 
 import javax.servlet.ServletException;
@@ -11,9 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
-@WebServlet("/addEventLocationServlet")
-public class AddEventLocationServlet extends HttpServlet {
+@WebServlet("/addEventServlet")
+public class AddEventServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,19 +42,28 @@ public class AddEventLocationServlet extends HttpServlet {
         session.setAttribute("mentor_username", mentorUsername);
         session.setAttribute("mentor_number", mentorNumber);
 
-        String locationType = null, geographicalLocation = null;
+        String activityTime = null, activityType = null;
         try {
-            locationType = request.getParameter("location_type");
-            geographicalLocation = request.getParameter("geographical_location");
+            activityTime = request.getParameter("activity_time");
+            activityType = request.getParameter("activity_type");
+            activityTime = activityTime.replace('T', ' ');
+            activityTime += ":00";
+            System.out.println(activityTime + " " + activityType);
         } catch (Exception ignore) {
         }
-        if (locationType != null) {
-            EventLocation eventLocation = new EventLocation();
-            eventLocation.setLocationType(locationType);
-            eventLocation.setGeographicalLocation(geographicalLocation);
-            eventLocation.setManagerID(mentorNumber);
-            if (EventLocationDAO.getEventLocationByMentorID(mentorNumber) == null) {
-                EventLocationDAO.saveEventLocation(eventLocation);
+        EventLocation eventLocation = EventLocationDAO.getEventLocationByMentorID(mentorNumber);
+        if (activityType != null && eventLocation != null) {
+            int eventNum = EventDAO.getEventByLocation(eventLocation.getLocationID()).size();
+            if (eventNum < 5) {
+                Event event = new Event();
+                event.setActivities(activityType);
+                event.setTime(activityTime);
+                event.setLocationID(eventLocation.getLocationID());
+                try {
+                    EventDAO.saveEvent(event);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 

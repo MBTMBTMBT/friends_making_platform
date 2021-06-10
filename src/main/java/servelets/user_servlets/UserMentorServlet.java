@@ -1,4 +1,4 @@
-package servelets;
+package servelets.user_servlets;
 
 import database.daos.PersonDAO;
 import database.daos.PsychologicalMentorDAO;

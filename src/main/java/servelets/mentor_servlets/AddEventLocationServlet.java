@@ -1,4 +1,4 @@
-package servelets;
+package servelets.mentor_servlets;
 
 import database.daos.EventLocationDAO;
 import database.daos.LocationDAO;
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/deleteEventLocationServlet")
-public class DeleteEventLocationServlet extends HttpServlet {
+@WebServlet("/addEventLocationServlet")
+public class AddEventLocationServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,9 +39,20 @@ public class DeleteEventLocationServlet extends HttpServlet {
         session.setAttribute("mentor_username", mentorUsername);
         session.setAttribute("mentor_number", mentorNumber);
 
-        EventLocation eventLocation = EventLocationDAO.getEventLocationByMentorID(mentorNumber);
-        if (eventLocation != null) {
-            EventLocationDAO.deleteEventLocationByKey(eventLocation.getLocationID());
+        String locationType = null, geographicalLocation = null;
+        try {
+            locationType = request.getParameter("location_type");
+            geographicalLocation = request.getParameter("geographical_location");
+        } catch (Exception ignore) {
+        }
+        if (locationType != null) {
+            EventLocation eventLocation = new EventLocation();
+            eventLocation.setLocationType(locationType);
+            eventLocation.setGeographicalLocation(geographicalLocation);
+            eventLocation.setManagerID(mentorNumber);
+            if (EventLocationDAO.getEventLocationByMentorID(mentorNumber) == null) {
+                EventLocationDAO.saveEventLocation(eventLocation);
+            }
         }
 
         request.getRequestDispatcher("/locationEventPushServlet").forward(request, response);

@@ -1,4 +1,4 @@
-package servelets;
+package servelets.user_servlets;
 
 import database.daos.EventDAO;
 import database.daos.EventLocationDAO;
