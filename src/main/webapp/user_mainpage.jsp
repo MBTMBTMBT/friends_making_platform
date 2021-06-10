@@ -83,7 +83,7 @@
 	</div-->
 	<a class="btn btn-info" href="pushUserAttributesServlet">change my attributes</a>
 	<a class="btn btn-danger" href="userMatchingServlet">Recommendations</a>
-	<a class="btn btn-primary" href="Events.html">Events</a>
+	<a class="btn btn-primary" href="userEventPushServlet">Events</a>
 	<!--a class="btn btn-warning" href="Likes.jsp">Likes</a-->
 	<div class="dropdown">
 		<button class="btn btn-toolbar">Likes</button>

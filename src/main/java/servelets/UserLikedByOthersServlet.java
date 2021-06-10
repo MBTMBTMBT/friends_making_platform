@@ -53,7 +53,7 @@ public class UserLikedByOthersServlet extends HttpServlet {
         List<String> userIDList = new LinkedList<>();
         DynamicLabelsDAO labelsDAO = new DynamicLabelsDAO();
         for (Likes each : likesList) {
-            UserPerson eachUserPerson = userPersonDAO.getUserPersonByUserID(each.getUid2());
+            UserPerson eachUserPerson = userPersonDAO.getUserPersonByUserID(each.getUid1());
             headIconList.add(eachUserPerson.getHeadIcon());
             userNameList.add(eachUserPerson.getScreenName());
             genderList.add(eachUserPerson.getGender());

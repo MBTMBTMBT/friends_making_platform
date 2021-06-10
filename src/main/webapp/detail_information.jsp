@@ -95,7 +95,7 @@
     <a class="<%=!likes? "btn btn-warning": "btn btn-default"%>"
        href="<%=!likes? "addLikeServlet": "cancelLikeServlet"%>">
         <%=!likes? "like": "cancel like"%></a>
-    <button class="btn btn-danger" >Start Relationship</button>
+    <!--<button class="btn btn-danger" >Start Relationship</button>-->
     <td align="center"></td>
 </div>
 <br>

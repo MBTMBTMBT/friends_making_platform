@@ -32,6 +32,13 @@ public class UserMatchingServlet extends HttpServlet {
         // String usernameMsg = null;
         int userID = -1;
 
+        String searchedName = null;
+        try {
+            searchedName = request.getParameter("find_screenname");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try {
             username = (String) request.getAttribute("user_username");
             // usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
@@ -50,7 +57,8 @@ public class UserMatchingServlet extends HttpServlet {
 
         List<CompareNode> nodes = new LinkedList<>();
         try {
-            nodes = matchLabelObjs(userPerson);
+            if (searchedName == null || searchedName.equals("")) nodes = matchLabelObjs(userPerson);
+            else nodes = search(searchedName, userPerson);
         } catch (NullPointerException ignore) {
         }
 
@@ -136,6 +144,51 @@ public class UserMatchingServlet extends HttpServlet {
             for (int eachKey: map2.keySet()) list2.add(map2.get(eachKey));
             return new List[] {list1, list2};
         }
+    }
+
+    private static List<CompareNode> search(String searched, UserPerson thisPerson) {
+        DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
+        List<UserPerson> rst = userPersonDAO.userPersonSearch(searched);
+        if (rst != null && rst.size() > OUTPUT_LIMIT) {
+            rst = rst.subList(0, OUTPUT_LIMIT);
+        }
+
+        List<CompareNode> output = new LinkedList<>();
+        if (rst != null) {
+            String expectedGender = null;
+            String genderOrient = null;
+            if (thisPerson.getGenderOrientation() == null) {
+                genderOrient = "hetero";
+                if (thisPerson.getGender().equals("female")) {
+                    expectedGender = "male";
+                } else {
+                    expectedGender = "female";
+                }
+            } else {
+                if (thisPerson.getGender().equals("female")) {
+                    if (thisPerson.getGenderOrientation().equals("hetero")) {
+                        expectedGender = "male";
+                        genderOrient = "hetero";
+                    } else {
+                        expectedGender = "female";
+                        genderOrient = "homosexual";
+                    }
+                } else {
+                    if (thisPerson.getGenderOrientation().equals("hetero")) {
+                        expectedGender = "female";
+                        genderOrient = "hetero";
+                    } else {
+                        expectedGender = "male";
+                        genderOrient = "homosexual";
+                    }
+                }
+            }
+            for (UserPerson each : rst) {
+                if (each.getGender().equals(expectedGender) && each.getGenderOrientation().equals(genderOrient))
+                    output.add(new CompareNode(each, 1));
+            }
+        }
+        return output;
     }
 
     private static List<CompareNode> matchLabelObjs(UserPerson userPerson) {

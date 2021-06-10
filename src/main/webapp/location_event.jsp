@@ -76,10 +76,13 @@
 
     List<String> eventKeyList = new LinkedList<>();
     for (int i = 0; i < locationIDList.size(); i++) {
-        String key = locationIDList.get(i) + "%" + eventTimeList.get(i).split(" ")[0]
-                + "%" + eventTimeList.get(i).split(" ")[1];
-        eventKeyList.add(key);
-        System.out.println(key);
+        try {
+            String key = locationIDList.get(i) + "%" + eventTimeList.get(i).split(" ")[0]
+                    + "%" + eventTimeList.get(i).split(" ")[1];
+            eventKeyList.add(key);
+            System.out.println(key);
+        } catch (IndexOutOfBoundsException index) {
+        }
     }
 
     Iterator<String> eventKeyListIter = eventKeyList.iterator();
@@ -182,8 +185,8 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
+            <a class="btn btn-primary" href="userEventPushServlet">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -204,8 +207,8 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
+            <a class="btn btn-primary" href="userEventPushServlet">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -226,8 +229,8 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
+            <a class="btn btn-primary" href="userEventPushServlet">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -248,8 +251,8 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
+            <a class="btn btn-primary" href="userEventPushServlet">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -270,8 +273,8 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="#">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"#"%>" method="post">
+            <a class="btn btn-primary" href="userEventPushServlet">
+                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
                     <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
                     <button type=submit class="btn btn-default">remove</button>
                 </form>
@@ -300,8 +303,7 @@
                 <input type="radio" name="activity_type" id="barbeque" value="barbeque"> barbeque
             </label><br>
             <label class="radio-inline">
-                <input type="radio" name="activity_type" id="role playing detective" value="role playing detective"> role playing
-                detective
+                <input type="radio" name="activity_type" id="card game" value="card game"> card game
             </label>
             <label class="radio-inline">
                 <input type="radio" name="activity_type" id="KTV" value="KTV"> KTV

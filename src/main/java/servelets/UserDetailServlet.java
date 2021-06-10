@@ -56,15 +56,15 @@ public class UserDetailServlet extends HttpServlet {
                 like = true;
                 checkedUserID = Integer.parseInt(request.getParameter("num_like"));
                 System.out.println(checkedUserID);
-            } else if (request.getAttribute("num_liked") != null) {
+            } else if (request.getParameter("num_liked") != null) {
                 liked = true;
                 checkedUserID = Integer.parseInt(request.getParameter("num_liked"));
                 System.out.println(checkedUserID);
             } else {
-                recommendation = (Boolean) request.getAttribute("recommendation");
-                like = (Boolean) request.getAttribute("like");
-                liked = (Boolean) request.getAttribute("liked");
                 try {
+                    recommendation = (Boolean) request.getAttribute("recommendation");
+                    like = (Boolean) request.getAttribute("like");
+                    liked = (Boolean) request.getAttribute("liked");
                     checkedUsername = (String) request.getAttribute("checked_username");
                     // usernameMsg = (request.getAttribute("msg_username") != null) ? (String) request.getAttribute("msg_username"): "";
                     checkedUserID = (int) request.getAttribute("checked_user_id");

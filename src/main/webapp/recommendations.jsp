@@ -58,11 +58,14 @@
 <form action="#" method = "post" id="search_username">
   <br>
   <div align="center">
-  <td>
-  <input type = "text" placeholder="search username" name = "search_username" style="font-size: large"
-         style="background-color:rgba(0,0,1,0.5)">
-  <button type=submit>search</button>
-  </td>
+    <div>
+      <form class="form-inline" action="mentorMainPageServlet" method="post" id="search_user_by_mentor">
+        <input type="text" name="find_screenname" id="find_screenname" placeholder="Input screenname">
+        <button type="submit" class="btn btn-warning" style="color: rgb(73, 41, 85)">Search</button>
+        <button type="reset" class="btn btn-default" style="color: rgb(73, 41, 85)">reset</button>
+        <a class="btn btn-default" href="userMatchingServlet">cancel</a>
+      </form>
+    </div>
   </div>
 
   <div align="right">

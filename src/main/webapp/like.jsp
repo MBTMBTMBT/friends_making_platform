@@ -156,24 +156,24 @@
                 <button type=submit class="btn btn-default">detail information</button>
             </form>
         </a></td>
-        <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+        <!--<td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[0]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Upgrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[0]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Degrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[0]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Cancel relations</button>
             </form>
-        </a></td>
+        </a></td>-->
     </tr>
     <tr>
         <td align="center"><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): darkIcon%>" width="100"
@@ -196,24 +196,24 @@
                 <button type=submit class="btn btn-default">detail information</button>
             </form>
         </a></td>
-        <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+        <!--<td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[1]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Upgrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[1]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Degrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[1]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Cancel relations</button>
             </form>
-        </a></td>
+        </a></td>-->
     </tr>
     <tr>
         <td align="center"><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): darkIcon%>" width="100"
@@ -236,24 +236,24 @@
                 <button type=submit class="btn btn-default">detail information</button>
             </form>
         </a></td>
-        <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+        <!--<td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[2]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Upgrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[2]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Degrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[2]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Cancel relations</button>
             </form>
-        </a></td>
+        </a></td>-->
     </tr>
     <tr>
         <td align="center"><img src="<%=headIconListIter.hasNext()? headIconListIter.next(): darkIcon%>" width="100"
@@ -276,24 +276,24 @@
                 <button type=submit class="btn btn-default">detail information</button>
             </form>
         </a></td>
-        <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+        <!--<td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[3]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Upgrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[3]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Degrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[3]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Cancel relations</button>
             </form>
-        </a></td>
+        </a></td>-->
     </tr>
 
     <tr>
@@ -317,24 +317,24 @@
                 <button type=submit class="btn btn-default">detail information</button>
             </form>
         </a></td>
-        <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
+        <!--<td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[4]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Upgrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[4]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Degrade relations</button>
             </form>
         </a></td>
         <td class="text-center" style="display:table-cell; vertical-align:middle;"><a class="btn btn-primary" href="#">
             <form action="userDetailServlet" method="post">
-                <input type="hidden" name="num_like" value=<%=userNumValue[4]%>>
+                <input type="hidden" name="num_like" value=</%=userNumValue[0]%>>
                 <button type=submit class="btn btn-default">Cancel relations</button>
             </form>
-        </a></td>
+        </a></td>-->
     </tr>
 </table>
 

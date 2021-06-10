@@ -245,6 +245,44 @@ public class DynamicUserPersonDAO extends DynamicDAO {
         }
     }
 
+    public List<UserPerson> userPersonSearch(String userName) {
+        List<UserPerson> list = new LinkedList<>();
+        try {
+            String sql = "SELECT * FROM UserPerson WHERE  ScreenName like '" + userName + "%' order by " +
+                    "replace(ScreenName, ?, '') limit 50;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, userName);
+            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                int systemID = rs.getInt("SystemID");
+                int userID = rs.getInt("UserID");
+                String emailAddress = rs.getString("Emailaddress");
+                String wechat = rs.getString("Wechat");
+                String genderOrientation = rs.getString("GenderOrientation");
+                Date dataOfBirth = rs.getDate("DataOfBirth");
+                String slogan = rs.getString("Slogan");
+                int work = rs.getInt("Work");
+                String surname = rs.getString("Surname");
+                String forename = rs.getString("Forename");
+                String gender = rs.getString("Gender");
+                String screenName = rs.getString("ScreenName");
+                String headIcon = rs.getString("HeadIcon");
+                String password = rs.getString("password");
+                int mentorID = rs.getInt("MentorID");
+                UserPerson userPerson = new UserPerson(systemID, userID, emailAddress, wechat, genderOrientation, dataOfBirth,
+                        slogan, work, mentorID, surname, forename, gender, screenName, headIcon, password);
+                list.add(userPerson);
+            }
+            ps.close();
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
         System.out.println(userPersonDAO.getUserPersonByMentorNumAndUserScreenName(8, "W").get(0));

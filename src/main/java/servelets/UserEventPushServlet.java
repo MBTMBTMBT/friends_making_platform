@@ -3,12 +3,10 @@ package servelets;
 import database.daos.EventDAO;
 import database.daos.EventLocationDAO;
 import database.daos.JoinEventDAO;
+import database.daos.LocationDAO;
 import database.dynamicDAOs.DynamicLabelsDAO;
 import database.dynamicDAOs.DynamicUserPersonDAO;
-import database.tables.Event;
-import database.tables.EventLocation;
-import database.tables.JoinEvent;
-import database.tables.UserPerson;
+import database.tables.*;
 import org.hibernate.Session;
 
 import javax.servlet.ServletException;
@@ -50,10 +48,11 @@ public class UserEventPushServlet extends HttpServlet {
         List<Map<String, String>> selectedEvents = new ArrayList<>(2);
         for (int i = 0; i < 2; i++) {
             Map<String, String> each = new HashMap<>();
+            each.put("locationID", "");
             each.put("locationType", "");
             each.put("geo", "");
             each.put("time", "");
-            each.put("activityTime", "");
+            each.put("activityType", "");
             each.put("partNum", "");
             selectedEvents.add(each);
         }
@@ -66,8 +65,9 @@ public class UserEventPushServlet extends HttpServlet {
                 Event eachEvent = EventDAO.getEventByKey(eachJoinEvent.getEventLocationID(), eachJoinEvent.getTime());
                 EventLocation eachLocation = EventLocationDAO.getEventLocationByKey(eachJoinEvent.getEventLocationID());
                 Map<String, String> each = selectedEvents.get(i);
+                each.put("locationID", String.valueOf(eachLocation.getLocationID()));
                 each.put("locationType", eachLocation.getLocationType());
-                each.put("geo", eachLocation.getLocationType());
+                each.put("geo", eachLocation.getGeographicalLocation());
                 each.put("time", eachJoinEvent.getTime());
                 each.put("activityType", eachEvent.getActivities());
                 each.put("partNum", String.valueOf(eachEvent.getNumberofparticipants()));
@@ -79,22 +79,39 @@ public class UserEventPushServlet extends HttpServlet {
         List<String> eventTypeList = new LinkedList<>();
         List<String> participantsList = new LinkedList<>();
         List<String> locationIDList = new LinkedList<>();
+        List<String> locationTypeList = new LinkedList<>();
+        List<String> geographicalLocationList = new LinkedList<>();
+        // List<String> activityTypeList = new LinkedList<>();
         infoLists.add(eventTimeList); infoLists.add(eventTypeList);
         infoLists.add(participantsList); infoLists.add(locationIDList);
+        infoLists.add(locationTypeList); infoLists.add(geographicalLocationList);
+        // infoLists.add(activityTypeList);
 
         List<Event> events = EventDAO.getAllEvent();
         if (events != null) {
             Collections.shuffle(events);
-            if (events.size() > 5) {
-                events = events.subList(0, 5);
+            if (events.size() > 8) {
+                events = events.subList(0, 8);
             }
-            for (Event eachEvent : events) {
+            OUTER: for (Event eachEvent : events) {
+                String time = eachEvent.getTime();
+                int locationID = eachEvent.getLocationID();
+                for (int i = 0; i < 2; i++) {
+                    if (selectedEvents.get(i).get("time").equals(time) && selectedEvents.get(i).get("locationID").equals(String.valueOf(locationID))) {
+                        continue OUTER;
+                    }
+                }
+
                 eventTimeList.add(eachEvent.getTime());
                 eventTypeList.add(eachEvent.getActivities());
                 List<JoinEvent> eachJoinEventList = JoinEventDAO.getJoinEventByLocation(eachEvent.getLocationID());
                 if (eachJoinEventList != null) participantsList.add("0");
                 else participantsList.add(String.valueOf(eachJoinEventList.size()));
                 locationIDList.add(String.valueOf(eachEvent.getLocationID()));
+
+                EventLocation location = EventLocationDAO.getEventLocationByKey(eachEvent.getLocationID());
+                locationTypeList.add(location.getLocationType());
+                geographicalLocationList.add(location.getGeographicalLocation());
             }
         }
 
@@ -108,6 +125,6 @@ public class UserEventPushServlet extends HttpServlet {
         session.setAttribute("user_id", userID);
         session.setAttribute("selected_events", selectedEvents);
         session.setAttribute("info_lists", infoLists);
-        request.getRequestDispatcher("/recommendations.jsp").forward(request, response);
+        request.getRequestDispatcher("/user_events.jsp").forward(request, response);
     }
 }

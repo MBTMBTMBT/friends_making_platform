@@ -49,12 +49,14 @@ public class JoinEventDAO {
 	}
 
 	
-	public static JoinEvent getJoinEventByKey(int Uid,int EventLocationID) {
+	public static JoinEvent getJoinEventByKey(int Uid, int EventLocationID, String Time) {
 		JoinEvent event = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			event = (JoinEvent)session.createQuery("from JoinEvent where Uid = "+ Uid + " and EventLocationID = "+ EventLocationID).uniqueResult();
+			event = (JoinEvent)session.createQuery("from JoinEvent where Uid = "+ Uid + " and EventLocationID = "+ EventLocationID
+			+ " and Time = '" + Time + "'").uniqueResult();
         } catch (Exception e) {
            //e.printStackTrace();
+			return null;
         }
 		return event;
 	}
