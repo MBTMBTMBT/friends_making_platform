@@ -23,17 +23,62 @@ import com.mysql.cj.Query;
 public class EventDAO {
 	
 	public static List<Event> getAllEvent() {
+		/*
 		List<Event> event  = null;
-			
+
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			event = session.createQuery("from Event").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
-		
-		return event;
+
+		return event;*/
+		List<Event> events = new LinkedList<>();
+		try {
+			Connection connection = JDBCTool.getConnection();
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM event;");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()){
+				Event event = new Event();
+				event.setActivities(rs.getString("Activities"));
+				event.setTime(rs.getString("Time"));
+				event.setNumberofparticipants(rs.getInt("Number_of_participants"));
+				event.setLocationID(rs.getInt("LocationID"));
+				events.add(event);
+			}
+			connection.close();
+			rs.close();
+			ps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			events = null;
+		}
+		return events;
 	}
-	
+
+	public static List<Event> getAllEvent(int limit) {
+		List<Event> events = new LinkedList<>();
+		try {
+			Connection connection = JDBCTool.getConnection();
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM event limit " + limit + ";");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()){
+				Event event = new Event();
+				event.setActivities(rs.getString("Activities"));
+				event.setTime(rs.getString("Time"));
+				event.setNumberofparticipants(rs.getInt("Number_of_participants"));
+				event.setLocationID(rs.getInt("LocationID"));
+				events.add(event);
+			}
+			connection.close();
+			rs.close();
+			ps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			events = null;
+		}
+		return events;
+	}
 	
 	public static void saveEvent(Event e) {
 		Transaction transaction = null;

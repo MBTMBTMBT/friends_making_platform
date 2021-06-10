@@ -1,5 +1,7 @@
 CREATE DATABASE groupwork;
 
+use groupwork;
+
 CREATE TABLE groupwork.person (
   SystemID int NOT NULL AUTO_INCREMENT,
   Surname varchar(64) DEFAULT NULL,
@@ -168,22 +170,18 @@ ALTER TABLE groupwork.event
 ADD CONSTRAINT event_ibfk_1 FOREIGN KEY (LocationID)
 REFERENCES groupwork.event_location (LocationID) ON DELETE CASCADE ON UPDATE CASCADE;
 
-CREATE TABLE groupwork.join_event (
-  Uid int NOT NULL,
-  EventLocationID int NOT NULL,
-  PRIMARY KEY (EventLocationID, Uid)
-)
-ENGINE = INNODB,
-CHARACTER SET utf8mb4,
-COLLATE utf8mb4_0900_ai_ci;
-
-ALTER TABLE groupwork.join_event
-ADD CONSTRAINT join_event_ibfk_1 FOREIGN KEY (Uid)
-REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE groupwork.join_event
-ADD CONSTRAINT join_event_ibfk_2 FOREIGN KEY (EventLocationID)
-REFERENCES groupwork.event_location (LocationID) ON DELETE CASCADE ON UPDATE CASCADE;
+CREATE TABLE `join_event` (
+  `Uid` int NOT NULL,
+  `EventLocationID` int NOT NULL,
+  `Time` datetime NOT NULL,
+  PRIMARY KEY (`EventLocationID`,`Uid`,`Time`) USING BTREE,
+  KEY `Uid` (`Uid`),
+  KEY `Time` (`Time`),
+  KEY `EventLocationID` (`EventLocationID`,`Time`),
+  CONSTRAINT `join_event_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `join_event_ibfk_2` FOREIGN KEY (`EventLocationID`) REFERENCES `event_location` (`LocationID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `join_event_ibfk_3` FOREIGN KEY (`EventLocationID`, `Time`) REFERENCES `event` (`LocationID`, `Time`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE groupwork.likes (
   Uid1 int NOT NULL,

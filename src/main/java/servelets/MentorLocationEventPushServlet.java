@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.*;
 
 @WebServlet("/locationEventPushServlet")
-public class LocationEventPushServlet extends HttpServlet {
+public class MentorLocationEventPushServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

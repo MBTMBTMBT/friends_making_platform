@@ -20,16 +20,20 @@ public class JoinEvent {
 	
 	@Column(name="EventLocationID")
 	private int EventLocationID;
+
+	@Column(name="Time")
+	private String Time;
 	
 	
 	public JoinEvent() {
 	}
 	
 	
-	public JoinEvent(int Uid,int EventLocationID) {
+	public JoinEvent(int Uid, int EventLocationID, String Time) {
 		super();
 		this.Uid = Uid;
 		this.EventLocationID = EventLocationID;
+		this.Time = Time;
 	}
 
 
@@ -51,7 +55,13 @@ public class JoinEvent {
 		this.EventLocationID = EventLocationID;
 	}
 
+	public void setTime(String time) {
+		Time = time;
+	}
 
+	public String getTime() {
+		return Time;
+	}
 
 	public String toString() {
 		String output = "\t\t";
