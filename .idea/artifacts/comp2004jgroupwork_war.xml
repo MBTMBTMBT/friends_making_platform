@@ -1,7 +1,13 @@
 <component name="ArtifactManager">
   <artifact type="war" name="comp2004jgroupwork:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="comp2004jgroupwork_war.war">
+    <properties id="maven-jee-properties">
+      <options>
+        <module>comp2004jgroupwork</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="comp2004jgroupwork-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="comp2004jgroupwork:war exploded" />
     </root>
   </artifact>
