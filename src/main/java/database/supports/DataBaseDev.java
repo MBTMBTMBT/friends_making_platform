@@ -335,8 +335,8 @@ public class DataBaseDev {
     public static void addRandomAdmins() {
         for (int i = 0; i < 10; i++) {
             Person person = new Person();
-            person.setScreenName("Mentor" + i);
-            person.setSurname("TestedMentor");
+            person.setScreenName("Admin" + i);
+            person.setSurname("TestedAdmin");
             person.setForename(String.valueOf(i));
             person.setpassword("p");
             if (Math.random() > 0.5) {
@@ -347,7 +347,7 @@ public class DataBaseDev {
                 person.setGender("male");
             }
             PersonDAO.savePerson(person);
-            person = PersonDAO.getPersonByScreenName("Mentor" + i);
+            person = PersonDAO.getPersonByScreenName("Admin" + i);
             assert person != null;
             int systemID = person.getSystemID();
             Employee employee = new Employee();

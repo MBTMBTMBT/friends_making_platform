@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.supports.HibernateUtil;
+import database.supports.JDBCTool;
 import database.tables.Person;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -58,6 +59,7 @@ public class PersonDAO {
 	
 	
 	public static void deletePersonByID(int id) {
+		/*
 		Person person = new Person();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 		    //int b = session.createQuery("delete from person where SystemID = "+id).executeUpdate();
@@ -69,7 +71,18 @@ public class PersonDAO {
 			
         } catch (Exception e) {
            e.printStackTrace();
-        }
+        }*/
+		try {
+			Connection connection = JDBCTool.getConnection();
+			String sql = "DELETE FROM person WHERE SystemID = " + id + ";";
+			System.out.println(sql);
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.executeUpdate();
+			pst.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

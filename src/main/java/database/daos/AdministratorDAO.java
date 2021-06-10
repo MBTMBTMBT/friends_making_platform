@@ -12,7 +12,7 @@ public class AdministratorDAO {
 		List<Administrator> administrator = null;
 			
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administrator = session.createQuery("from Administractor").list();
+			administrator = session.createQuery("from Administrator").list();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class AdministratorDAO {
 		Administrator administrator = null;
 		
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administrator = (Administrator)session.createQuery("from Administractor where AdminNumber = "+id).uniqueResult();
+			administrator = (Administrator)session.createQuery("from Administrator where AdminNumber = "+id).uniqueResult();
         } catch (Exception e) {
            e.printStackTrace();
         }
@@ -83,7 +83,7 @@ public class AdministratorDAO {
 		Administrator administrator = null;
 
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			administrator = (Administrator)session.createQuery("from Administractor where SystemID = "+id).uniqueResult();
+			administrator = (Administrator)session.createQuery("from Administrator where SystemID = "+id).uniqueResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

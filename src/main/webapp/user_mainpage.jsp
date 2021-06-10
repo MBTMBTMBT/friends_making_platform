@@ -93,7 +93,7 @@
 		</div>
 	</div>
 	<a class="btn btn-success" href="userMentorServlet">My mentor</a>
-	<a class="btn btn-info" href="login.jsp">log out</a>
+	<a class="btn btn-info" href="login.jsp">logout</a>
 </div>
 <br>
 	<div align="center" >

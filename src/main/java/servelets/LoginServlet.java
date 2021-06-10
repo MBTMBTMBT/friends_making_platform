@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
                     // login successfully for admin
                     Administrator administrator = AdministratorDAO.getAdministractorBySystemID(person.getSystemID());
                     int adminNumber = administrator.getAdminNumber();
-                    request.setAttribute("admin_number", adminNumber);
+                    request.setAttribute("admin_id", adminNumber);
                     request.setAttribute("admin_username", username);
                     request.getRequestDispatcher("/adminMainPageServlet").forward(request, response);
 

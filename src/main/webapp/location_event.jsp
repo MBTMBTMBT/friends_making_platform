@@ -117,13 +117,11 @@
 
 
 
-    <td align="center">
-    <tr align="center">
-        <span style="font-size: 16px;color:red">
+    <div align="center">
+        <span  style="font-size: 16px;color:red" >
             You can organise maximum one location
         </span>
-    </tr>
-    </td>
+    </div>
 
     <form action="addEventLocationServlet" method="post" id="addEventLocation">
         <tr>
@@ -165,11 +163,11 @@
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);">Operation</th>
     </tr>
 
-    <tr align="center">
+    <div align="center">
         <span style="font-size: 16px;color:red">
             You can organise maximum five events
         </span>
-    </tr>
+    </div>
 
     <tr>
         <td class="text-center"

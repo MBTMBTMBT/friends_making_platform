@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%if (request.getAttribute("msg") == null) {
-request.setAttribute("msg", "Please entre your user/admin ID");
+request.setAttribute("msg", "Please entre your username and password");
 }%>
 <html lang="en">
 <head>
