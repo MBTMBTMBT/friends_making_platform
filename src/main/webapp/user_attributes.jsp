@@ -45,8 +45,8 @@
         <input type="hidden" name="user_username" id="user_username" value=<%=username%>>
         <input type="hidden" name="user_id" id="user_id" value=<%=userID%>>
         <label for="screenname" style="color: white;font-size: larger;font-weight:bolder">username</label>
-        <br><span style="font-size: 16px;color:red"><span style="font-size: 16px;color:red"><%=(usernameMsg.equals(""))? request.getAttribute("msg0") : usernameMsg%></span><br>
-      </td>
+        <br><span style="font-size: 16px;color:red"><span style="font-size: 16px;color:red"><%=(usernameMsg.equals(""))? request.getAttribute("msg0") : usernameMsg%></span>
+      </td><br>
       <td><input type="text" name="screenname" id="screenname" style="font-size:smaller;font-family: Arial, Helvetica, sans-serif;" value=<%=message0%>></td>
       <td colspan="2" align="center"><input type="submit" value="submit" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;"></td>
     </tr>

@@ -56,6 +56,7 @@ public class AdminModifyServlet extends HttpServlet {
 
         if (screenName != null) {
             Person person = PersonDAO.getPersonByScreenName(screenName);
+            assert person != null;
             person.setGender(gender!=null&& !gender.equals("")? gender: person.getGender());
             person.setpassword(password!=null&& !password.equals("")? password: person.getpassword());
             PersonDAO.updatePerson(person);

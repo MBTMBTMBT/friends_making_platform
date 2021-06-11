@@ -45,9 +45,13 @@ public class AdminMainPageServlet extends HttpServlet {
         DynamicUserPersonDAO userPersonDAO = new DynamicUserPersonDAO();
         List<UserPerson> userPersonList = userPersonDAO.userPersonSearchNolimit(searchedName);
 
+        HttpSession session = request.getSession();
         request.setAttribute("user_person_list", userPersonList);
         request.setAttribute("admin_username", adminUsername);
         request.setAttribute("admin_id", adminID);
+        session.setAttribute("user_person_list", userPersonList);
+        session.setAttribute("admin_username", adminUsername);
+        session.setAttribute("admin_id", adminID);
         request.getRequestDispatcher("/admin.jsp").forward(request, response);
     }
 }

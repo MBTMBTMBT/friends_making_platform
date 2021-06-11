@@ -95,6 +95,32 @@ public class JoinEventDAO {
 		return events;
 	}
 
+	public static List<JoinEvent> getJoinEventByLocationAndTime(int locationID, String time) {
+		List<JoinEvent> events = new LinkedList<>();
+		try {
+			Connection connection = JDBCTool.getConnection();
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM join_event WHERE EventLocationID = ?" +
+					" and time = ?;");
+			ps.setInt(1, locationID);
+			ps.setString(1, time);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()){
+				JoinEvent joinEvent = new JoinEvent();
+				joinEvent.setEventLocationID(rs.getInt("EventLocationID"));
+				joinEvent.setUid(rs.getInt("Uid"));
+				joinEvent.setTime(rs.getString("Time"));
+				events.add(joinEvent);
+			}
+			connection.close();
+			rs.close();
+			ps.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			events = null;
+		}
+		return events;
+	}
+
 	public static void deleteJoinEventByKey(int Uid, int EventLocationID, String Time) {
 		JoinEvent event = new JoinEvent();
 		event.setUid(Uid); event.setEventLocationID(EventLocationID); event.setTime(Time);

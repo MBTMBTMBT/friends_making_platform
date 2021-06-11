@@ -275,27 +275,31 @@ public class UserPerson {
 
 	// method borrowed from https://www.cnblogs.com/fuchuanzhipan1209/p/9596614.html
 	public int getAge() {
-		java.util.Date birthDay = new java.util.Date(getDateOfBirth().getTime());
-		Calendar cal = Calendar.getInstance();
-		if (cal.before(birthDay)) {
-			return 0;  // if someone put birthday later than today, he/she gets zero
-		}
-		int yearNow = cal.get(Calendar.YEAR);
-		int monthNow = cal.get(Calendar.MONTH);
-		int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
-		cal.setTime(birthDay);
-		int yearBirth = cal.get(Calendar.YEAR);
-		int monthBirth = cal.get(Calendar.MONTH);
-		int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
-		int age = yearNow - yearBirth;
-		if (monthNow <= monthBirth) {
-			if (monthNow == monthBirth) {
-				if (dayOfMonthNow < dayOfMonthBirth) age--;
-			} else {
-				age--;
+		try {
+			java.util.Date birthDay = new java.util.Date(getDateOfBirth().getTime());
+			Calendar cal = Calendar.getInstance();
+			if (cal.before(birthDay)) {
+				return 0;  // if someone put birthday later than today, he/she gets zero
 			}
+			int yearNow = cal.get(Calendar.YEAR);
+			int monthNow = cal.get(Calendar.MONTH);
+			int dayOfMonthNow = cal.get(Calendar.DAY_OF_MONTH);
+			cal.setTime(birthDay);
+			int yearBirth = cal.get(Calendar.YEAR);
+			int monthBirth = cal.get(Calendar.MONTH);
+			int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
+			int age = yearNow - yearBirth;
+			if (monthNow <= monthBirth) {
+				if (monthNow == monthBirth) {
+					if (dayOfMonthNow < dayOfMonthBirth) age--;
+				} else {
+					age--;
+				}
+			}
+			return age;
+		} catch (NullPointerException ignore) {
+			return 0;
 		}
-		return age;
 	}
 
 	public static void main(String[] args) {

@@ -56,6 +56,7 @@ public class UserEventPushServlet extends HttpServlet {
             each.put("partNum", "");
             selectedEvents.add(each);
         }
+
         // check "join_event"
         List<JoinEvent> joinEventList = JoinEventDAO.getJoinEventByUid(userID);
         Iterator<JoinEvent> joinEventIterator = joinEventList.iterator();
@@ -70,7 +71,9 @@ public class UserEventPushServlet extends HttpServlet {
                 each.put("geo", eachLocation.getGeographicalLocation());
                 each.put("time", eachJoinEvent.getTime());
                 each.put("activityType", eachEvent.getActivities());
-                each.put("partNum", String.valueOf(eachEvent.getNumberofparticipants()));
+                if (JoinEventDAO.getJoinEventByLocation(eachEvent.getLocationID()) != null) {
+                    each.put("partNum", String.valueOf(JoinEventDAO.getJoinEventByLocation(eachEvent.getLocationID()).size()));
+                } else each.put("partNum", "");
             }
         }
 
@@ -105,7 +108,7 @@ public class UserEventPushServlet extends HttpServlet {
                 eventTimeList.add(eachEvent.getTime());
                 eventTypeList.add(eachEvent.getActivities());
                 List<JoinEvent> eachJoinEventList = JoinEventDAO.getJoinEventByLocation(eachEvent.getLocationID());
-                if (eachJoinEventList != null) participantsList.add("0");
+                if (eachJoinEventList == null) participantsList.add("0");
                 else participantsList.add(String.valueOf(eachJoinEventList.size()));
                 locationIDList.add(String.valueOf(eachEvent.getLocationID()));
 

@@ -57,11 +57,11 @@ public class DynamicSportsDAO extends UserCommonAttributesDAO {
     public void deleteLabelByKey(int labelID, int userID) {
         StdSports l = new StdSports();
         try {
-            Transaction transaction = session.beginTransaction();
-            l.setLabelId(labelID);
-            l.setUserId(userID);
-            session.delete(l);
-            transaction.commit();
+            String sql = "DELETE FROM sports WHERE Sid = " + labelID + " and Uid = " + userID + ";";
+            System.out.println(sql);
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.executeUpdate();
+            pst.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

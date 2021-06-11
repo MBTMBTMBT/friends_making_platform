@@ -103,7 +103,7 @@
 <h1 style="text-align: center;color: rgb(85, 74, 90);text-shadow: rgb(156, 153, 153) 2.5px 1.5px 1.5px;">Events
 
 </h1>
-<div align="right">
+<div align="center">
     <a class="btn btn-warning" href="userMainPageServlet">return</a>
 </div>
 

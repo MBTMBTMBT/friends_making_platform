@@ -1,6 +1,9 @@
 package servelets.user_servlets;
 
 import database.daos.*;
+import database.dynamicDAOs.*;
+import database.standarizedTables.LabelObject;
+import database.standarizedTables.StdSports;
 import database.tables.*;
 
 import javax.servlet.ServletException;
@@ -140,22 +143,24 @@ public class SetUserAttributesServlet extends HttpServlet {
 
             // sports
             if (sports != null) {
+                DynamicSportsDAO sportsDAO = new DynamicSportsDAO();
                 for (String eachSport : sports) {
                     int labelSerial = LabelsDAO.getKeyByAttribute("Sport", eachSport);
-                    Sports sportsObj = new Sports(labelSerial, userID);
-                    SportsDAO.saveSports(sportsObj);
+                    LabelObject sportsObj = new StdSports(labelSerial, userID);
+                    sportsDAO.saveLabel(sportsObj);
                 }
                 // it is important to remove those originally be in the table but should not be anymore
                 Collection<String> collection = Arrays.asList(sports);
-                List<Object> sportsList = SportsDAO.getAllValuesWithUID(userID);
-                for (Object eachSportObj : sportsList) {
-                    Sports eachSport = (Sports) eachSportObj;
-                    int sid = eachSport.getSid();
+                List<LabelObject> sportsList = sportsDAO.getAllValuesWithUserID(userID);
+                for (LabelObject eachSportObj : sportsList) {
+                    // Sports eachSport = (Sports) eachSportObj;
+                    int sid = eachSportObj.getLabelId();
                     String sportName = LabelsDAO.getLabelsByKey(sid).getSport();
                     if (!collection.contains(sportName)) {
-                        SportsDAO.deleteSportsByKey(sid, userID);
+                        sportsDAO.deleteLabelByKey(sid, userID);
                     }
                 }
+                sportsDAO.close();
             }
 
             // food
@@ -166,15 +171,17 @@ public class SetUserAttributesServlet extends HttpServlet {
                     FoodDAO.saveFood(foodObj);
                 }
                 Collection<String> collection = Arrays.asList(food);
-                List<Object> foodList = FoodDAO.getAllValuesWithUID(userID);
-                for (Object eachFoodObj : foodList) {
-                    Food eachFood = (Food) eachFoodObj;
-                    int fid = eachFood.getFid();
+                DynamicFoodDAO foodDAO = new DynamicFoodDAO();
+                List<LabelObject> foodList = foodDAO.getAllValuesWithUserID(userID);
+                for (LabelObject eachFoodObj : foodList) {
+                    // Food eachFood = (Food) eachFoodObj;
+                    int fid = eachFoodObj.getLabelId();
                     String foodName = LabelsDAO.getLabelsByKey(fid).getFood();
                     if (!collection.contains(foodName)) {
-                        FoodDAO.deleteFoodByKey(fid, userID);
+                        foodDAO.deleteLabelByKey(fid, userID);
                     }
                 }
+                foodDAO.close();
             }
 
             if (locations != null) {
@@ -184,15 +191,17 @@ public class SetUserAttributesServlet extends HttpServlet {
                     LocationDAO.saveLocation(locationObj);
                 }
                 Collection<String> collection = Arrays.asList(locations);
-                List<Object> locationList = LocationDAO.getAllValuesWithUID(userID);
-                for (Object eachLocationObj : locationList) {
-                    Location eachLocation = (Location) eachLocationObj;
-                    int lid = eachLocation.getLid();
+                DynamicLocationDAO locationDAO = new DynamicLocationDAO();
+                List<LabelObject> locationList = locationDAO.getAllValuesWithUserID(userID);
+                for (LabelObject eachLocationObj : locationList) {
+                    // Location eachLocation = (Location) eachLocationObj;
+                    int lid = eachLocationObj.getLabelId();
                     String locationName = LabelsDAO.getLabelsByKey(lid).getLocations();
                     if (!collection.contains(locationName)) {
-                        LocationDAO.deleteLocationByKey(lid, userID);
+                        locationDAO.deleteLabelByKey(lid, userID);
                     }
                 }
+                locationDAO.close();
             }
 
             if (films != null) {
@@ -202,15 +211,17 @@ public class SetUserAttributesServlet extends HttpServlet {
                     FilmsDAO.saveFilms(filmsObj);
                 }
                 Collection<String> collection = Arrays.asList(films);
-                List<Object> filmsList = FilmsDAO.getAllValuesWithUID(userID);
-                for (Object eachFilmObj : filmsList) {
-                    Films eachFilm = (Films) eachFilmObj;
-                    int fid = eachFilm.getFid();
+                DynamicFilmsDAO filmsDAO = new DynamicFilmsDAO();
+                List<LabelObject> filmsList = filmsDAO.getAllValuesWithUserID(userID);
+                for (LabelObject eachFilmObj : filmsList) {
+                    // Films eachFilm = (Films) eachFilmObj;
+                    int fid = eachFilmObj.getLabelId();
                     String filmName = LabelsDAO.getLabelsByKey(fid).getFilm();
                     if (!collection.contains(filmName)) {
-                        FilmsDAO.deleteFilmsByKey(fid, userID);
+                        filmsDAO.deleteLabelByKey(fid, userID);
                     }
                 }
+                filmsDAO.close();
             }
 
             if (books != null) {
@@ -220,15 +231,17 @@ public class SetUserAttributesServlet extends HttpServlet {
                     BooksDAO.saveBooks(booksObj);
                 }
                 Collection<String> collection = Arrays.asList(books);
-                List<Object> bookList = BooksDAO.getAllValuesWithUID(userID);
-                for (Object eachBookObj : bookList) {
-                    Books eachBook = (Books) eachBookObj;
-                    int bid = eachBook.getBid();
+                DynamicBooksDAO booksDAO = new DynamicBooksDAO();
+                List<LabelObject> bookList = booksDAO.getAllValuesWithUserID(userID);
+                for (LabelObject eachBookObj : bookList) {
+                    // Books eachBook = (Books) eachBookObj;
+                    int bid = eachBookObj.getLabelId();
                     String bookName = LabelsDAO.getLabelsByKey(bid).getBook();
                     if (!collection.contains(bookName)) {
-                        BooksDAO.deleteBooksByKey(bid, userID);
+                        booksDAO.deleteLabelByKey(bid, userID);
                     }
                 }
+                booksDAO.close();
             }
 
         } catch (Exception exception) {

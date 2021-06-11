@@ -37,9 +37,10 @@
     <link rel="stylesheet" href="static/css/modify.css">
 </head>
 <body>
+<br><br><br><br><br><br><br>
 <h1 style="font-size: 50px; text-align: center;color: rgb(85, 74, 90);text-shadow: rgb(156, 153, 153) 2.5px 1.5px 1.5px;">
     Modify User</h1>
-<br><br><br><br>
+<br>
 <form action="adminModifyServlet" method="post">
     <div align="center">
         <input type="hidden" name="screenname" value="<%=personUName%>">
@@ -47,7 +48,8 @@
         <input type="password" name="password" id="password" placeholder="Change your password">
         <br><br>
         <label style="font-size: 25px;color: rgb(85, 74, 90);"> gender</label>
-        <input type="radio" name="sex" value="male">Male
+
+        <input type="radio" name="sex" value="male"> male
         <input type="radio" name="sex" value="female">Female
         <br><br>
         <button class="btn btn-danger" type="submit" value="add" class="btn btn-default" style="color: rgb(73, 41, 85)">

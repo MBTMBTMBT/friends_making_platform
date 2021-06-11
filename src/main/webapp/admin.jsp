@@ -77,11 +77,7 @@
     <link rel="stylesheet" type="text/css" href="static/css/userpage_css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/admin.css">
 
-    <style>
-        .table {
-            width: 1200px;
-        }
-    </style>
+
 </head>
 
 <body>
@@ -98,7 +94,7 @@
     </form>
 </div>
 <br>
-<table class="table table-hover table-bordered" align="center">
+<table class="table table-hover table-bordered" >
     <tr>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> system ID</th>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> user ID</th>

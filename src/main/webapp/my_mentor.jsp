@@ -78,11 +78,6 @@
     <title>My_mentor</title>
     <link rel="stylesheet" type="text/css" href="static/css/userpage_css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/my_mentor.css">
-    <style>
-        .table {
-            width: 1200px;
-        }
-    </style>
 </head>
 
 <body>

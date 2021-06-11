@@ -68,7 +68,7 @@ public class MentorLocationEventPushServlet extends HttpServlet {
                     eventTimeList.add(eachEvent.getTime());
                     eventTypeList.add(eachEvent.getActivities());
                     List<JoinEvent> joinEventList = JoinEventDAO.getJoinEventByLocation(eachEvent.getLocationID());
-                    if (joinEventList != null) participantsList.add("0");
+                    if (joinEventList == null) participantsList.add("0");
                     else participantsList.add(String.valueOf(joinEventList.size()));
                     locationIDList.add(String.valueOf(eachEvent.getLocationID()));
                 }
