@@ -32,7 +32,7 @@
 <head>
     <meta charset="UTF-8">
     <title>attributes</title>
-    <link rel="stylesheet" href="static/css/user_attributes.css">
+    <link rel="stylesheet" href="static/css/user_attributes_new.css">
   <style>
     table{border-spacing: 30px}
   </style>

@@ -430,22 +430,22 @@
     </tr>
 </table>
 
-    <div align="center">                        <!--next page-->
-        <nav aria-label="Page navigation">
-            <ul class="pagination pagination-lg">  <!--large -->
-                <li>
-                    <a href="admin.jsp?pageNum=<%=pageNum - 1%>" aria-label="Previous">
-                        <span aria-hidden="true">Previous</span>
-                    </a>
-                </li>
+<div align="center">                        <!--next page-->
+    <nav aria-label="Page navigation">
+        <ul class="pagination pagination-lg">  <!--large -->
+            <li>
+                <a href="admin.jsp?pageNum=<%=pageNum - 1%>" aria-label="Previous">
+                    <span aria-hidden="true">Previous</span>
+                </a>
+            </li>
 
-                <li>
-                    <a href="admin.jsp?pageNum=<%=pageNum + 1%>" aria-label="Next">
-                        <span aria-hidden="true">Next</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+            <li>
+                <a href="admin.jsp?pageNum=<%=pageNum + 1%>" aria-label="Next">
+                    <span aria-hidden="true">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 </body>
 </html>

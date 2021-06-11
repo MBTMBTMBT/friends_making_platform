@@ -92,9 +92,10 @@
 <h1 style="text-align: center;color: rgb(85, 74, 90);text-shadow: rgb(156, 153, 153) 2.5px 1.5px 1.5px;">Locations and
     Events</h1>
 <div align="center">
-    <input type="button" onclick="window.location.href='mentorMainPageServlet';"
-           value="return" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;">
+    <input type="button" class="btn btn-info" onclick="window.location.href='mentorMainPageServlet';"
+           value="return">
 </div>
+
 <table class="table table-hover table-bordered" align="center">
     <tr>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> Location type</th>
@@ -103,51 +104,51 @@
     </tr>
     <tr>
         <td class="text-center"
-            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=locationMap.get("type")%>
+            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"><%=locationMap.get("type")%>
         </td>
         <td class="text-center"
-            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"> <%=locationMap.get("geographical_location")%>
+            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);"><%=locationMap.get("geographical_location")%>
         </td>
         <td class="text-center">
-            <input type="button" onclick="window.location.href='deleteEventLocationServlet';"
-                   value="delete" style="font-size:large; font-weight: bolder; font-family: Arial, Helvetica, sans-serif;color:rgba(31, 53, 150, 0.945);background-image: linear-gradient(125deg,white,#bfd87b);border-radius: 6px;border: thistle;">
+            <input type="button" class="btn btn-danger" onclick="window.location.href='deleteEventLocationServlet';"
+                   value="delete">
         </td>
 
     </tr>
 
-
-
-    <div align="center">
+    <!--<div align="center">
         <span  style="font-size: 16px;color:red" >
             You can organise maximum one location
         </span>
-    </div>
+    </div>-->
+    <br>
 
     <form action="addEventLocationServlet" method="post" id="addEventLocation">
         <tr>
             <td>
-                    <div class="form-group">
-                        <label>Location type</label>
-                        <select name="location_type" class="form-control " style=" width: 200px;">
-                            <option value="coffee/tea house">coffee/tea house</option>
-                            <option value="bar">bar</option>
-                            <option value="restaurant">restaurant</option>
-                            <option value="shopping centre">shopping centre</option>
-                            <option value="park">park</option>
-                            <option value="cinema">cinema</option>
-                            <option value="theatre">theatre</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label>Location type</label>
+                    <select name="location_type" class="form-control " style=" width: 200px;">
+                        <option value="coffee/tea house">coffee/tea house</option>
+                        <option value="bar">bar</option>
+                        <option value="restaurant">restaurant</option>
+                        <option value="shopping centre">shopping centre</option>
+                        <option value="park">park</option>
+                        <option value="cinema">cinema</option>
+                        <option value="theatre">theatre</option>
+                    </select>
+                </div>
 
             </td>
             <td>
-                    <div class="form-group">
-                        <label>Geographical location</label>
-                        <textarea name="geographical_location" class="form-control" rows="2"></textarea>
-                    </div>
+                <div class="form-group">
+                    <label>Geographical location</label>
+                    <textarea name="geographical_location" class="form-control" rows="2"></textarea>
+                </div>
             </td>
-            <td class="text-center">
-                <input type="submit" class="btn btn-default" placeholder="Confirm" style="vertical-align:center; horiz-align:center"/>
+            <td class="text-center" style="vertical-align:middle">
+                <input type="submit" class="btn btn-warning" placeholder="Confirm"
+                       style="vertical-align:center; horiz-align:center"/>
             </td>
         </tr>
     </form>
@@ -163,11 +164,11 @@
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);">Operation</th>
     </tr>
 
-    <div align="center">
+    <!-- <div align="center">
         <span style="font-size: 16px;color:red">
             You can organise maximum five events
         </span>
-    </div>
+    </div> -->
 
     <tr>
         <td class="text-center"
@@ -183,12 +184,16 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="userEventPushServlet">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
-                    <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
-                    <button type=submit class="btn btn-default">remove</button>
+            <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                <button type=submit class="btn btn-danger">remove</button>
+            </form>
+            <!--<a class="btn btn-primary" href="userEventPushServlet">
+                <form action="</%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                    <input type="hidden" name="num" value=</%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                    <button type=submit class="btn btn-danger">remove</button>
                 </form>
-            </a>
+            </a>-->
         </td>
     </tr>
     <tr>
@@ -205,12 +210,16 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="userEventPushServlet">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
-                    <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
-                    <button type=submit class="btn btn-default">remove</button>
+            <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                <button type=submit class="btn btn-danger">remove</button>
+            </form>
+            <!--<a class="btn btn-primary" href="userEventPushServlet">
+                <form action="</%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                    <input type="hidden" name="num" value=</%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                    <button type=submit class="btn btn-danger">remove</button>
                 </form>
-            </a>
+            </a>-->
         </td>
     </tr>
     <tr>
@@ -227,12 +236,16 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="userEventPushServlet">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
-                    <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
-                    <button type=submit class="btn btn-default">remove</button>
+            <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                <button type=submit class="btn btn-danger">remove</button>
+            </form>
+            <!--<a class="btn btn-primary" href="userEventPushServlet">
+                <form action="</%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                    <input type="hidden" name="num" value=</%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                    <button type=submit class="btn btn-danger">remove</button>
                 </form>
-            </a>
+            </a>-->
         </td>
     </tr>
     <tr>
@@ -249,12 +262,16 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="userEventPushServlet">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
-                    <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
-                    <button type=submit class="btn btn-default">remove</button>
+            <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                <button type=submit class="btn btn-danger">remove</button>
+            </form>
+            <!--<a class="btn btn-primary" href="userEventPushServlet">
+                <form action="</%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                    <input type="hidden" name="num" value=</%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                    <button type=submit class="btn btn-danger">remove</button>
                 </form>
-            </a>
+            </a>-->
         </td>
     </tr>
     <tr>
@@ -271,51 +288,55 @@
             <%=participantsListIter.hasNext() ? participantsListIter.next() : ""%>
         </td>
         <td align="center">
-            <a class="btn btn-primary" href="userEventPushServlet">
-                <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
-                    <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
-                    <button type=submit class="btn btn-default">remove</button>
+            <form action="<%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                <input type="hidden" name="num" value=<%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                <button type=submit class="btn btn-danger">remove</button>
+            </form>
+            <!--<a class="btn btn-primary" href="userEventPushServlet">
+                <form action="</%=eventKeyListIter.hasNext()?"deleteEventServlet":"userEventPushServlet"%>" method="post">
+                    <input type="hidden" name="num" value=</%=eventKeyListIter.hasNext()? eventKeyListIter.next(): ""%>>
+                    <button type=submit class="btn btn-danger">remove</button>
                 </form>
-            </a>
+            </a>-->
         </td>
     </tr>
 
     <tr>
         <form action="addEventServlet" method="post" id="addEvent">
-        <td class="text-center"
-            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);">
-            <input type="datetime-local" name="activity_time" id="activity_time">
-        </td>
-        <td class="text-center"
-            style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);">
-            <label class="radio-inline">
-                <input type="radio" name="activity_type" id="blind date" value="blind date"> blind date
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="activity_type" id="picnic" value="picnic"> picnic
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="activity_type" id="home party" value="home party"> home party
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="activity_type" id="barbeque" value="barbeque"> barbeque
-            </label><br>
-            <label class="radio-inline">
-                <input type="radio" name="activity_type" id="card game" value="card game"> card game
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="activity_type" id="KTV" value="KTV"> KTV
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="activity_type" id="hiking" value="hiking"> hiking
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="activity_type" id="others" value="others"> others
-            </label>
-        </td>
-        <td class="text-center" style="display:table-cell; vertical-align:middle;">
-            <input type="submit" class="btn btn-primary"/>
-        </td>
+            <td class="text-center"
+                style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);">
+                <input type="datetime-local" name="activity_time" id="activity_time">
+            </td>
+            <td class="text-center"
+                style="display:table-cell; vertical-align:middle;font-size: 17px;color: rgb(85, 74, 90);">
+                <label class="radio-inline">
+                    <input type="radio" name="activity_type" id="blind date" value="blind date"> blind date
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="activity_type" id="picnic" value="picnic"> picnic
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="activity_type" id="home party" value="home party"> home party
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="activity_type" id="barbeque" value="barbeque"> barbeque
+                </label><br>
+                <label class="radio-inline">
+                    <input type="radio" name="activity_type" id="card game" value="card game"> card game
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="activity_type" id="KTV" value="KTV"> KTV
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="activity_type" id="hiking" value="hiking"> hiking
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="activity_type" id="others" value="others"> others
+                </label>
+            </td>
+            <td class="text-center" style="display:table-cell; vertical-align:middle;">
+                <input type="submit" class="btn btn-primary"/>
+            </td>
         </form>
     </tr>
 

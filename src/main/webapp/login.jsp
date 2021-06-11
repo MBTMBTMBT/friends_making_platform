@@ -4,7 +4,7 @@ request.setAttribute("msg", "Please entre your username and password");
 }%>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="static/css/login_css.css">
+  <link rel="stylesheet" href="static/css/login.css">
   <title>user login</title>
 </head>
 
