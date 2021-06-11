@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Recommendations</title>
   <link rel="stylesheet" type="text/css" href="static/css/userpage_css/bootstrap.min.css">
-  <link rel="stylesheet" href="static/css/userpage_css/style.css">
+  <link rel="stylesheet" href="static/css/recommendation.css">
 </head>
 
 <body>

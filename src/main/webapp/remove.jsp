@@ -29,7 +29,7 @@
     <meta charset="UTF-8">
     <title>remove</title>
     <link rel="stylesheet" type="text/css" href="static/css/userpage_css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/userpage_css/style.css">
+    <link rel="stylesheet" href="static/css/remove.css">
 </head>
 <body><br><br><br><br><br><br><br><br><br>
 <div align="center" class="content">

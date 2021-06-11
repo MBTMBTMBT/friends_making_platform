@@ -75,7 +75,7 @@
     <meta charset="UTF-8">
     <title>Admin</title>
     <link rel="stylesheet" type="text/css" href="static/css/userpage_css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/userpage_css/style.css">
+    <link rel="stylesheet" href="static/css/admin.css">
 
     <style>
         .table {
@@ -106,7 +106,8 @@
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> forename</th>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> surname</th>
         <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> gender</th>
-        <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> operation</th>
+        <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> change</th>
+        <th class="text-center" style="font-size: 17px;color: rgb(85, 74, 90);"> delete</th>
     </tr>
 
     <tr>

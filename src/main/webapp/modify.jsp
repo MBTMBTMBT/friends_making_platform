@@ -34,7 +34,7 @@
     <meta charset="UTF-8">
     <title>modify</title>
     <link rel="stylesheet" type="text/css" href="static/css/userpage_css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/userpage_css/style.css">
+    <link rel="stylesheet" href="static/css/modify.css">
 </head>
 <body>
 <h1 style="font-size: 50px; text-align: center;color: rgb(85, 74, 90);text-shadow: rgb(156, 153, 153) 2.5px 1.5px 1.5px;">

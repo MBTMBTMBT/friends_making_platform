@@ -114,8 +114,16 @@ public class UserMentorServlet extends HttpServlet {
         else if (age < 50) ageRange = 20;
         else ageRange = 80;
         String orient = userPerson.getGenderOrientation();
+        if (orient == null || orient.equals("")) {
+            if (userPerson.getGender().equals("male")) orient = "female";
+            else orient = "male";
+        }
 
         List<PsychologicalMentor> mentors = PsychologicalMentorDAO.getMentorsWIthAgeRangeAndGenOrient(ageRange, orient);
         return mentors;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getRecommendedMentor(570).size());
     }
 }

@@ -71,8 +71,6 @@
       height: 40px;
       background-color: #90a6ee;
     }
-
-    
     </style>
 </head>
 

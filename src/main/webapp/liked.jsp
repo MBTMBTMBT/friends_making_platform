@@ -7,7 +7,7 @@
     <title>Likes</title>
 
     <link rel="stylesheet" type="text/css" href="static/css/userpage_css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/css/userpage_css/style.css">
+    <link rel="stylesheet" href="static/css/like.css">
 </head>
 <style>
     .table {
