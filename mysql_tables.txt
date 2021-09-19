@@ -1,0 +1,324 @@
+CREATE DATABASE groupwork;
+
+use groupwork;
+
+CREATE TABLE groupwork.person (
+  SystemID int NOT NULL AUTO_INCREMENT,
+  Surname varchar(64) DEFAULT NULL,
+  Forename varchar(64) DEFAULT NULL,
+  Gender enum ('male', 'female', 'secret') DEFAULT NULL,
+  ScreenName char(64) DEFAULT NULL,
+  HeadIcon varchar(128) DEFAULT NULL,
+  password char(64) NOT NULL,
+  PRIMARY KEY (SystemID)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.person
+ADD UNIQUE INDEX ScreenName (ScreenName);
+
+CREATE TABLE groupwork.labels (
+  Serial int NOT NULL AUTO_INCREMENT,
+  Locations varchar(64) DEFAULT NULL,
+  Work varchar(64) DEFAULT NULL,
+  Food varchar(64) DEFAULT NULL,
+  Film varchar(64) DEFAULT NULL,
+  Book varchar(64) DEFAULT NULL,
+  Sport varchar(64) DEFAULT NULL,
+  Activity varchar(64) DEFAULT NULL,
+  PRIMARY KEY (Serial)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+CREATE TABLE groupwork.employee (
+  SystemID int NOT NULL,
+  EmployeeID int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (EmployeeID)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.employee
+ADD CONSTRAINT employee_ibfk_1 FOREIGN KEY (SystemID)
+REFERENCES groupwork.person (SystemID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.administrator (
+  SystemID int NOT NULL,
+  EmployeeID int NOT NULL,
+  AdminNumber int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (AdminNumber)
+)
+ENGINE = INNODB,
+AUTO_INCREMENT = 2,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.administrator
+ADD CONSTRAINT administrator_ibfk_1 FOREIGN KEY (SystemID)
+REFERENCES groupwork.person (SystemID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.administrator
+ADD CONSTRAINT administrator_ibfk_2 FOREIGN KEY (EmployeeID)
+REFERENCES groupwork.employee (EmployeeID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.phsycological_mentor (
+  SystemID int NOT NULL,
+  EmployeeID int NOT NULL,
+  MentorNumber int NOT NULL AUTO_INCREMENT,
+  GenderOrientationInCharge enum ('homosexual', 'hetero') DEFAULT NULL,
+  AgeRangeInRange int DEFAULT NULL,
+  PRIMARY KEY (MentorNumber)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.phsycological_mentor
+ADD CONSTRAINT phsycological_mentor_ibfk_1 FOREIGN KEY (SystemID)
+REFERENCES groupwork.person (SystemID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.phsycological_mentor
+ADD CONSTRAINT phsycological_mentor_ibfk_2 FOREIGN KEY (EmployeeID)
+REFERENCES groupwork.employee (EmployeeID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.user (
+  SystemID int NOT NULL,
+  UserID int NOT NULL AUTO_INCREMENT,
+  Emailaddress varchar(128) DEFAULT NULL,
+  Wechat varchar(64) DEFAULT NULL,
+  GenderOrientation enum ('homosexual', 'hetero') DEFAULT NULL,
+  DataOfBirth date DEFAULT NULL,
+  Slogan varchar(512) DEFAULT NULL,
+  Work int DEFAULT NULL,
+  MentorID int DEFAULT NULL,
+  PRIMARY KEY (UserID)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.user
+ADD UNIQUE INDEX Emailaddress (Emailaddress);
+
+ALTER TABLE groupwork.user
+ADD UNIQUE INDEX Wechat (Wechat);
+
+ALTER TABLE groupwork.user
+ADD CONSTRAINT user_ibfk_1 FOREIGN KEY (SystemID)
+REFERENCES groupwork.person (SystemID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.user
+ADD CONSTRAINT user_ibfk_2 FOREIGN KEY (MentorID)
+REFERENCES groupwork.phsycological_mentor (MentorNumber) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.user
+ADD CONSTRAINT user_ibfk_3 FOREIGN KEY (Work)
+REFERENCES groupwork.labels (Serial) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.date (
+  Uid1 int NOT NULL,
+  Uid2 int NOT NULL,
+  HHDDMMYY datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  GeographicalLocation varchar(256) DEFAULT NULL,
+  PRIMARY KEY (Uid1, Uid2, HHDDMMYY)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.date
+ADD CONSTRAINT date_ibfk_1 FOREIGN KEY (Uid1)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.date
+ADD CONSTRAINT date_ibfk_2 FOREIGN KEY (Uid2)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.event_location (
+  LocationID int NOT NULL AUTO_INCREMENT,
+  LocationType enum ('coffee/tea house', 'bar', 'restaurant', 'shopping centre', 'park', 'cinema', 'theatre') DEFAULT NULL,
+  GeographicalLocation varchar(256) DEFAULT NULL,
+  ManagerID int DEFAULT NULL,
+  StartTime date DEFAULT NULL,
+  PRIMARY KEY (LocationID)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.event_location
+ADD CONSTRAINT event_location_ibfk_1 FOREIGN KEY (ManagerID)
+REFERENCES groupwork.phsycological_mentor (MentorNumber) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.event (
+  LocationID int NOT NULL AUTO_INCREMENT,
+  Time datetime NOT NULL,
+  Number_of_participants int DEFAULT NULL,
+  Activities char(15) DEFAULT NULL,
+  PRIMARY KEY (LocationID, Time)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.event
+ADD CONSTRAINT event_ibfk_1 FOREIGN KEY (LocationID)
+REFERENCES groupwork.event_location (LocationID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE `join_event` (
+  `Uid` int NOT NULL,
+  `EventLocationID` int NOT NULL,
+  `Time` datetime NOT NULL,
+  PRIMARY KEY (`EventLocationID`,`Uid`,`Time`) USING BTREE,
+  KEY `Uid` (`Uid`),
+  KEY `Time` (`Time`),
+  KEY `EventLocationID` (`EventLocationID`,`Time`),
+  CONSTRAINT `join_event_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`UserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `join_event_ibfk_2` FOREIGN KEY (`EventLocationID`) REFERENCES `event_location` (`LocationID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `join_event_ibfk_3` FOREIGN KEY (`EventLocationID`, `Time`) REFERENCES `event` (`LocationID`, `Time`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE groupwork.likes (
+  Uid1 int NOT NULL,
+  Uid2 int NOT NULL,
+  Confession varchar(512) DEFAULT NULL,
+  PRIMARY KEY (Uid1, Uid2)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.likes
+ADD CONSTRAINT likes_ibfk_1 FOREIGN KEY (Uid1)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.likes
+ADD CONSTRAINT likes_ibfk_2 FOREIGN KEY (Uid2)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.relationship (
+  Uid1 int NOT NULL,
+  Uid2 int NOT NULL,
+  RelationState enum ('acquaintance', 'ambiguous', 'boyfriend/girlfriend', 'engaged', 'married') DEFAULT NULL,
+  PRIMARY KEY (Uid1, Uid2)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.relationship
+ADD CONSTRAINT relationship_ibfk_1 FOREIGN KEY (Uid1)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.relationship
+ADD CONSTRAINT relationship_ibfk_2 FOREIGN KEY (Uid2)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.user_photos (
+  Uid int NOT NULL AUTO_INCREMENT,
+  `PhotoPath(in the system)` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (Uid)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.user_photos
+ADD CONSTRAINT user_photos_ibfk_1 FOREIGN KEY (Uid)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.books (
+  Bid int NOT NULL,
+  Uid int NOT NULL,
+  PRIMARY KEY (Bid, Uid)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.books
+ADD CONSTRAINT books_ibfk_1 FOREIGN KEY (Bid)
+REFERENCES groupwork.labels (Serial) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.books
+ADD CONSTRAINT books_ibfk_2 FOREIGN KEY (Uid)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.films (
+  Fid int NOT NULL,
+  Uid int NOT NULL,
+  PRIMARY KEY (Fid, Uid)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.films
+ADD CONSTRAINT films_ibfk_1 FOREIGN KEY (Fid)
+REFERENCES groupwork.labels (Serial) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.films
+ADD CONSTRAINT films_ibfk_2 FOREIGN KEY (Uid)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.food (
+  Fid int NOT NULL,
+  Uid int NOT NULL,
+  PRIMARY KEY (Fid, Uid)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.food
+ADD CONSTRAINT food_ibfk_1 FOREIGN KEY (Fid)
+REFERENCES groupwork.labels (Serial) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.food
+ADD CONSTRAINT food_ibfk_2 FOREIGN KEY (Uid)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.location (
+  Lid int NOT NULL,
+  Uid int NOT NULL,
+  PRIMARY KEY (Lid, Uid)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.location
+ADD CONSTRAINT location_ibfk_1 FOREIGN KEY (Lid)
+REFERENCES groupwork.labels (Serial) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.location
+ADD CONSTRAINT location_ibfk_2 FOREIGN KEY (Uid)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE TABLE groupwork.sports (
+  Sid int NOT NULL,
+  Uid int NOT NULL,
+  PRIMARY KEY (Sid, Uid)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8mb4,
+COLLATE utf8mb4_0900_ai_ci;
+
+ALTER TABLE groupwork.sports
+ADD CONSTRAINT sports_ibfk_1 FOREIGN KEY (Sid)
+REFERENCES groupwork.labels (Serial) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE groupwork.sports
+ADD CONSTRAINT sports_ibfk_2 FOREIGN KEY (Uid)
+REFERENCES groupwork.user (UserID) ON DELETE CASCADE ON UPDATE CASCADE;
+
+USE groupwork;
+
+CREATE VIEW UserPerson AS SELECT person.SystemID, person.Surname, person.Forename, person.Gender, person.ScreenName,
+person.HeadIcon, person.password, user.UserID, user.Emailaddress, user.Wechat, user.GenderOrientation, user.DataOfBirth,
+ user.Slogan, user.Work, user.MentorID FROM user inner join person on user.SystemID = person.SystemID;
